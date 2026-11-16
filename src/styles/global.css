@@ -1,0 +1,103 @@
+:root {
+  color-scheme: light dark;
+  --tlo: #fff;
+  --tekst: #16181c;
+  --szary: #5c6370;
+  --linia: #e3e5e8;
+  --link: #0b4fb3;
+  --alarm: #b3261e;
+  --alarm-tlo: #fdecea;
+  --pole: #f4f5f6;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tlo: #111316;
+    --tekst: #e6e8eb;
+    --szary: #9aa1ac;
+    --linia: #2a2e34;
+    --link: #8ab4ff;
+    --alarm: #ff8a80;
+    --alarm-tlo: #3a1a17;
+    --pole: #1b1e22;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--tlo);
+  color: var(--tekst);
+  font: 16px/1.45 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+.strona { max-width: 50rem; margin: 0 auto; padding: 0 16px; }
+a { color: var(--link); }
+h1 { font-size: 1.25rem; line-height: 1.25; margin: 1rem 0 0.25rem; }
+h2 { font-size: 1rem; margin: 0; }
+p { margin: 0.5rem 0; }
+.szary { color: var(--szary); }
+[hidden] { display: none !important; }
+
+/* Header and footer */
+.naglowek {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem;
+  padding: 0.75rem 0; border-bottom: 2px solid var(--tekst);
+}
+.naglowek .logo { font-weight: 700; font-size: 1.1rem; color: inherit; text-decoration: none; }
+.naglowek nav { margin-left: auto; display: flex; gap: 1rem; }
+.stopka {
+  margin: 2.5rem 0 1.5rem; padding-top: 0.75rem;
+  border-top: 1px solid var(--linia); color: var(--szary); font-size: 0.875rem;
+}
+
+.uwaga {
+  margin: 0.75rem 0; padding: 0.5rem 0.75rem;
+  background: var(--alarm-tlo); border-left: 3px solid var(--alarm); font-size: 0.875rem;
+}
+
+/* Filters */
+.filtry { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 0.75rem 0 0.25rem; }
+.filtry label { display: block; font-size: 0.75rem; color: var(--szary); }
+.filtry select {
+  display: block; width: 100%; margin-top: 2px; padding: 0.4rem 0.35rem;
+  font: inherit; color: inherit; background: var(--pole);
+  border: 1px solid var(--linia); border-radius: 4px;
+}
+.licznik { display: flex; gap: 0.75rem; align-items: baseline; font-size: 0.875rem; color: var(--szary); margin: 0.25rem 0 0; min-height: 1.5rem; }
+.licznik button { font: inherit; color: var(--link); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+@media (min-width: 40rem) {
+  .filtry { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Tournament list */
+.miesiac h2 {
+  margin-top: 1.25rem; padding: 0.3rem 0;
+  border-bottom: 1px solid var(--tekst);
+  text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.8125rem;
+}
+.lista { list-style: none; margin: 0; padding: 0; }
+.t {
+  position: relative;
+  display: grid; grid-template-columns: 5.25rem 1fr; column-gap: 0.5rem;
+  padding: 0.5rem 0; border-bottom: 1px solid var(--linia);
+}
+.t:hover { background: var(--pole); }
+.t-data { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.t-opis { min-width: 0; }
+.t-nazwa { font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+.t-nazwa:hover { text-decoration: underline; }
+/* The whole row is clickable, while the link text stays just the name. */
+.t-nazwa::after { content: ''; position: absolute; inset: 0; }
+.t-meta { display: block; font-size: 0.875rem; color: var(--szary); }
+.termin { grid-column: 2; font-size: 0.875rem; white-space: nowrap; }
+.termin[data-stan='wkrotce'] { color: var(--alarm); font-weight: 700; }
+.termin[data-stan='minal'] { color: var(--szary); }
+.termin[data-stan='minal'] .termin-data { text-decoration: line-through; }
+@media (min-width: 40rem) {
+  .t { grid-template-columns: 5.25rem 1fr auto; }
+  .termin { grid-column: 3; text-align: right; }
+}
+
+/* Text pages */
+.tresc h2 { margin-top: 1.5rem; }
+.tresc ul { padding-left: 1.2rem; }

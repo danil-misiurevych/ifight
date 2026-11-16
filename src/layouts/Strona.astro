@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+import { SITE } from '../site';
+
+interface Props {
+  tytul?: string;
+  opis?: string;
+}
+const { tytul, opis = SITE.opis } = Astro.props;
+const pelnyTytul = tytul ? `${tytul} – ${SITE.nazwa}` : `${SITE.haslo} – ${SITE.nazwa}`;
+const kanoniczny = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pelnyTytul}</title>
+    <meta name="description" content={opis} />
+    <link rel="canonical" href={kanoniczny} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.nazwa} />
+    <meta property="og:title" content={pelnyTytul} />
+    <meta property="og:description" content={opis} />
+    <meta property="og:url" content={kanoniczny} />
+    <meta property="og:locale" content="pl_PL" />
+    <meta name="twitter:card" content="summary" />
+    <slot name="head" />
+  </head>
+  <body>
+    <div class="strona">
+      <header class="naglowek">
+        <a class="logo" href="/">{SITE.nazwa}</a>
+        <span class="szary">turnieje bokserskie w Polsce</span>
+        <nav>
+          <a href="/">Kalendarz</a>
+          <a href="/o-serwisie/">O serwisie</a>
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="stopka">
+        <p>
+          {SITE.nazwa} to niezależny, nieoficjalny serwis – nie jest powiązany z żadnym związkiem
+          ani organizatorem. Zbieramy tylko podstawowe dane i linki do źródeł. Przed wyjazdem
+          zawsze sprawdź aktualność informacji u organizatora.
+        </p>
+        <p>
+          Brakuje turnieju albo coś się nie zgadza?
+          <a href="/o-serwisie/#kontakt">Daj znać</a>.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

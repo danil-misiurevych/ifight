@@ -1,0 +1,48 @@
+---
+import Strona from '../layouts/Strona.astro';
+import Wiersz from '../components/Wiersz.astro';
+import Filtry from '../components/Filtry.astro';
+import { turnieje, WOJEWODZTWA } from '../lib/turnieje';
+import { dzisiaj, nazwaMiesiaca } from '../lib/daty';
+import { SITE } from '../site';
+
+const dzis = dzisiaj();
+const nadchodzace = turnieje.filter((t) => t.koniec >= dzis);
+
+const miesiace = [...new Set(nadchodzace.map((t) => t.start.slice(0, 7)))];
+const wojewodztwa = WOJEWODZTWA.filter((w) => nadchodzace.some((t) => t.wojewodztwo === w));
+const saTestowe = nadchodzace.some((t) => t.test);
+---
+
+<Strona>
+  <h1>Nadchodzące turnieje bokserskie w Polsce</h1>
+  <p class="szary">Kliknij turniej, aby otworzyć komunikat organizatora w nowej karcie.</p>
+
+  {
+    saTestowe && (
+      <p class="uwaga">
+        Serwis w budowie: wpisy oznaczone [TEST] to dane testowe, a nie prawdziwe turnieje.
+      </p>
+    )
+  }
+
+  <Filtry wojewodztwa={wojewodztwa} miesiace={miesiace} />
+
+  <div id="turnieje" data-dni-wkrotce={SITE.dniWkrotce}>
+    {
+      miesiace.map((m) => (
+        <section class="miesiac">
+          <h2>{nazwaMiesiaca(m)}</h2>
+          <ul class="lista">
+            {nadchodzace.filter((t) => t.start.startsWith(m)).map((t) => <Wiersz t={t} dzis={dzis} />)}
+          </ul>
+        </section>
+      ))
+    }
+    <p id="pusto" hidden={nadchodzace.length > 0}>Brak nadchodzących turniejów w kalendarzu.</p>
+  </div>
+</Strona>
+
+<script>
+  import '../scripts/lista.ts';
+</script>

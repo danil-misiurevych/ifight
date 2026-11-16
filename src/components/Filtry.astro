@@ -1,0 +1,47 @@
+---
+import { KATEGORIE, slug } from '../lib/turnieje';
+import { nazwaMiesiaca } from '../lib/daty';
+
+interface Props {
+  wojewodztwa: string[];
+  miesiace: string[];
+}
+const { wojewodztwa, miesiace } = Astro.props;
+---
+
+<!-- Hidden until the script runs: without JavaScript the full list is shown. -->
+<form class="filtry" id="filtry" hidden>
+  <label>
+    Województwo
+    <select name="woj">
+      <option value="">wszystkie</option>
+      {wojewodztwa.map((w) => <option value={slug(w)}>{w}</option>)}
+    </select>
+  </label>
+  <label>
+    Kategoria wiekowa
+    <select name="kat">
+      <option value="">wszystkie</option>
+      {KATEGORIE.map((k) => <option value={slug(k)}>{k}</option>)}
+    </select>
+  </label>
+  <label>
+    Płeć
+    <select name="plec">
+      <option value="">wszystkie</option>
+      <option value="K">kobiety</option>
+      <option value="M">mężczyźni</option>
+    </select>
+  </label>
+  <label>
+    Miesiąc
+    <select name="mies">
+      <option value="">wszystkie</option>
+      {miesiace.map((m) => <option value={m}>{nazwaMiesiaca(m).toLowerCase()}</option>)}
+    </select>
+  </label>
+</form>
+<p class="licznik" aria-live="polite">
+  <span id="licznik"></span>
+  <button type="button" id="wyczysc" hidden>wyczyść filtry</button>
+</p>

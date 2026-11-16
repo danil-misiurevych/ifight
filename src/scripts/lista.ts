@@ -1,0 +1,85 @@
+// Client-side behaviour of the tournament list:
+// - hides tournaments that ended after the last build,
+// - refreshes deadline states against today's date,
+// - applies filters without reloading and keeps them in the URL.
+import { dzisiaj, stanTerminu } from '../lib/daty';
+
+const lista = document.getElementById('turnieje');
+const form = document.getElementById('filtry') as HTMLFormElement | null;
+
+if (lista && form) {
+  const dzis = dzisiaj();
+  const dniWkrotce = Number(lista.dataset.dniWkrotce);
+  const wiersze = [...lista.querySelectorAll<HTMLElement>('.t')];
+  const miesiace = [...lista.querySelectorAll<HTMLElement>('.miesiac')];
+  const licznik = document.getElementById('licznik')!;
+  const wyczysc = document.getElementById('wyczysc')!;
+  const pusto = document.getElementById('pusto')!;
+  const pola = ['woj', 'kat', 'plec', 'mies'] as const;
+  const select = (n: string) => form.elements.namedItem(n) as HTMLSelectElement;
+
+  const aktualne = wiersze.filter((w) => {
+    const trwa = w.dataset.koniec! >= dzis;
+    if (!trwa) w.remove();
+    return trwa;
+  });
+
+  for (const el of lista.querySelectorAll<HTMLElement>('.termin')) {
+    const { stan, dopisek } = stanTerminu(el.dataset.termin!, dzis, dniWkrotce);
+    el.dataset.stan = stan;
+    el.querySelector('.termin-dopisek')!.textContent = dopisek ? `(${dopisek})` : '';
+  }
+
+  const odmiana = (n: number) => {
+    if (n === 1) return 'turniej';
+    const j = n % 10, d = n % 100;
+    return j >= 2 && j <= 4 && (d < 12 || d > 14) ? 'turnieje' : 'turniejów';
+  };
+
+  // A tournament with no categories/sex given matches any value:
+  // better to show it than to hide it from a coach.
+  const pasuje = (w: HTMLElement, f: Record<string, string>) =>
+    (!f.woj || w.dataset.woj === f.woj) &&
+    (!f.mies || w.dataset.mies === f.mies) &&
+    (!f.kat || !w.dataset.kat || w.dataset.kat.split(' ').includes(f.kat)) &&
+    (!f.plec || !w.dataset.plec || w.dataset.plec.split(' ').includes(f.plec));
+
+  const zastosuj = () => {
+    const f = Object.fromEntries(pola.map((p) => [p, select(p).value]));
+    let widoczne = 0;
+    for (const w of aktualne) {
+      const ok = pasuje(w, f);
+      w.hidden = !ok;
+      if (ok) widoczne++;
+    }
+    for (const m of miesiace) m.hidden = !m.querySelector('.t:not([hidden])');
+
+    const aktywne = pola.some((p) => f[p]);
+    licznik.textContent = `${widoczne} ${odmiana(widoczne)}`;
+    wyczysc.hidden = !aktywne;
+    pusto.hidden = widoczne > 0;
+    pusto.textContent = aktywne
+      ? 'Brak turniejów dla wybranych filtrów.'
+      : 'Brak nadchodzących turniejów w kalendarzu.';
+
+    const q = new URLSearchParams();
+    for (const p of pola) if (f[p]) q.set(p, f[p]);
+    const s = q.toString();
+    history.replaceState(null, '', s ? `?${s}` : location.pathname);
+  };
+
+  // Restore filters from the URL, ignoring values that are not in the lists.
+  const q = new URLSearchParams(location.search);
+  for (const p of pola) {
+    const v = q.get(p);
+    if (v && [...select(p).options].some((o) => o.value === v)) select(p).value = v;
+  }
+
+  form.addEventListener('change', zastosuj);
+  wyczysc.addEventListener('click', () => {
+    form.reset();
+    zastosuj();
+  });
+  form.hidden = false;
+  zastosuj();
+}
