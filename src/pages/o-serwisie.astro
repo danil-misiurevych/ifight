@@ -1,0 +1,48 @@
+---
+import Strona from '../layouts/Strona.astro';
+import { SITE } from '../site';
+
+const temat = encodeURIComponent('Turniej do kalendarza');
+---
+
+<Strona
+  tytul="O serwisie"
+  opis={`Czym jest ${SITE.nazwa}, skąd pochodzą dane o turniejach bokserskich i jak zgłosić turniej do kalendarza.`}
+>
+  <div class="tresc">
+    <h1>O serwisie</h1>
+    <p>
+      {SITE.nazwa} to prosty kalendarz turniejów bokserskich w Polsce. Informacje o zawodach są
+      rozrzucone po stronach związków, klubów i mediach społecznościowych – tutaj zbieramy je w
+      jedną listę, żeby trener mógł w minutę sprawdzić, co się zbliża, i przejść do źródła.
+    </p>
+
+    <h2>Jak to działa</h2>
+    <ul>
+      <li>Każdy wpis to kilka podstawowych danych i link do komunikatu organizatora.</li>
+      <li>Serwis nie przyjmuje zgłoszeń ani opłat – zgłoszenia wysyła się zawsze do organizatora.</li>
+      <li>Przy każdym turnieju podajemy datę, kiedy ostatnio sprawdziliśmy dane.</li>
+      <li>Turnieje, które już się odbyły, znikają z listy automatycznie.</li>
+    </ul>
+
+    <h2>Serwis nieoficjalny</h2>
+    <p>
+      To niezależna inicjatywa, niepowiązana z żadnym związkiem sportowym ani organizatorem.
+      Terminy i miejsca mogą się zmienić, a my możemy się pomylić – przed zgłoszeniem zawodników
+      i wyjazdem zawsze potwierdź szczegóły w komunikacie organizatora.
+    </p>
+
+    <h2 id="kontakt">Zgłoś turniej lub poprawkę</h2>
+    <p>
+      Organizujesz turniej albo widzisz błąd? Napisz:
+      <a href={`mailto:${SITE.email}?subject=${temat}`}>{SITE.email}</a>
+    </p>
+    <p>W wiadomości podaj:</p>
+    <ul>
+      <li>nazwę turnieju, daty i miasto,</li>
+      <li>kategorie wiekowe i płeć,</li>
+      <li>termin zgłoszeń,</li>
+      <li>link do oficjalnego komunikatu lub ogłoszenia.</li>
+    </ul>
+  </div>
+</Strona>
