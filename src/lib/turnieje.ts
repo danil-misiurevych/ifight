@@ -107,8 +107,11 @@ function wczytaj(): Turniej[] {
     if (!r.success) {
       const nazwa = typeof wpis?.nazwa === 'string' ? ` «${wpis.nazwa}»` : '';
       for (const p of r.error.issues) {
-        const pole = p.path.join('.') || (p.code === 'unrecognized_keys' ? 'неизвестное поле' : 'запись');
-        bledy.push(`  запись №${i + 1}${nazwa}, ${pole}: ${p.message}`);
+        const opis =
+          p.code === 'unrecognized_keys'
+            ? `неизвестное поле: ${p.keys.join(', ')} (опечатка в названии?)`
+            : `${p.path.join('.') || 'запись'}: ${p.message}`;
+        bledy.push(`  запись №${i + 1}${nazwa}, ${opis}`);
       }
       return;
     }
