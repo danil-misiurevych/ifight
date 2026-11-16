@@ -1,0 +1,36 @@
+---
+// schema.org markup for the listed tournaments. Test entries are left out
+// so that made-up events never reach search engines as structured data.
+import type { Turniej } from '../lib/turnieje';
+
+interface Props {
+  turnieje: Turniej[];
+}
+const wydarzenia = Astro.props.turnieje
+  .filter((t) => !t.test)
+  .map((t) => ({
+    '@context': 'https://schema.org',
+    '@type': 'SportsEvent',
+    name: t.nazwa,
+    sport: 'Boxing',
+    startDate: t.start,
+    endDate: t.koniec,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: {
+      '@type': 'Place',
+      name: t.miasto,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: t.miasto,
+        addressRegion: t.wojewodztwo,
+        addressCountry: 'PL',
+      },
+    },
+    ...(t.organizator && { organizer: { '@type': 'Organization', name: t.organizator } }),
+    url: t.zrodlo,
+  }));
+const json = JSON.stringify(wydarzenia).replace(/</g, '\\u003c');
+---
+
+{wydarzenia.length > 0 && <script type="application/ld+json" set:html={json} />}

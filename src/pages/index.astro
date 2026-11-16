@@ -2,6 +2,7 @@
 import Strona from '../layouts/Strona.astro';
 import Wiersz from '../components/Wiersz.astro';
 import Filtry from '../components/Filtry.astro';
+import SchemaWydarzen from '../components/SchemaWydarzen.astro';
 import { turnieje, WOJEWODZTWA } from '../lib/turnieje';
 import { dzisiaj, nazwaMiesiaca } from '../lib/daty';
 import { SITE } from '../site';
@@ -15,6 +16,7 @@ const saTestowe = nadchodzace.some((t) => t.test);
 ---
 
 <Strona>
+  <SchemaWydarzen slot="head" turnieje={nadchodzace} />
   <h1>Nadchodzące turnieje bokserskie w Polsce</h1>
   <p class="szary">Kliknij turniej, aby otworzyć komunikat organizatora w nowej karcie.</p>
 
