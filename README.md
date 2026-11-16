@@ -114,5 +114,5 @@ src/pages/index.astro          strona główna z listą
 src/pages/o-serwisie.astro     strona „O serwisie”
 src/components/                wiersz turnieju, filtry, znaczniki schema.org
 src/scripts/lista.ts           filtry i ukrywanie minionych turniejów w przeglądarce
-docs/                          dokumentacja (źródła, procedury)
+docs/                          dokumentacja: źródła (zrodla.md), lista klubów (kluby.csv)
 ```

@@ -43,13 +43,23 @@ Strony www i profile FB do uzupełnienia. PZB podaje tylko nazwy i telefony.
 
 ## Kluby i organizatorzy
 
-Do zebrania. Format: nazwa, miasto, województwo, strona www, Facebook, Instagram, uwagi (np. „co roku organizuje turniej X w marcu”).
+Lista: [kluby.csv](kluby.csv), 242 kluby z 16 województw. GitHub wyświetla ją jako tabelę z wyszukiwarką, a edytować można ołówkiem albo w Excelu lub Google Sheets.
+
+Kolumny: `wojewodztwo`, `nazwa`, `miasto`, `www`, `facebook`, `instagram`, `uwagi` (np. „co roku organizuje turniej X w marcu”). Kolumny `www`, `facebook` i `instagram` są na razie puste.
+
+Skąd pochodzi lista (stan na 2026-11-16):
+- Punktacja klubowa i wyniki z 39 komunikatów końcowych PZB z okresu od września 2025 do listopada 2026: mistrzostwa Polski wszystkich kategorii wiekowych, OOM, eliminacje, Puchar Polski, Międzynarodowe Mistrzostwa Śląska.
+- Przy każdym zawodniku komunikat podaje kod okręgu (np. WLP, ŚL), z niego jest województwo. Nazwisk zawodników nie zapisujemy.
+- Różne zapisy tego samego klubu (np. „Kielecki Klub Bokserski RUSHH” i „WKB Rushh Kielce”) są scalone. Miasto uzupełnione z nazwy klubu. Gdzie nie dało się go ustalić, pole jest puste.
+- Lista obejmuje kluby, których zawodnicy startowali w zawodach PZB. Kluby bez startów w tych zawodach mogą jej brakować.
+
+Jak odświeżyć listę: komunikaty PZB są dostępne przez publiczne API WordPressa strony PZB (`/wp-json/wp/v2/media`, wyszukiwanie „Komunikat końcowy”, typ PDF).
 
 ## Facebook: jak szukać bez ryzyka blokady
 
 Automatyczne pobieranie danych z Facebooka (scraping) łamie regulamin FB. Konto może zostać zablokowane, a oficjalne API do publicznych stron wymaga trudnej weryfikacji aplikacji. Dlatego:
 
-1. **Claude buduje listę klubów** z wyszukiwarki, z PDF-ów PZB (wyniki zawodów zawierają nazwy klubów) i ze stron okręgów. Ogólna wyszukiwarka słabo indeksuje Facebooka, więc linki FB nie zawsze się znajdą.
+1. **Lista klubów jest gotowa** ([kluby.csv](kluby.csv)). Wyszukiwarka, z której korzysta Claude, praktycznie nie zwraca stron z Facebooka ani stron klubów (sprawdzone na kilku dużych klubach), więc linków nie da się uzupełnić automatycznie z chmury.
 2. **Linki FB uzupełniasz Ty** albo Claude w Twojej przeglądarce (rozszerzenie Claude in Chrome), w ludzkim tempie: wyszukanie nazwy klubu i skopiowanie adresu profilu. To zwykłe korzystanie z FB, nie masowe pobieranie.
 3. **Obserwujesz te profile** (i grupy, np. trenerów lub boksu w regionie) z włączonymi powiadomieniami.
 4. **Gdy zobaczysz turniej**, wklejasz link lub zrzut ekranu agentowi, a on robi z tego wpis i pull request.
