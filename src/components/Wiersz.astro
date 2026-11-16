@@ -11,7 +11,7 @@ interface Props {
 const { t, dzis } = Astro.props;
 
 const plec =
-  t.plec.length === 2 ? 'kobiety i mężczyźni' : t.plec[0] === 'K' ? 'kobiety' : t.plec[0] === 'M' ? 'mężczyźni' : '';
+  t.plec.length === 2 ? 'K+M' : t.plec[0] === 'K' ? 'kobiety' : t.plec[0] === 'M' ? 'mężczyźni' : '';
 
 // Only non-empty parts are shown, so missing optional fields just shorten the row.
 const meta = [
@@ -36,13 +36,14 @@ const termin = t.termin_zgloszen && stanTerminu(t.termin_zgloszen, dzis, SITE.dn
   <time class="t-data" datetime={t.start}>{zakresDat(t.start, t.koniec)}</time>
   <div class="t-opis">
     <a class="t-nazwa" href={t.zrodlo} target="_blank" rel="noopener">{t.nazwa}</a>
-    <span class="t-meta">{meta.join(' · ')}</span>
-    <span class="t-meta">sprawdzono {krotkaData(t.sprawdzono)} · źródło ↗</span>
+    <span class="t-meta">
+      {meta.join(' · ')} · <span class="nw">sprawdzono {krotkaData(t.sprawdzono)}</span>
+    </span>
   </div>
   {
     termin && (
       <span class="termin" data-termin={t.termin_zgloszen} data-stan={termin.stan}>
-        zgłoszenia do <span class="termin-data">{krotkaData(t.termin_zgloszen!)}</span>
+        zgłoszenia do <span class="termin-data">{krotkaData(t.termin_zgloszen!)}</span>{' '}
         <span class="termin-dopisek">{termin.dopisek && `(${termin.dopisek})`}</span>
       </span>
     )
