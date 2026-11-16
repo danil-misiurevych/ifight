@@ -1,0 +1,86 @@
+# Все турниры сайта. Добавить турнир = добавить запись в этот файл.
+# Подробная инструкция и списки допустимых значений — в README.md.
+#
+# Обязательные поля: nazwa, start, miasto, wojewodztwo, zrodlo, sprawdzono.
+# Остальные можно не указывать. Порядок записей не важен: сайт сортирует по дате.
+# Прошедшие турниры скрываются автоматически, удалять их необязательно.
+#
+# ВНИМАНИЕ: записи ниже — ТЕСТОВЫЕ (test: true), турниры выдуманы.
+# Перед запуском их нужно удалить и заменить настоящими.
+
+- nazwa: "[TEST] Turniej o Puchar Przykładu"
+  start: 2026-11-21
+  koniec: 2026-11-22
+  miasto: Poznań
+  wojewodztwo: wielkopolskie
+  kategorie: [kadet, junior]
+  plec: [K, M]
+  poziom: okręgowy
+  organizator: Klub Testowy Poznań
+  termin_zgloszen: 2026-11-13
+  zrodlo: https://example.com/test-1
+  sprawdzono: 2026-11-16
+  test: true
+
+- nazwa: "[TEST] Mikołajkowy Turniej Młodzików"
+  start: 2026-11-28
+  miasto: Łódź
+  wojewodztwo: łódzkie
+  kategorie: [młodzik]
+  plec: [M]
+  poziom: okręgowy
+  organizator: Okręgowy Związek Testowy
+  termin_zgloszen: 2026-11-19
+  zrodlo: https://example.com/test-2
+  sprawdzono: 2026-11-16
+  test: true
+
+- nazwa: "[TEST] Ogólnopolski Turniej Przykładowy"
+  start: 2026-12-04
+  koniec: 2026-12-06
+  miasto: Gdańsk
+  wojewodztwo: pomorskie
+  kategorie: [junior, młodzieżowiec, senior]
+  plec: [K, M]
+  poziom: ogólnopolski
+  organizator: Stowarzyszenie Testowe
+  termin_zgloszen: 2026-11-27
+  zrodlo: https://example.com/test-3
+  sprawdzono: 2026-11-15
+  test: true
+
+# Запись только с обязательными полями.
+- nazwa: "[TEST] Turniej bez dodatkowych danych"
+  start: 2026-12-12
+  miasto: Kraków
+  wojewodztwo: małopolskie
+  zrodlo: https://example.com/test-4
+  sprawdzono: 2026-11-10
+  test: true
+
+- nazwa: "[TEST] Międzynarodowy Turniej Noworoczny Kobiet"
+  start: 2026-12-30
+  koniec: 2027-01-02
+  miasto: Wrocław
+  wojewodztwo: dolnośląskie
+  kategorie: [senior]
+  plec: [K]
+  poziom: międzynarodowy
+  organizator: Fundacja Testowa
+  termin_zgloszen: 2026-12-10
+  zrodlo: https://example.com/test-5
+  sprawdzono: 2026-11-16
+  test: true
+
+- nazwa: "[TEST] Zimowy Turniej Kadetów i Młodzików"
+  start: 2027-01-16
+  koniec: 2027-01-17
+  miasto: Lublin
+  wojewodztwo: lubelskie
+  kategorie: [młodzik, kadet]
+  plec: [K, M]
+  poziom: okręgowy
+  organizator: Klub Testowy Lublin
+  zrodlo: https://example.com/test-6
+  sprawdzono: 2026-11-12
+  test: true
