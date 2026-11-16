@@ -1,12 +1,12 @@
-# Все турниры сайта. Добавить турнир = добавить запись в этот файл.
-# Подробная инструкция и списки допустимых значений — в README.md.
+# Wszystkie turnieje na stronie. Dodanie turnieju = dodanie wpisu do tego pliku.
+# Szczegółowa instrukcja i listy dopuszczalnych wartości: README.md.
 #
-# Обязательные поля: nazwa, start, miasto, wojewodztwo, zrodlo, sprawdzono.
-# Остальные можно не указывать. Порядок записей не важен: сайт сортирует по дате.
-# Прошедшие турниры скрываются автоматически, удалять их необязательно.
+# Pola wymagane: nazwa, start, miasto, wojewodztwo, zrodlo, sprawdzono.
+# Pozostałe można pominąć. Kolejność wpisów nie ma znaczenia: strona sortuje po dacie.
+# Minione turnieje chowają się automatycznie, nie trzeba ich usuwać.
 #
-# ВНИМАНИЕ: записи ниже — ТЕСТОВЫЕ (test: true), турниры выдуманы.
-# Перед запуском их нужно удалить и заменить настоящими.
+# UWAGA: wpisy poniżej są TESTOWE (test: true), turnieje są zmyślone.
+# Przed startem trzeba je usunąć i zastąpić prawdziwymi.
 
 - nazwa: "[TEST] Turniej o Puchar Przykładu"
   start: 2026-11-21
