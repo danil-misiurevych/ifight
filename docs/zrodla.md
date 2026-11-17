@@ -14,7 +14,7 @@ Sprawdzone 2026-11-17, w kolejności przydatności.
 
 | Źródło | Co tam jest | Jak sprawdzać |
 |---|---|---|
-| [Akredytacje PZB](https://pzb.sorga.pl/api/files/pub/akredytacje.pdf) | **Najlepsze źródło.** Oficjalna lista wszystkich zawodów zatwierdzonych przez PZB, także turniejów klubowych i gal: nazwa, adres, data, organizator. Nowe wpisy na końcu pliku | PDF, pobierać co tydzień i szukać dat od dzisiaj. Brak kategorii wiekowych i terminów zgłoszeń, te trzeba doczytać u organizatora |
+| [Akredytacje PZB](https://pzb.sorga.pl/api/files/pub/akredytacje.pdf) | **Najlepsze źródło.** Oficjalna lista wszystkich zawodów zatwierdzonych przez PZB, także turniejów klubowych i gal: nazwa, adres, data, organizator. Nowe wpisy na końcu pliku | `npm run akredytacje` (opis w README). Brak kategorii wiekowych i terminów zgłoszeń, te trzeba doczytać u organizatora |
 | [Kalendarz PZB](https://pzb.com.pl/kalendarz) | Tylko imprezy centralne: mistrzostwa Polski, OOM, starty reprezentacji | Publiczne API: `pzb.com.pl/wp-json/tribe/events/v1/events?start_date=RRRR-MM-DD`, albo eksport .ics |
 | Komunikaty organizacyjne PZB | Szczegóły mistrzostw Polski: miejsce, termin zgłoszeń, kategorie | Pojawiają się 2–4 tygodnie przed zawodami w bibliotece mediów strony PZB (`/wp-json/wp/v2/media?search=Komunikat organizacyjny`) |
 | Kalendarze okręgów | Np. [kalendarz WOZB](https://wozb.com.pl/wp-content/uploads/2026/01/WOZB-Kalendarz-wraz-z-imprezami-centralnymi-WOZB-21.01.2026-1.pdf) (wielkopolskie), kalendarz Śląskiego ZB | Publikowane w styczniu, potem daty się zmieniają. Traktować jako zapowiedź, potwierdzać w akredytacjach |
