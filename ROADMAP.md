@@ -1,0 +1,61 @@
+# Plan rozwoju iFight
+
+Zadania są śledzone jako issues na GitHubie. Każdy etap ma jedno zbiorcze issue z listą podzadań.
+Ten plik opisuje kierunek i kolejność. Szczegóły i postęp znajdziesz w issues.
+
+Cel: kalendarz wszystkich większych wydarzeń bokserskich w Polsce. Nie tylko turnieje PZB, ale też gale (także zawodowe i freak fighty w boksie), wydarzenia charytatywne, otwarte dni sparingowe i podobne wydarzenia.
+
+Założenia:
+- Jedna osoba edytuje dane, więc nie potrzebujemy kont użytkowników ani własnego backendu.
+- Bazą danych zostaje plik `src/data/turnieje.yaml` w repozytorium. Każda zmiana to commit, a historia zmian jest za darmo.
+- Agent AI nie publikuje niczego sam: otwiera pull request, który zatwierdzasz.
+
+## Etap 1. Start z prawdziwymi danymi
+
+- Podpiąć kupioną domenę w Vercel (DNS, opcjonalnie `SITE_URL`).
+- Usunąć 6 wpisów testowych.
+- Dodać pierwszą partię prawdziwych turniejów (cel: wszystkie znane do końca sezonu).
+
+- ~~Dodać do danych typ wydarzenia i filtr po typie.~~ Zrobione.
+- ~~Zmienić hasło i opis strony z „turniejów” na „wydarzenia bokserskie”.~~ Zrobione.
+
+## Etap 2. Organizacja GitHuba
+
+- Roadmapa (ten plik), etykiety, zbiorcze issues dla etapów.
+- Tablica GitHub Projects (kolumny: Pomysły / Do zrobienia / W toku / Gotowe). Zakłada się ją ręcznie w zakładce Projects.
+
+## Etap 3. Wyszukiwanie i weryfikacja turniejów
+
+- Lista źródeł: [docs/zrodla.md](docs/zrodla.md). Kalendarz PZB, 16 okręgowych związków, kluby, platformy zapisów, profile na Facebooku.
+- Zebrać listę klubów i organizatorów z ich stronami i profilami na FB (Claude pomaga, szczegóły w docs/zrodla.md).
+- Cykliczny agent (np. raz w tygodniu): sprawdza źródła i otwiera pull request z nowymi turniejami oraz aktualizacją pola `sprawdzono`, z linkiem do źródła przy każdej zmianie.
+- Imprezy spoza PZB (gale charytatywne, otwarte sparingi) ogłaszane są głównie na Facebooku i Instagramie klubów i sal. Tu przydaje się lista klubów (docs/kluby.csv), którą trzeba uzupełnić o sale bokserskie spoza PZB.
+- Facebook bez automatycznego scrapingu: łamie regulamin FB i grozi blokadą. Zamiast tego: obserwowane profile i powiadomienia, wklejanie linków agentowi, prośba do klubów o wysyłanie komunikatów.
+
+## Etap 4. Panel administracyjny
+
+- CMS oparty na gicie (Keystatic albo Decap CMS) pod `/admin`: formularz zamiast ręcznej edycji YAML. Zapis = commit.
+- API dla agenta: GitHub API (pull requesty). Błędne dane zatrzymuje walidacja przy budowaniu, a Vercel pokazuje podgląd przed scaleniem.
+- Komunikaty błędów walidacji po polsku.
+
+## Etap 5. Wygląd
+
+- Logo, paleta kolorów, czcionki (nagłówki + tekst).
+- Grafika do udostępniania (Open Graph) i nowy favicon.
+
+## Etap 6. Opisy turniejów i SEO
+
+- Osobna strona dla każdego turnieju (`/turniej/...`) z opisem opartym na komunikacie: hala, kategorie wagowe, regulamin, kontakt.
+- Strony województw i miast (np. „turnieje bokserskie śląskie”).
+- Sitemap, dane strukturalne schema.org dla każdej strony, Google Search Console.
+
+## Etap 7. Social media
+
+- Profile: Instagram i strona na Facebooku, TikTok opcjonalnie.
+- Automatyczne grafiki „Turnieje w tym tygodniu / miesiącu” generowane z danych.
+- Krótkie filmy z szablonów (np. Remotion) generowane z tych samych danych.
+- Pierwsze posty dopiero po etapach 1 i 5, żeby było co pokazać i dobrze to wyglądało.
+
+## Kolejność
+
+1 → 2 → 3 i 4 równolegle (agent z etapu 3 korzysta z mechanizmu PR z etapu 4) → 5 → 6 → 7.

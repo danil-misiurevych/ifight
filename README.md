@@ -1,19 +1,22 @@
-# iFight — календарь турниров по боксу в Польше
+# iFight — kalendarz wydarzeń bokserskich w Polsce
 
-Минималистичный статический сайт: список предстоящих турниров со ссылками на первоисточники.
-Сайт неофициальный, заявок и оплат не принимает.
+Minimalistyczna strona statyczna: lista nadchodzących wydarzeń bokserskich (turnieje, gale, wydarzenia charytatywne, otwarte sparingi) z linkami do źródeł.
+Serwis jest nieoficjalny, nie przyjmuje zgłoszeń ani opłat.
 
-Стек: [Astro](https://astro.build) (статическая генерация), без базы данных и бэкенда.
-Деплой — Vercel, автоматически из GitHub.
+Technologia: [Astro](https://astro.build) (generowanie statyczne), bez bazy danych i backendu.
+Wdrożenie: Vercel, automatycznie z GitHuba.
 
-## Как добавить турнир
+Plan rozwoju: [ROADMAP.md](ROADMAP.md). Źródła turniejów: [docs/zrodla.md](docs/zrodla.md).
 
-1. Откройте `src/data/turnieje.yaml` (можно прямо на GitHub — кнопка с карандашом).
-2. Скопируйте блок ниже в конец файла и заполните.
-3. Сохраните (commit). Vercel пересоберёт сайт за минуту.
+## Jak dodać wydarzenie
+
+1. Otwórz `src/data/turnieje.yaml` (można bezpośrednio na GitHubie, przycisk z ołówkiem).
+2. Skopiuj poniższy blok na koniec pliku i uzupełnij.
+3. Zapisz (commit). Vercel przebuduje stronę w około minutę.
 
 ```yaml
 - nazwa: Turniej o Puchar Miasta
+  typ: turniej
   start: 2027-03-13
   koniec: 2027-03-14
   miasto: Poznań
@@ -27,63 +30,66 @@
   sprawdzono: 2027-02-20
 ```
 
-Важно: каждая запись начинается с `- `, остальные строки — с двух пробелов. Между записями — пустая строка.
+Ważne: każdy wpis zaczyna się od `- `, pozostałe linie od dwóch spacji. Między wpisami pusta linia.
 
-### Поля
+### Pola
 
-| Поле | Обязательное | Что писать |
+| Pole | Wymagane | Co wpisać |
 |---|---|---|
-| `nazwa` | да | Название турнира. Если в нём есть двоеточие или `[`, возьмите в кавычки. |
-| `start` | да | Дата начала, `ГГГГ-ММ-ДД`. |
-| `koniec` | нет | Дата окончания. Не указана — турнир однодневный. |
-| `miasto` | да | Город. |
-| `wojewodztwo` | да | Одно из 16 воеводств (список ниже). |
-| `kategorie` | нет | Возрастные категории в квадратных скобках через запятую. |
-| `plec` | нет | `[K]`, `[M]` или `[K, M]`. |
-| `poziom` | нет | `okręgowy`, `ogólnopolski` или `międzynarodowy`. |
-| `organizator` | нет | Кто проводит. |
-| `termin_zgloszen` | нет | Дедлайн заявок, `ГГГГ-ММ-ДД`. |
-| `zrodlo` | да | Ссылка на первоисточник (с `https://`). По клику на турнир открывается она. |
-| `sprawdzono` | да | Когда вы последний раз сверяли данные с источником. |
-| `test` | нет | `true` — тестовая запись (см. ниже). |
+| `nazwa` | tak | Nazwa wydarzenia. Jeśli zawiera dwukropek lub `[`, weź ją w cudzysłów. |
+| `typ` | nie | Rodzaj wydarzenia (lista niżej). Brak oznacza `turniej`. |
+| `start` | tak | Data rozpoczęcia, `RRRR-MM-DD`. |
+| `koniec` | nie | Data zakończenia. Brak oznacza wydarzenie jednodniowe. |
+| `miasto` | tak | Miasto. |
+| `wojewodztwo` | tak | Jedno z 16 województw (lista niżej). |
+| `kategorie` | nie | Kategorie wiekowe w nawiasach kwadratowych, po przecinku. |
+| `plec` | nie | `[K]`, `[M]` albo `[K, M]`. |
+| `poziom` | nie | `okręgowy`, `ogólnopolski` albo `międzynarodowy`. |
+| `organizator` | nie | Kto organizuje. |
+| `termin_zgloszen` | nie | Termin zgłoszeń, `RRRR-MM-DD`. |
+| `zrodlo` | tak | Link do źródła (z `https://`). Kliknięcie w wydarzenie otwiera ten link. |
+| `sprawdzono` | tak | Kiedy ostatnio porównano dane ze źródłem. |
+| `test` | nie | `true` oznacza wpis testowy (patrz niżej). |
 
-Необязательное поле можно не писать вовсе или оставить пустым.
+Pole niewymagane można pominąć albo zostawić puste.
 
-### Допустимые значения
+### Dopuszczalne wartości
 
+- **typ**: turniej, gala (także zawodowa i freak fighty w boksie), charytatywna, sparingi, inne
 - **wojewodztwo**: dolnośląskie, kujawsko-pomorskie, lubelskie, lubuskie, łódzkie, małopolskie, mazowieckie, opolskie, podkarpackie, podlaskie, pomorskie, śląskie, świętokrzyskie, warmińsko-mazurskie, wielkopolskie, zachodniopomorskie
 - **kategorie**: młodzik, kadet, junior, młodzieżowiec, senior
 - **poziom**: okręgowy, ogólnopolski, międzynarodowy
 
-Можно писать без польских диакритиков и в любом регистре (`slaskie`, `mlodzik`) — на сайте всё равно будет правильное написание.
+Można pisać bez polskich znaków i dowolną wielkością liter (`slaskie`, `mlodzik`). Na stronie i tak pojawi się poprawna pisownia.
 
-### Если ошиблись
+### Jeśli coś pójdzie nie tak
 
-Сборка проверяет файл. При ошибке (несуществующая дата, опечатка в воеводстве или названии поля) деплой на Vercel не пройдёт, на сайте останется прежняя версия, а в логе сборки будет строка вида:
+Budowanie strony sprawdza plik. Przy błędzie (nieistniejąca data, literówka w województwie lub w nazwie pola) wdrożenie na Vercel się nie uda, na stronie zostanie poprzednia wersja, a w logu budowania pojawi się linia w rodzaju:
 
 ```
 запись №7 «Turniej…», wojewodztwo: допустимые значения: …
 ```
 
-### Как ведёт себя список
+(Komunikaty błędów są na razie po rosyjsku, tłumaczenie jest w planie.)
 
-- Сортировка по дате начала — порядок записей в файле не важен.
-- Прошедшие турниры скрываются сами (в день после `koniec`), удалять их необязательно. Проверка идёт и при сборке, и в браузере, поэтому ежедневно пересобирать сайт не нужно.
-- Дедлайн подсвечивается за 7 дней до даты (`dniWkrotce` в `src/site.ts`), после неё показывается «po terminie».
-- Турнир без `kategorie` или `plec` показывается при любом значении соответствующего фильтра: лучше показать лишнее, чем спрятать.
+### Jak działa lista
 
-### Тестовые записи
+- Sortowanie po dacie rozpoczęcia, kolejność wpisów w pliku nie ma znaczenia.
+- Wydarzenia, które już się odbyły, chowają się same (dzień po `koniec`), nie trzeba ich usuwać. Sprawdzanie działa i przy budowaniu, i w przeglądarce, więc codzienne przebudowywanie strony nie jest potrzebne.
+- Termin zgłoszeń jest podświetlany na 7 dni przed datą (`dniWkrotce` w `src/site.ts`), a po niej pokazuje się „po terminie”.
+- Wydarzenie bez `kategorie` lub `plec` jest widoczny przy każdej wartości odpowiedniego filtra: lepiej pokazać za dużo niż ukryć.
 
-Сейчас в файле 6 выдуманных турниров с `test: true` и `[TEST]` в названии. Пока на сайте есть хоть одна такая запись, на главной висит предупреждение «Serwis w budowie». Тестовые записи не попадают в разметку schema.org. **Перед запуском удалите их.**
+### Wpisy testowe
 
-## Перед запуском
+Wpis z `test: true` jest traktowany jako testowy: dopóki na stronie jest choć jeden taki wpis, na głównej wisi ostrzeżenie „Serwis w budowie”, a wpisy testowe nie trafiają do znaczników schema.org. Obecnie w pliku nie ma wpisów testowych.
 
-- Домен: адрес для canonical, sitemap и robots.txt берётся из production-домена проекта на Vercel автоматически. Чтобы задать его явно, добавьте в Vercel переменную окружения `SITE_URL` (например `https://example.pl`).
-- Удалить тестовые записи.
+## Przed startem
 
-## Локальный запуск
+- Domena: adres dla canonical, sitemap i robots.txt jest brany automatycznie z domeny produkcyjnej projektu na Vercel. Żeby ustawić go wprost, dodaj w Vercel zmienną środowiskową `SITE_URL` (np. `https://example.pl`).
 
-Нужен Node.js 22.23.4 или новее.
+## Uruchomienie lokalne
+
+Wymagany Node.js 22.23.4 lub nowszy.
 
 ```bash
 npm install
@@ -97,17 +103,18 @@ npm run dev
 npm run build
 ```
 
-`npm run dev` поднимает сайт на http://localhost:4321, `npm run build` собирает его в `dist/`.
+`npm run dev` uruchamia stronę pod http://localhost:4321, `npm run build` buduje ją do `dist/`.
 
-## Структура
+## Struktura
 
 ```
-src/data/turnieje.yaml         данные — единственный файл, который нужно править
-src/site.ts                    название, описание, контакт, порог «скоро»
-src/lib/turnieje.ts            загрузка и проверка данных
-src/lib/daty.ts                форматирование дат, статус дедлайна
-src/pages/index.astro          главная со списком
-src/pages/o-serwisie.astro     страница «O serwisie»
-src/components/                строка турнира, фильтры, разметка schema.org
-src/scripts/lista.ts           фильтры и скрытие прошедших в браузере
+src/data/turnieje.yaml         dane — jedyny plik, który trzeba edytować
+src/site.ts                    nazwa, opis, kontakt, próg „wkrótce”
+src/lib/turnieje.ts            wczytywanie i sprawdzanie danych
+src/lib/daty.ts                formatowanie dat, status terminu zgłoszeń
+src/pages/index.astro          strona główna z listą
+src/pages/o-serwisie.astro     strona „O serwisie”
+src/components/                wiersz turnieju, filtry, znaczniki schema.org
+src/scripts/lista.ts           filtry i ukrywanie minionych turniejów w przeglądarce
+docs/                          dokumentacja: źródła (zrodla.md), lista klubów (kluby.csv)
 ```

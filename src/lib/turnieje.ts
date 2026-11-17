@@ -15,6 +15,16 @@ export const WOJEWODZTWA = [
 export const KATEGORIE = ['młodzik', 'kadet', 'junior', 'młodzieżowiec', 'senior'] as const;
 export const POZIOMY = ['okręgowy', 'ogólnopolski', 'międzynarodowy'] as const;
 export const PLCIE = ['K', 'M'] as const;
+// Kind of event. A missing `typ` means 'turniej'.
+export const TYPY = ['turniej', 'gala', 'charytatywna', 'sparingi', 'inne'] as const;
+// Label of a single event in a row, and plural label in the filter.
+export const TYP_ETYKIETA: Record<(typeof TYPY)[number], { jeden: string; wiele: string }> = {
+  turniej: { jeden: 'turniej', wiele: 'turnieje' },
+  gala: { jeden: 'gala', wiele: 'gale' },
+  charytatywna: { jeden: 'wydarzenie charytatywne', wiele: 'charytatywne' },
+  sparingi: { jeden: 'sparingi', wiele: 'sparingi' },
+  inne: { jeden: 'inne', wiele: 'inne' },
+};
 
 /** 'Łódzkie ' -> 'lodzkie'. Used for lenient matching and for URL/filter values. */
 export function slug(s: string): string {
@@ -54,6 +64,7 @@ const opcja = <T extends z.ZodType>(t: T) =>
 const schemat = z
   .strictObject({
     nazwa: tekst,
+    typ: opcja(zListy(TYPY)),
     start: data,
     koniec: opcja(data),
     miasto: tekst,
@@ -74,6 +85,7 @@ const schemat = z
 
 export interface Turniej {
   nazwa: string;
+  typ: (typeof TYPY)[number];
   start: string;
   koniec: string;
   miasto: string;
@@ -120,6 +132,7 @@ function wczytaj(): Turniej[] {
       lista.filter((x) => wybrane.includes(x));
     wynik.push({
       ...t,
+      typ: t.typ ?? 'turniej',
       koniec: t.koniec ?? t.start,
       kategorie: wKolejnosci(KATEGORIE, t.kategorie),
       plec: wKolejnosci(PLCIE, t.plec),

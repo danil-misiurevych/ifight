@@ -3,7 +3,7 @@ import Strona from '../layouts/Strona.astro';
 import Wiersz from '../components/Wiersz.astro';
 import Filtry from '../components/Filtry.astro';
 import SchemaWydarzen from '../components/SchemaWydarzen.astro';
-import { turnieje, WOJEWODZTWA } from '../lib/turnieje';
+import { turnieje, TYPY, WOJEWODZTWA } from '../lib/turnieje';
 import { dzisiaj, nazwaMiesiaca } from '../lib/daty';
 import { SITE } from '../site';
 
@@ -11,24 +11,25 @@ const dzis = dzisiaj();
 const nadchodzace = turnieje.filter((t) => t.koniec >= dzis);
 
 const miesiace = [...new Set(nadchodzace.map((t) => t.start.slice(0, 7)))];
+const typy = TYPY.filter((typ) => nadchodzace.some((t) => t.typ === typ));
 const wojewodztwa = WOJEWODZTWA.filter((w) => nadchodzace.some((t) => t.wojewodztwo === w));
 const saTestowe = nadchodzace.some((t) => t.test);
 ---
 
 <Strona>
   <SchemaWydarzen slot="head" turnieje={nadchodzace} />
-  <h1>Nadchodzące turnieje bokserskie w Polsce</h1>
-  <p class="szary">Kliknij turniej, aby otworzyć komunikat organizatora w nowej karcie.</p>
+  <h1>Nadchodzące wydarzenia bokserskie w Polsce</h1>
+  <p class="szary">Kliknij wydarzenie, aby otworzyć ogłoszenie organizatora w nowej karcie.</p>
 
   {
     saTestowe && (
       <p class="uwaga">
-        Serwis w budowie: wpisy oznaczone [TEST] to dane testowe, a nie prawdziwe turnieje.
+        Serwis w budowie: wpisy oznaczone [TEST] to dane testowe, a nie prawdziwe wydarzenia.
       </p>
     )
   }
 
-  <Filtry wojewodztwa={wojewodztwa} miesiace={miesiace} />
+  <Filtry typy={typy} wojewodztwa={wojewodztwa} miesiace={miesiace} />
 
   <div id="turnieje" data-dni-wkrotce={SITE.dniWkrotce}>
     {
@@ -41,7 +42,7 @@ const saTestowe = nadchodzace.some((t) => t.test);
         </section>
       ))
     }
-    <p id="pusto" hidden={nadchodzace.length > 0}>Brak nadchodzących turniejów w kalendarzu.</p>
+    <p id="pusto" hidden={nadchodzace.length > 0}>Brak nadchodzących wydarzeń w kalendarzu.</p>
   </div>
 </Strona>
 

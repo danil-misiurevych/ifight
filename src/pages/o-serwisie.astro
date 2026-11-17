@@ -2,27 +2,28 @@
 import Strona from '../layouts/Strona.astro';
 import { SITE } from '../site';
 
-const temat = encodeURIComponent('Turniej do kalendarza');
+const temat = encodeURIComponent('Wydarzenie do kalendarza');
 ---
 
 <Strona
   tytul="O serwisie"
-  opis={`Czym jest ${SITE.nazwa}, skąd pochodzą dane o turniejach bokserskich i jak zgłosić turniej do kalendarza.`}
+  opis={`Czym jest ${SITE.nazwa}, skąd pochodzą dane o wydarzeniach bokserskich i jak zgłosić wydarzenie do kalendarza.`}
 >
   <div class="tresc">
     <h1>O serwisie</h1>
     <p>
-      {SITE.nazwa} to prosty kalendarz turniejów bokserskich w Polsce. Informacje o zawodach są
-      rozrzucone po stronach związków, klubów i mediach społecznościowych – tutaj zbieramy je w
-      jedną listę, żeby trener mógł w minutę sprawdzić, co się zbliża, i przejść do źródła.
+      {SITE.nazwa} to prosty kalendarz wydarzeń bokserskich w Polsce: turniejów, gal, wydarzeń
+      charytatywnych i otwartych sparingów. Informacje o nich są rozrzucone po stronach związków,
+      klubów i mediach społecznościowych – tutaj zbieramy je w jedną listę, żeby w minutę sprawdzić,
+      co się zbliża, i przejść do źródła.
     </p>
 
     <h2>Jak to działa</h2>
     <ul>
       <li>Każdy wpis to kilka podstawowych danych i link do komunikatu organizatora.</li>
       <li>Serwis nie przyjmuje zgłoszeń ani opłat – zgłoszenia wysyła się zawsze do organizatora.</li>
-      <li>Przy każdym turnieju podajemy datę, kiedy ostatnio sprawdziliśmy dane.</li>
-      <li>Turnieje, które już się odbyły, znikają z listy automatycznie.</li>
+      <li>Przy każdym wydarzeniu podajemy datę, kiedy ostatnio sprawdziliśmy dane.</li>
+      <li>Wydarzenia, które już się odbyły, znikają z listy automatycznie.</li>
     </ul>
 
     <h2>Serwis nieoficjalny</h2>
@@ -32,15 +33,15 @@ const temat = encodeURIComponent('Turniej do kalendarza');
       i wyjazdem zawsze potwierdź szczegóły w komunikacie organizatora.
     </p>
 
-    <h2 id="kontakt">Zgłoś turniej lub poprawkę</h2>
+    <h2 id="kontakt">Zgłoś wydarzenie lub poprawkę</h2>
     <p>
-      Organizujesz turniej albo widzisz błąd? Napisz:
+      Organizujesz wydarzenie albo widzisz błąd? Napisz:
       <a href={`mailto:${SITE.email}?subject=${temat}`}>{SITE.email}</a>
     </p>
     <p>W wiadomości podaj:</p>
     <ul>
-      <li>nazwę turnieju, daty i miasto,</li>
-      <li>kategorie wiekowe i płeć,</li>
+      <li>nazwę i rodzaj wydarzenia (turniej, gala, sparingi…), daty i miasto,</li>
+      <li>kategorie wiekowe i płeć, jeśli dotyczą,</li>
       <li>termin zgłoszeń,</li>
       <li>link do oficjalnego komunikatu lub ogłoszenia.</li>
     </ul>

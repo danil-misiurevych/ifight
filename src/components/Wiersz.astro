@@ -1,6 +1,6 @@
 ---
 import type { Turniej } from '../lib/turnieje';
-import { slug } from '../lib/turnieje';
+import { slug, TYP_ETYKIETA } from '../lib/turnieje';
 import { krotkaData, stanTerminu, zakresDat } from '../lib/daty';
 import { SITE } from '../site';
 
@@ -15,6 +15,7 @@ const plec =
 
 // Only non-empty parts are shown, so missing optional fields just shorten the row.
 const meta = [
+  TYP_ETYKIETA[t.typ].jeden,
   `${t.miasto}, ${t.wojewodztwo}`,
   t.kategorie.join(', '),
   plec,
@@ -28,6 +29,7 @@ const termin = t.termin_zgloszen && stanTerminu(t.termin_zgloszen, dzis, SITE.dn
 <li
   class="t"
   data-koniec={t.koniec}
+  data-typ={t.typ}
   data-mies={t.start.slice(0, 7)}
   data-woj={slug(t.wojewodztwo)}
   data-kat={t.kategorie.map(slug).join(' ')}
