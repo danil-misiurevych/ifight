@@ -78,12 +78,11 @@ Budowanie strony sprawdza plik. Przy błędzie (nieistniejąca data, literówka 
 
 ### Wpisy testowe
 
-Obecnie w pliku jest 6 zmyślonych turniejów z `test: true` i `[TEST]` w nazwie. Dopóki na stronie jest choć jeden taki wpis, na głównej wisi ostrzeżenie „Serwis w budowie”. Wpisy testowe nie trafiają do znaczników schema.org. **Przed startem usuń je.**
+Wpis z `test: true` jest traktowany jako testowy: dopóki na stronie jest choć jeden taki wpis, na głównej wisi ostrzeżenie „Serwis w budowie”, a wpisy testowe nie trafiają do znaczników schema.org. Obecnie w pliku nie ma wpisów testowych.
 
 ## Przed startem
 
 - Domena: adres dla canonical, sitemap i robots.txt jest brany automatycznie z domeny produkcyjnej projektu na Vercel. Żeby ustawić go wprost, dodaj w Vercel zmienną środowiskową `SITE_URL` (np. `https://example.pl`).
-- Usunąć wpisy testowe.
 
 ## Uruchomienie lokalne
 

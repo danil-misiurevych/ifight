@@ -5,82 +5,115 @@
 # Pozostałe można pominąć. Kolejność wpisów nie ma znaczenia: strona sortuje po dacie.
 # Minione turnieje chowają się automatycznie, nie trzeba ich usuwać.
 #
-# UWAGA: wpisy poniżej są TESTOWE (test: true), turnieje są zmyślone.
-# Przed startem trzeba je usunąć i zastąpić prawdziwymi.
+# Źródło "akredytacje.pdf" to oficjalna lista zawodów zatwierdzonych przez PZB
+# (pole "Wydarzenie", "Adres", "Data", "Organizator"). Szczegóły: docs/zrodla.md.
 
-- nazwa: "[TEST] Turniej o Puchar Przykładu"
+- nazwa: XXV Turniej Boksu im. Michała Szczepana
   start: 2026-11-21
-  koniec: 2026-11-22
-  miasto: Poznań
-  wojewodztwo: wielkopolskie
-  kategorie: [kadet, junior]
-  plec: [K, M]
-  poziom: okręgowy
-  organizator: Klub Testowy Poznań
-  termin_zgloszen: 2026-11-13
-  zrodlo: https://example.com/test-1
-  sprawdzono: 2026-11-16
-  test: true
+  miasto: Raszyn
+  wojewodztwo: mazowieckie
+  organizator: KS Raszyn
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
 
-- nazwa: "[TEST] Mikołajkowy Turniej Młodzików"
+- nazwa: XVIII Turniej o Puchar Kazimierza Paździora
   start: 2026-11-28
+  miasto: Radom
+  wojewodztwo: mazowieckie
+  organizator: BTS 1926 Broń Radom
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
+
+- nazwa: Międzynarodowy Barbórkowy Turniej Bokserski
+  start: 2026-11-28
+  miasto: Wałbrzych
+  wojewodztwo: dolnośląskie
+  poziom: międzynarodowy
+  organizator: KS Boxing Kaczor Wałbrzych
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
+
+- nazwa: XXXIII Ogólnopolski Turniej Bokserski im. Janusza Pawlaka
+  start: 2026-11-28
+  miasto: Leszno
+  wojewodztwo: wielkopolskie
+  poziom: ogólnopolski
+  organizator: KS Polonia 1912 Leszno
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
+
+- nazwa: Gala Boksu Szamotuły Boxing Night II
+  start: 2026-11-28
+  miasto: Szamotuły
+  wojewodztwo: wielkopolskie
+  organizator: Koperski Boxing Team
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
+
+- nazwa: I Memoriał Mirosława Pacholskiego
+  start: 2026-11-29
   miasto: Łódź
   wojewodztwo: łódzkie
-  kategorie: [młodzik]
-  plec: [M]
-  poziom: okręgowy
-  organizator: Okręgowy Związek Testowy
-  termin_zgloszen: 2026-11-19
-  zrodlo: https://example.com/test-2
-  sprawdzono: 2026-11-16
-  test: true
+  organizator: RTS Widzew Łódź, sekcja bokserska
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
 
-- nazwa: "[TEST] Ogólnopolski Turniej Przykładowy"
-  start: 2026-12-04
-  koniec: 2026-12-06
-  miasto: Gdańsk
-  wojewodztwo: pomorskie
-  kategorie: [junior, młodzieżowiec, senior]
-  plec: [K, M]
-  poziom: ogólnopolski
-  organizator: Stowarzyszenie Testowe
-  termin_zgloszen: 2026-11-27
-  zrodlo: https://example.com/test-3
-  sprawdzono: 2026-11-15
-  test: true
-
-# Запись только с обязательными полями.
-- nazwa: "[TEST] Turniej bez dodatkowych danych"
-  start: 2026-12-12
+- nazwa: Międzynarodowy Turniej Bokserski o „Złotą Rękawicę Wisły” im. Teofila Kowalskiego
+  start: 2026-12-03
+  koniec: 2026-12-05
   miasto: Kraków
   wojewodztwo: małopolskie
-  zrodlo: https://example.com/test-4
-  sprawdzono: 2026-11-10
-  test: true
-
-- nazwa: "[TEST] Międzynarodowy Turniej Noworoczny Kobiet"
-  start: 2026-12-30
-  koniec: 2027-01-02
-  miasto: Wrocław
-  wojewodztwo: dolnośląskie
-  kategorie: [senior]
-  plec: [K]
   poziom: międzynarodowy
-  organizator: Fundacja Testowa
-  termin_zgloszen: 2026-12-10
-  zrodlo: https://example.com/test-5
-  sprawdzono: 2026-11-16
-  test: true
+  organizator: TS Wisła Kraków
+  termin_zgloszen: 2026-11-27
+  zrodlo: https://zlotarekawica.wboksie.pl/
+  sprawdzono: 2026-11-17
 
-- nazwa: "[TEST] Zimowy Turniej Kadetów i Młodzików"
-  start: 2027-01-16
-  koniec: 2027-01-17
-  miasto: Lublin
-  wojewodztwo: lubelskie
-  kategorie: [młodzik, kadet]
+- nazwa: Mikołajkowy Turniej Bokserski o Puchar Prezydenta Miasta Elbląga
+  start: 2026-12-05
+  miasto: Elbląg
+  wojewodztwo: warmińsko-mazurskie
+  organizator: KSW Tygrys Elbląg
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
+
+- nazwa: V Turniej Bokserski o Puchar Burmistrza Miasta i Gminy Siewierz
+  start: 2026-12-05
+  miasto: Siewierz
+  wojewodztwo: śląskie
+  organizator: Klub Sportowy Animmals
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
+
+- nazwa: Mistrzostwa Polski Seniorek i Seniorów Elite
+  start: 2026-12-06
+  koniec: 2026-12-12
+  miasto: Gdynia
+  wojewodztwo: pomorskie
+  kategorie: [senior]
+  plec: [K, M]
+  poziom: ogólnopolski
+  organizator: KS Bombardier, Polski Związek Bokserski
+  termin_zgloszen: 2026-11-30
+  zrodlo: https://pzb.com.pl/wp-content/uploads/2026/11/Komunikat-organizacyjny-MP-Seniorow-2026.pdf
+  sprawdzono: 2026-11-17
+
+- nazwa: Mistrzostwa Wielkopolski Młodzików i Młodziczek
+  start: 2026-12-11
+  miasto: Kalisz
+  wojewodztwo: wielkopolskie
+  kategorie: [młodzik]
   plec: [K, M]
   poziom: okręgowy
-  organizator: Klub Testowy Lublin
-  zrodlo: https://example.com/test-6
-  sprawdzono: 2026-11-12
-  test: true
+  organizator: KS Prosna Kalisz
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
+
+- nazwa: II Ogólnopolski Turniej Bokserski
+  start: 2026-12-12
+  miasto: Tarnówka
+  wojewodztwo: wielkopolskie
+  poziom: ogólnopolski
+  organizator: MLKB Sparta Złotów
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
