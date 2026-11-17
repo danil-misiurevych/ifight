@@ -3,6 +3,8 @@
 Zadania są śledzone jako issues na GitHubie. Każdy etap ma jedno zbiorcze issue z listą podzadań.
 Ten plik opisuje kierunek i kolejność. Szczegóły i postęp znajdziesz w issues.
 
+Cel: kalendarz wszystkich większych imprez bokserskich w Polsce. Nie tylko turnieje PZB, ale też gale, imprezy charytatywne, otwarte dni sparingowe i podobne wydarzenia.
+
 Założenia:
 - Jedna osoba edytuje dane, więc nie potrzebujemy kont użytkowników ani własnego backendu.
 - Bazą danych zostaje plik `src/data/turnieje.yaml` w repozytorium. Każda zmiana to commit, a historia zmian jest za darmo.
@@ -14,6 +16,9 @@ Założenia:
 - Usunąć 6 wpisów testowych.
 - Dodać pierwszą partię prawdziwych turniejów (cel: wszystkie znane do końca sezonu).
 
+- Dodać do danych typ imprezy (np. turniej, gala, charytatywna, sparingi) i filtr po typie.
+- Zmienić hasło i opis strony z „turniejów” na „imprezy bokserskie”.
+
 ## Etap 2. Organizacja GitHuba
 
 - Roadmapa (ten plik), etykiety, zbiorcze issues dla etapów.
@@ -24,6 +29,7 @@ Założenia:
 - Lista źródeł: [docs/zrodla.md](docs/zrodla.md). Kalendarz PZB, 16 okręgowych związków, kluby, platformy zapisów, profile na Facebooku.
 - Zebrać listę klubów i organizatorów z ich stronami i profilami na FB (Claude pomaga, szczegóły w docs/zrodla.md).
 - Cykliczny agent (np. raz w tygodniu): sprawdza źródła i otwiera pull request z nowymi turniejami oraz aktualizacją pola `sprawdzono`, z linkiem do źródła przy każdej zmianie.
+- Imprezy spoza PZB (gale charytatywne, otwarte sparingi) ogłaszane są głównie na Facebooku i Instagramie klubów i sal. Tu przydaje się lista klubów (docs/kluby.csv), którą trzeba uzupełnić o sale bokserskie spoza PZB.
 - Facebook bez automatycznego scrapingu: łamie regulamin FB i grozi blokadą. Zamiast tego: obserwowane profile i powiadomienia, wklejanie linków agentowi, prośba do klubów o wysyłanie komunikatów.
 
 ## Etap 4. Panel administracyjny
