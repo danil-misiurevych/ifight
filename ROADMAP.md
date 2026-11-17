@@ -12,23 +12,25 @@ Założenia:
 
 ## Etap 1. Start z prawdziwymi danymi
 
-- Podpiąć kupioną domenę w Vercel (DNS, opcjonalnie `SITE_URL`).
-- Usunąć 6 wpisów testowych.
-- Dodać pierwszą partię prawdziwych turniejów (cel: wszystkie znane do końca sezonu).
+- Uzupełnić wydarzenia po połowie grudnia 2026 (cel: wszystkie znane do końca sezonu). Robi to w praktyce etap 3.
 
+- ~~Podpiąć domenę ifight.pl w Vercel.~~ Zrobione.
+- ~~Usunąć wpisy testowe i dodać pierwszą partię prawdziwych wydarzeń.~~ Zrobione.
 - ~~Dodać do danych typ wydarzenia i filtr po typie.~~ Zrobione.
 - ~~Zmienić hasło i opis strony z „turniejów” na „wydarzenia bokserskie”.~~ Zrobione.
 
 ## Etap 2. Organizacja GitHuba
 
-- Roadmapa (ten plik), etykiety, zbiorcze issues dla etapów.
-- Tablica GitHub Projects (kolumny: Pomysły / Do zrobienia / W toku / Gotowe). Zakłada się ją ręcznie w zakładce Projects.
+- ~~Roadmapa (ten plik), etykiety, zbiorcze issues dla etapów.~~ Zrobione.
+- Tablica GitHub Projects: pominięta. Przy jednej osobie i kilku issues wystarczą etykiety i listy zadań w issues.
 
 ## Etap 3. Wyszukiwanie i weryfikacja turniejów
 
 - Lista źródeł: [docs/zrodla.md](docs/zrodla.md). Kalendarz PZB, 16 okręgowych związków, kluby, platformy zapisów, profile na Facebooku.
 - Zebrać listę klubów i organizatorów z ich stronami i profilami na FB (Claude pomaga, szczegóły w docs/zrodla.md).
-- Cykliczny agent (np. raz w tygodniu): sprawdza źródła i otwiera pull request z nowymi turniejami oraz aktualizacją pola `sprawdzono`, z linkiem do źródła przy każdej zmianie.
+- ~~Parser listy akredytacji PZB (`npm run akredytacje`).~~ Zrobione.
+- ~~Instrukcja agenta wyszukującego wydarzenia (`.claude/skills/szukaj-wydarzen`): akredytacje, serwisy biletowe, wyszukiwarka, pull request.~~ Zrobione.
+- Uruchamianie agenta raz w tygodniu (zaplanowane zadanie Claude Code w chmurze).
 - Imprezy spoza PZB (gale charytatywne, otwarte sparingi) ogłaszane są głównie na Facebooku i Instagramie klubów i sal. Tu przydaje się lista klubów (docs/kluby.csv), którą trzeba uzupełnić o sale bokserskie spoza PZB.
 - Facebook bez automatycznego scrapingu: łamie regulamin FB i grozi blokadą. Zamiast tego: obserwowane profile i powiadomienia, wklejanie linków agentowi, prośba do klubów o wysyłanie komunikatów.
 

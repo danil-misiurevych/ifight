@@ -103,6 +103,24 @@ npm run build
 
 `npm run dev` uruchamia stronę pod http://localhost:4321, `npm run build` buduje ją do `dist/`.
 
+## Sprawdzanie akredytacji PZB
+
+Skrypt pobiera [listę akredytacji PZB](https://pzb.sorga.pl/api/files/pub/akredytacje.pdf) i porównuje nadchodzące zawody z `src/data/turnieje.yaml`.
+
+```bash
+npm run akredytacje
+```
+
+Wypisuje gotowe wpisy YAML dla wydarzeń, których brakuje, oraz wpisy z tym źródłem, których w PDF już nie ma (zmiana daty lub odwołanie).
+
+```bash
+npm run akredytacje -- --zapisz
+```
+
+Dopisuje brakujące wydarzenia na koniec pliku i ustawia `sprawdzono` na dziś we wpisach potwierdzonych w PDF.
+PDF nie podaje województwa ani kategorii: województwo jest zgadywane z miasta. Gdzie się nie udało, wpis ma komentarz `# SPRAWDŹ` i puste pole, więc budowanie strony go zatrzyma, dopóki go nie poprawisz.
+Inne opcje: `--json` (wynik dla agenta), `--plik akredytacje.pdf` (PDF z dysku), `--od RRRR-MM-DD` (udaje inną datę, do testów).
+
 ## Struktura
 
 ```
@@ -114,5 +132,6 @@ src/pages/index.astro          strona główna z listą
 src/pages/o-serwisie.astro     strona „O serwisie”
 src/components/                wiersz turnieju, filtry, znaczniki schema.org
 src/scripts/lista.ts           filtry i ukrywanie minionych turniejów w przeglądarce
+scripts/akredytacje.mjs        porównanie z listą akredytacji PZB
 docs/                          dokumentacja: źródła (zrodla.md), lista klubów (kluby.csv)
 ```

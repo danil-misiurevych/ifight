@@ -60,6 +60,15 @@
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
   sprawdzono: 2026-11-17
 
+- nazwa: Mirra Rocky Boxing Night Andrzejki
+  typ: gala
+  start: 2026-11-28
+  miasto: Sopot
+  wojewodztwo: pomorskie
+  organizator: Rocky sp. z o.o. (boks zawodowy, Hotel Sheraton)
+  zrodlo: https://www.ebilet.pl/sport/sporty-walki/gala-rocky-boxing-night
+  sprawdzono: 2026-11-17
+
 - nazwa: I Memoriał Mirosława Pacholskiego
   start: 2026-11-29
   miasto: Łódź
@@ -95,6 +104,15 @@
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
   sprawdzono: 2026-11-17
 
+- nazwa: MB Boxing Night 30 – The Battle Of Legnica
+  typ: gala
+  start: 2026-12-05
+  miasto: Legnica
+  wojewodztwo: dolnośląskie
+  organizator: MB Promotions (boks zawodowy, Hala OSiR)
+  zrodlo: https://www.ebilet.pl/sport/sporty-walki/mb-boxing-night
+  sprawdzono: 2026-11-17
+
 - nazwa: Mistrzostwa Polski Seniorek i Seniorów Elite
   start: 2026-12-06
   koniec: 2026-12-12
@@ -126,4 +144,13 @@
   poziom: ogólnopolski
   organizator: MLKB Sparta Złotów
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
+
+- nazwa: Sąsiedzi Development Boxing Night
+  typ: gala
+  start: 2027-02-27
+  miasto: Tarnów
+  wojewodztwo: małopolskie
+  organizator: TBS Promotions, Golden Eagle Promotions (Hala Pałacu Młodzieży)
+  zrodlo: https://www.ebilet.pl/sport/sporty-walki/sasiedzi-development-boxing-night
   sprawdzono: 2026-11-17
