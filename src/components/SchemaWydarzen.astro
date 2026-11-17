@@ -1,5 +1,5 @@
 ---
-// schema.org markup for the listed events. Test entries are left out
+// schema.org markup for events. Test entries are left out
 // so that made-up events never reach search engines as structured data.
 import type { Turniej } from '../lib/turnieje';
 
@@ -15,11 +15,12 @@ const wydarzenia = Astro.props.turnieje
     sport: 'Boxing',
     startDate: t.start,
     endDate: t.koniec,
+    ...(t.opis && { description: t.opis }),
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: {
       '@type': 'Place',
-      name: t.miasto,
+      name: t.miejsce ?? t.miasto,
       address: {
         '@type': 'PostalAddress',
         addressLocality: t.miasto,
@@ -28,9 +29,10 @@ const wydarzenia = Astro.props.turnieje
       },
     },
     ...(t.organizator && { organizer: { '@type': 'Organization', name: t.organizator } }),
-    url: t.zrodlo,
+    url: new URL(`/wydarzenia/${t.slug}/`, Astro.site).href,
+    sameAs: t.zrodlo,
   }));
-const json = JSON.stringify(wydarzenia).replace(/</g, '\\u003c');
+const json = JSON.stringify(wydarzenia.length === 1 ? wydarzenia[0] : wydarzenia).replace(/</g, '\\u003c');
 ---
 
 {wydarzenia.length > 0 && <script type="application/ld+json" set:html={json} />}

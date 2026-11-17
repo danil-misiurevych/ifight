@@ -11,7 +11,15 @@ interface Props {
 const { typy, wojewodztwa, miesiace } = Astro.props;
 ---
 
-<!-- Hidden until the script runs: without JavaScript the full list is shown. -->
+<!-- Hidden until the script runs: without JavaScript the full list is shown.
+     The filter panel itself starts collapsed and opens with the "Filtry" button. -->
+<div class="filtry-pasek" id="filtry-pasek" hidden>
+  <button type="button" class="filtry-przycisk" id="filtry-przycisk" aria-expanded="false" aria-controls="filtry">
+    Filtry <span class="filtry-ile" id="filtry-ile" hidden></span>
+  </button>
+  <span class="licznik" id="licznik" aria-live="polite"></span>
+  <button type="button" class="wyczysc" id="wyczysc" hidden>wyczyść filtry</button>
+</div>
 <form class="filtry" id="filtry" hidden>
   <label>
     Rodzaj
@@ -50,7 +58,3 @@ const { typy, wojewodztwa, miesiace } = Astro.props;
     </select>
   </label>
 </form>
-<p class="licznik" aria-live="polite">
-  <span id="licznik"></span>
-  <button type="button" id="wyczysc" hidden>wyczyść filtry</button>
-</p>

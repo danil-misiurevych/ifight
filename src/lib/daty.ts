@@ -50,3 +50,26 @@ export function stanTerminu(
   if (dni === 1) return { stan: 'wkrotce', dopisek: 'jutro' };
   return { stan: 'wkrotce', dopisek: `za ${dni} dni` };
 }
+
+const MIESIACE_DOPELNIACZ = [
+  'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca',
+  'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia',
+];
+const DNI = ['niedziela', 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota'];
+
+/** '2026-12-05' -> 'sobota, 5 grudnia 2026' */
+export function dlugaData(d: string): string {
+  const [r, m, dz] = d.split('-').map(Number);
+  const dzien = DNI[new Date(Date.UTC(r, m - 1, dz)).getUTCDay()];
+  return `${dzien}, ${dz} ${MIESIACE_DOPELNIACZ[m - 1]} ${r}`;
+}
+
+/** Long form of a date range: 'sobota, 5 grudnia 2026' or '5–7 grudnia 2026'. */
+export function dlugiZakres(start: string, koniec: string): string {
+  if (start === koniec) return dlugaData(start);
+  const [r1, m1, d1] = start.split('-').map(Number);
+  const [r2, m2, d2] = koniec.split('-').map(Number);
+  if (r1 === r2 && m1 === m2) return `${d1}–${d2} ${MIESIACE_DOPELNIACZ[m2 - 1]} ${r2}`;
+  if (r1 === r2) return `${d1} ${MIESIACE_DOPELNIACZ[m1 - 1]} – ${d2} ${MIESIACE_DOPELNIACZ[m2 - 1]} ${r2}`;
+  return `${d1} ${MIESIACE_DOPELNIACZ[m1 - 1]} ${r1} – ${d2} ${MIESIACE_DOPELNIACZ[m2 - 1]} ${r2}`;
+}

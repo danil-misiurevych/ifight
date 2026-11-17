@@ -26,6 +26,12 @@ Plan rozwoju: [ROADMAP.md](ROADMAP.md). Źródła turniejów: [docs/zrodla.md](d
   poziom: okręgowy
   organizator: KS Przykład
   termin_zgloszen: 2027-03-05
+  miejsce: Hala sportowa, ul. Przykładowa 1
+  opis: Krótki opis wydarzenia (opcjonalnie).
+  linki:
+    zapisy: https://adres-zapisow.pl
+    regulamin: https://adres-regulaminu.pl
+    transmisja: https://youtube.com/...
   zrodlo: https://adres-komunikatu.pl/turniej
   sprawdzono: 2027-02-20
 ```
@@ -47,7 +53,11 @@ Ważne: każdy wpis zaczyna się od `- `, pozostałe linie od dwóch spacji. Mi�
 | `poziom` | nie | `okręgowy`, `ogólnopolski` albo `międzynarodowy`. |
 | `organizator` | nie | Kto organizuje. |
 | `termin_zgloszen` | nie | Termin zgłoszeń, `RRRR-MM-DD`. |
-| `zrodlo` | tak | Link do źródła (z `https://`). Kliknięcie w wydarzenie otwiera ten link. |
+| `miejsce` | nie | Obiekt lub adres (hala, hotel, ulica). |
+| `opis` | nie | Krótki opis na stronie wydarzenia. |
+| `linki` | nie | Linki na stronie wydarzenia, każdy w osobnej linii z dwiema spacjami wcięcia: `komunikat`, `wydarzenie` (Facebook), `zapisy`, `regulamin`, `bilety`, `transmisja`, `wyniki`. |
+| `zrodlo` | tak | Link do źródła (z `https://`). Zawsze widoczny na stronie wydarzenia. |
+| `slug` | nie | Własny adres strony wydarzenia (`/wydarzenia/<slug>/`). Domyślnie z nazwy i roku. Ustaw, gdy dwa wydarzenia mają ten sam adres albo żeby adres nie zmienił się po zmianie nazwy. |
 | `sprawdzono` | tak | Kiedy ostatnio porównano dane ze źródłem. |
 | `test` | nie | `true` oznacza wpis testowy (patrz niżej). |
 
@@ -72,6 +82,9 @@ wpis nr 7 «Turniej…», wojewodztwo: dopuszczalne wartości: …
 
 ### Jak działa lista
 
+- Każde wydarzenie ma własną stronę `/wydarzenia/<nazwa>-<rok>/` (dla SEO): dane, linki, znaczniki schema.org. Kliknięcie w wiersz listy otwiera tę stronę.
+- Minione wydarzenia trafiają do `/archiwum/`.
+- Pasek filtrów jest domyślnie zwinięty (przycisk „Filtry”); rozwija się sam, gdy adres zawiera filtry.
 - Sortowanie po dacie rozpoczęcia, kolejność wpisów w pliku nie ma znaczenia.
 - Wydarzenia, które już się odbyły, chowają się same (dzień po `koniec`), nie trzeba ich usuwać. Sprawdzanie działa i przy budowaniu, i w przeglądarce, więc codzienne przebudowywanie strony nie jest potrzebne.
 - Termin zgłoszeń jest podświetlany na 7 dni przed datą (`dniWkrotce` w `src/site.ts`), a po niej pokazuje się „po terminie”.
@@ -129,7 +142,9 @@ src/site.ts                    nazwa, opis, kontakt, próg „wkrótce”
 src/lib/turnieje.ts            wczytywanie i sprawdzanie danych
 src/lib/daty.ts                formatowanie dat, status terminu zgłoszeń
 src/pages/index.astro          strona główna z listą
-src/pages/o-serwisie.astro     strona „O serwisie”
+src/pages/o-stronie.astro      strona „O stronie” (stary adres /o-serwisie/ przekierowuje)
+src/pages/archiwum.astro       archiwum minionych wydarzeń
+src/pages/wydarzenia/[slug].astro  osobna strona każdego wydarzenia
 src/components/                wiersz turnieju, filtry, znaczniki schema.org
 src/scripts/lista.ts           filtry i ukrywanie minionych turniejów w przeglądarce
 scripts/akredytacje.mjs        porównanie z listą akredytacji PZB

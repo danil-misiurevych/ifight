@@ -14,4 +14,6 @@ const site =
 export default defineConfig({
   site,
   integrations: [sitemap()],
+  // The page used to be called "O serwisie"; old links keep working.
+  redirects: { '/o-serwisie': '/o-stronie/' },
 });

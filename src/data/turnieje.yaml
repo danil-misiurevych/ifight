@@ -65,7 +65,10 @@
   start: 2026-11-28
   miasto: Sopot
   wojewodztwo: pomorskie
-  organizator: Rocky sp. z o.o. (boks zawodowy, Hotel Sheraton)
+  organizator: Rocky sp. z o.o. (boks zawodowy)
+  miejsce: Hotel Sheraton
+  linki:
+    bilety: https://www.ebilet.pl/sport/sporty-walki/gala-rocky-boxing-night
   zrodlo: https://www.ebilet.pl/sport/sporty-walki/gala-rocky-boxing-night
   sprawdzono: 2026-11-17
 

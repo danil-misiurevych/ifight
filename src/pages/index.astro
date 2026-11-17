@@ -18,8 +18,7 @@ const saTestowe = nadchodzace.some((t) => t.test);
 
 <Strona>
   <SchemaWydarzen slot="head" turnieje={nadchodzace} />
-  <h1>Nadchodzące wydarzenia bokserskie w Polsce</h1>
-  <p class="szary">Kliknij wydarzenie, aby otworzyć ogłoszenie organizatora w nowej karcie.</p>
+  <h1 class="ukryty">Nadchodzące wydarzenia bokserskie w Polsce</h1>
 
   {
     saTestowe && (
@@ -42,7 +41,7 @@ const saTestowe = nadchodzace.some((t) => t.test);
         </section>
       ))
     }
-    <p id="pusto" hidden={nadchodzace.length > 0}>Brak nadchodzących wydarzeń w kalendarzu.</p>
+    <p id="pusto" class="pusto" hidden={nadchodzace.length > 0}>Brak nadchodzących wydarzeń w kalendarzu.</p>
   </div>
 </Strona>
 
