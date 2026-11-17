@@ -22,6 +22,10 @@
   miasto: Pomigacze (Majątek Howieny)
   wojewodztwo: podlaskie
   organizator: Podlaski OZB (walki boksu olimpijskiego podczas gali)
+  miejsce: Majątek Howieny, Pomigacze k. Białegostoku
+  opis: Gala boksu zawodowego Knockout Promotions z walkami boksu olimpijskiego. W walce wieczoru Kamil Szeremeta zmierzy się z Jacobem Tetteh Laryeą z Ghany. Początek o 18:00, transmisja w TVP Sport.
+  linki:
+    bilety: https://www.ebilet.pl/sport/sporty-walki/knockout-boxing-night
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
   sprawdzono: 2026-11-17
 
@@ -66,7 +70,8 @@
   miasto: Sopot
   wojewodztwo: pomorskie
   organizator: Rocky sp. z o.o. (boks zawodowy)
-  miejsce: Hotel Sheraton
+  miejsce: Hotel Sheraton Sopot, sala Christopher Columbus
+  opis: Kameralna gala boksu zawodowego dla 300 gości przy stołach wokół ringu. Osiem walk, m.in. z udziałem Kajetana Kalinowskiego i Nikodema Jeżewskiego, półfinały turnieju wagi ciężkiej, kolacja i after party. Początek o 19:00.
   linki:
     bilety: https://www.ebilet.pl/sport/sporty-walki/gala-rocky-boxing-night
   zrodlo: https://www.ebilet.pl/sport/sporty-walki/gala-rocky-boxing-night
@@ -88,6 +93,9 @@
   poziom: międzynarodowy
   organizator: TS Wisła Kraków
   termin_zgloszen: 2026-11-27
+  opis: XLV edycja jednego z najstarszych turniejów boksu olimpijskiego w Polsce, w jubileuszowym roku 50-lecia turnieju i 120-lecia TS Wisła. Zgłoszenia, także całych klubów, przez formularz na stronie turnieju.
+  linki:
+    zapisy: https://zlotarekawica.wboksie.pl/zgloszenia
   zrodlo: https://zlotarekawica.wboksie.pl/
   sprawdzono: 2026-11-17
 
@@ -113,6 +121,10 @@
   miasto: Legnica
   wojewodztwo: dolnośląskie
   organizator: MB Promotions (boks zawodowy, Hala OSiR)
+  miejsce: Hala Widowiskowo-Sportowa OSiR, ul. Lotników 52
+  opis: Jubileuszowa, 30. gala MB Promotions. W walce wieczoru Karol Welter walczy o pas WBA Continental Gold w wadze średniej. Początek o 19:00, karta główna w TVP Sport, karta wstępna na YouTube TVP Sport.
+  linki:
+    bilety: https://www.ebilet.pl/sport/sporty-walki/mb-boxing-night
   zrodlo: https://www.ebilet.pl/sport/sporty-walki/mb-boxing-night
   sprawdzono: 2026-11-17
 
@@ -126,18 +138,29 @@
   poziom: ogólnopolski
   organizator: KS Bombardier, Polski Związek Bokserski
   termin_zgloszen: 2026-11-30
-  zrodlo: https://pzb.com.pl/wp-content/uploads/2026/11/Komunikat-organizacyjny-MP-Seniorow-2026.pdf
+  miejsce: Polsat Plus Arena, ul. Kazimierza Górskiego 8
+  opis: XCVII Mistrzostwa Polski Seniorów i XXVI Mistrzostwa Polski Seniorek. Walki w hali od 8 do 12 grudnia. Startują zawodnicy urodzeni w latach 1986–2006 z licencją PZB. Zgłoszenia wyłącznie przez okręgowe związki bokserskie, opłata startowa 150 zł. Seniorki mają osobny komunikat na stronie PZB.
+  linki:
+    komunikat: https://pzb.com.pl/wp-content/uploads/2026/11/Komunikat-organizacyjny-MP-Seniorow-2026-1.pdf
+    regulamin: https://pzb.com.pl/wp-content/plugins/download-attachments/includes/download.php?id=33393
+  zrodlo: https://pzb.com.pl/wp-content/uploads/2026/11/Komunikat-organizacyjny-MP-Seniorow-2026-1.pdf
   sprawdzono: 2026-11-17
 
-- nazwa: Mistrzostwa Wielkopolski Młodzików i Młodziczek
+- nazwa: Mikołajkowe Mistrzostwa Wielkopolski Młodziczek i Młodzików
   start: 2026-12-11
+  koniec: 2026-12-13
   miasto: Kalisz
   wojewodztwo: wielkopolskie
   kategorie: [młodzik]
   plec: [K, M]
   poziom: okręgowy
-  organizator: KS Prosna Kalisz
-  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  organizator: KS Ziętek Team, Fundacja Mariusza Ziętka, WOZB, PZB
+  termin_zgloszen: 2026-12-07
+  miejsce: Hala OSRiR, ul. Łódzka 19–29
+  opis: Mistrzostwa okręgu dla rocznika 2012–2013 z licencją PZB. Zgłoszenia przez kluby WOZB na formularzu PZB, opłata startowa 150 zł do 7 grudnia. Komunikat i program na stronie WOZB.
+  linki:
+    komunikat: https://wozb.com.pl/wp-content/uploads/2026/10/Komunikat-Organizacyjny-Mistrzostw-Wielkopolski-Mlodzikow-w-Boksie-Kalisz-2026-A.pdf
+  zrodlo: https://wozb.com.pl/2026/10/mikolajkowe-mistrzostwa-wielkopolski-mlodziczek-i-mlodzikow-w-boksie/
   sprawdzono: 2026-11-17
 
 - nazwa: II Ogólnopolski Turniej Bokserski
@@ -146,6 +169,9 @@
   wojewodztwo: wielkopolskie
   poziom: ogólnopolski
   organizator: MLKB Sparta Złotów
+  opis: Druga edycja turnieju o Puchar Wójta Gminy Tarnówka, we wszystkich kategoriach wagowych i wiekowych. Waga 11:00–12:00, walki pokazowe od 14:00, turniej od 15:00.
+  linki:
+    komunikat: https://wozb.com.pl/2026/11/turnieju-w-gminie-tarnowka-o-puchar-wojta-jacka-moscickiego/
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
   sprawdzono: 2026-11-17
 
@@ -155,5 +181,9 @@
   miasto: Tarnów
   wojewodztwo: małopolskie
   organizator: TBS Promotions, Golden Eagle Promotions (Hala Pałacu Młodzieży)
+  miejsce: Hala Sportowo-Widowiskowa Pałacu Młodzieży
+  opis: Gala boksu, w której Łukasz Pławecki broni pasa mistrza świata WBF. W programie także finał amatorskiego tytułu WBC i występy artystyczne. Początek o 16:30.
+  linki:
+    bilety: https://www.ebilet.pl/sport/sporty-walki/sasiedzi-development-boxing-night
   zrodlo: https://www.ebilet.pl/sport/sporty-walki/sasiedzi-development-boxing-night
   sprawdzono: 2026-11-17
