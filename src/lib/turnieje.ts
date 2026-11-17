@@ -33,6 +33,7 @@ export const TYP_ETYKIETA: Record<(typeof TYPY)[number], { jeden: string; wiele:
 export const LINKI = {
   komunikat: 'Komunikat / ogłoszenie',
   wydarzenie: 'Wydarzenie na Facebooku',
+  facebook: 'Organizator na Facebooku',
   zapisy: 'Zapisy',
   regulamin: 'Regulamin',
   bilety: 'Bilety',
