@@ -29,6 +29,18 @@ export const TYP_ETYKIETA: Record<(typeof TYPY)[number], { jeden: string; wiele:
   inne: { jeden: 'inne', wiele: 'inne' },
 };
 
+// Optional links shown on the event page, in this order.
+export const LINKI = {
+  komunikat: 'Komunikat / ogłoszenie',
+  wydarzenie: 'Wydarzenie na Facebooku',
+  zapisy: 'Zapisy',
+  regulamin: 'Regulamin',
+  bilety: 'Bilety',
+  transmisja: 'Transmisja',
+  wyniki: 'Wyniki',
+} as const;
+export type RodzajLinku = keyof typeof LINKI;
+
 /** 'Łódzkie ' -> 'lodzkie'. Used for lenient matching and for URL/filter values. */
 export function slug(s: string): string {
   return s
@@ -37,6 +49,11 @@ export function slug(s: string): string {
     .replaceAll('ł', 'l')
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '');
+}
+
+/** 'Turniej o „Puchar” Łodzi' -> 'turniej-o-puchar-lodzi'. Used for event page URLs. */
+export function slugUrl(s: string): string {
+  return slug(s).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
 // Accepts a value with or without Polish diacritics, in any letter case.
@@ -68,6 +85,8 @@ const tekst = z.string({ error: 'potrzebny tekst' }).trim().min(1, 'nie może by
 const opcja = <T extends z.ZodType>(t: T) =>
   z.preprocess((v) => (v === null || v === '' ? undefined : v), t.optional());
 
+const link = z.url({ protocol: /^https?$/, error: 'potrzebny link zaczynający się od http:// lub https://' });
+
 const schemat = z
   .strictObject({
     nazwa: tekst,
@@ -81,8 +100,19 @@ const schemat = z
     poziom: opcja(zListy(POZIOMY)),
     organizator: opcja(tekst),
     termin_zgloszen: opcja(data),
-    zrodlo: z.url({ protocol: /^https?$/, error: 'potrzebny link zaczynający się od http:// lub https://' }),
+    miejsce: opcja(tekst),
+    opis: opcja(tekst),
+    linki: opcja(
+      z.strictObject(
+        Object.fromEntries(Object.keys(LINKI).map((k) => [k, opcja(link)])) as Record<RodzajLinku, ReturnType<typeof opcja<typeof link>>>,
+        { error: `potrzebna lista linków, np. zapisy: https://… (dopuszczalne: ${Object.keys(LINKI).join(', ')})` },
+      ),
+    ),
+    zrodlo: link,
     sprawdzono: data,
+    slug: opcja(
+      z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'tylko małe litery bez polskich znaków, cyfry i myślniki, np. turniej-o-puchar-2027'),
+    ),
     test: opcja(z.boolean()),
   })
   .refine((t) => !t.koniec || t.koniec >= t.start, {
@@ -102,7 +132,12 @@ export interface Turniej {
   poziom?: (typeof POZIOMY)[number];
   organizator?: string;
   termin_zgloszen?: string;
+  miejsce?: string;
+  opis?: string;
+  linki: { rodzaj: RodzajLinku; etykieta: string; url: string }[];
   zrodlo: string;
+  /** Path segment of the event page: /wydarzenia/<slug>/ */
+  slug: string;
   sprawdzono: string;
   test: boolean;
 }
@@ -137,8 +172,16 @@ function wczytaj(): Turniej[] {
     const t = r.data;
     const wKolejnosci = <T extends string>(lista: readonly T[], wybrane: T[] = []) =>
       lista.filter((x) => wybrane.includes(x));
+    const rok = t.start.slice(0, 4);
+    // Long names are cut at a word boundary so URLs stay readable.
+    let nazwa = slugUrl(t.nazwa);
+    if (nazwa.length > 80) nazwa = nazwa.slice(0, 81).replace(/-[^-]*$/, '');
     wynik.push({
       ...t,
+      slug: t.slug ?? (nazwa.includes(rok) ? nazwa : `${nazwa}-${rok}`),
+      linki: (Object.keys(LINKI) as RodzajLinku[])
+        .filter((k) => t.linki?.[k])
+        .map((k) => ({ rodzaj: k, etykieta: LINKI[k], url: t.linki![k]! })),
       typ: t.typ ?? 'turniej',
       koniec: t.koniec ?? t.start,
       kategorie: wKolejnosci(KATEGORIE, t.kategorie),
@@ -146,6 +189,13 @@ function wczytaj(): Turniej[] {
       test: t.test ?? false,
     });
   });
+
+  const uzyte = new Map<string, string>();
+  for (const t of wynik) {
+    const inny = uzyte.get(t.slug);
+    if (inny) bledy.push(`  «${t.nazwa}» i «${inny}» mają ten sam adres strony /wydarzenia/${t.slug}/ – dodaj jednemu z nich pole slug`);
+    uzyte.set(t.slug, t.nazwa);
+  }
 
   if (bledy.length) {
     throw new Error(`Błędy w ${plik}:\n${bledy.join('\n')}`);

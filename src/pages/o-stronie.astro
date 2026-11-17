@@ -6,11 +6,11 @@ const temat = encodeURIComponent('Wydarzenie do kalendarza');
 ---
 
 <Strona
-  tytul="O serwisie"
+  tytul="O stronie"
   opis={`Czym jest ${SITE.nazwa}, skąd pochodzą dane o wydarzeniach bokserskich i jak zgłosić wydarzenie do kalendarza.`}
 >
   <div class="tresc">
-    <h1>O serwisie</h1>
+    <h1 class="tytul-strony">O stronie</h1>
     <p>
       {SITE.nazwa} to prosty kalendarz wydarzeń bokserskich w Polsce: turniejów, gal, wydarzeń
       charytatywnych i otwartych sparingów. Informacje o nich są rozrzucone po stronach związków,
@@ -20,10 +20,16 @@ const temat = encodeURIComponent('Wydarzenie do kalendarza');
 
     <h2>Jak to działa</h2>
     <ul>
-      <li>Każdy wpis to kilka podstawowych danych i link do komunikatu organizatora.</li>
+      <li>
+        Każde wydarzenie ma własną stronę z podstawowymi danymi i linkami: do komunikatu organizatora,
+        zapisów, regulaminu, biletów czy transmisji – tam, gdzie są dostępne.
+      </li>
       <li>Serwis nie przyjmuje zgłoszeń ani opłat – zgłoszenia wysyła się zawsze do organizatora.</li>
       <li>Przy każdym wydarzeniu podajemy datę, kiedy ostatnio sprawdziliśmy dane.</li>
-      <li>Wydarzenia, które już się odbyły, znikają z listy automatycznie.</li>
+      <li>
+        Wydarzenia, które już się odbyły, znikają z listy automatycznie i trafiają do{' '}
+        <a href="/archiwum/">archiwum</a>.
+      </li>
     </ul>
 
     <h2>Serwis nieoficjalny</h2>
@@ -35,7 +41,7 @@ const temat = encodeURIComponent('Wydarzenie do kalendarza');
 
     <h2 id="kontakt">Zgłoś wydarzenie lub poprawkę</h2>
     <p>
-      Organizujesz wydarzenie albo widzisz błąd? Napisz:
+      Organizujesz wydarzenie albo widzisz błąd? Napisz:{' '}
       <a href={`mailto:${SITE.email}?subject=${temat}`}>{SITE.email}</a>
     </p>
     <p>W wiadomości podaj:</p>
