@@ -4,6 +4,9 @@ import { parse } from 'yaml';
 import { z } from 'astro/zod';
 import surowe from '../data/turnieje.yaml?raw';
 
+// Polish wording for Zod's built-in messages (e.g. a wrong value type).
+z.config(z.locales.pl());
+
 export const WOJEWODZTWA = [
   'dolnośląskie', 'kujawsko-pomorskie', 'lubelskie', 'lubuskie',
   'łódzkie', 'małopolskie', 'mazowieckie', 'opolskie',
@@ -42,20 +45,24 @@ function zListy<T extends string>(lista: readonly T[]) {
   return z.preprocess(
     (v) => (typeof v === 'string' ? (poSlugu.get(slug(v)) ?? v) : v),
     z.enum(lista as unknown as [T, ...T[]], {
-      error: `допустимые значения: ${lista.join(', ')}`,
+      error: `dopuszczalne wartości: ${lista.join(', ')}`,
     }),
   );
 }
 
 const data = z
-  .string({ error: 'нужна дата в формате ГГГГ-ММ-ДД' })
-  .regex(/^\d{4}-\d{2}-\d{2}$/, 'нужна дата в формате ГГГГ-ММ-ДД')
+  .string({ error: 'potrzebna data w formacie RRRR-MM-DD' })
+  .regex(/^\d{4}-\d{2}-\d{2}$/, 'potrzebna data w formacie RRRR-MM-DD')
   .refine(
     (s) => !Number.isNaN(Date.parse(s)) && new Date(s).toISOString().slice(0, 10) === s,
-    'такой даты не существует',
+    'taka data nie istnieje',
   );
 
-const tekst = z.string({ error: 'нужен текст' }).trim().min(1, 'не может быть пустым');
+// A list written as [a, b]; a bare value (`kategorie: junior`) gets a hint.
+const lista = <T extends z.ZodType>(t: T, przyklad: string) =>
+  z.array(t, { error: `potrzebna lista w nawiasach kwadratowych, np. ${przyklad}` });
+
+const tekst = z.string({ error: 'potrzebny tekst' }).trim().min(1, 'nie może być puste');
 
 // An empty value in YAML (`organizator:`) is treated the same as a missing field.
 const opcja = <T extends z.ZodType>(t: T) =>
@@ -69,18 +76,18 @@ const schemat = z
     koniec: opcja(data),
     miasto: tekst,
     wojewodztwo: zListy(WOJEWODZTWA),
-    kategorie: opcja(z.array(zListy(KATEGORIE))),
-    plec: opcja(z.array(zListy(PLCIE))),
+    kategorie: opcja(lista(zListy(KATEGORIE), '[kadet, junior]')),
+    plec: opcja(lista(zListy(PLCIE), '[K, M]')),
     poziom: opcja(zListy(POZIOMY)),
     organizator: opcja(tekst),
     termin_zgloszen: opcja(data),
-    zrodlo: z.url({ protocol: /^https?$/, error: 'нужна ссылка, начинающаяся с http:// или https://' }),
+    zrodlo: z.url({ protocol: /^https?$/, error: 'potrzebny link zaczynający się od http:// lub https://' }),
     sprawdzono: data,
     test: opcja(z.boolean()),
   })
   .refine((t) => !t.koniec || t.koniec >= t.start, {
     path: ['koniec'],
-    message: 'дата окончания раньше даты начала',
+    message: 'data zakończenia jest wcześniejsza niż data rozpoczęcia',
   });
 
 export interface Turniej {
@@ -106,10 +113,10 @@ function wczytaj(): Turniej[] {
   try {
     dane = parse(surowe) ?? [];
   } catch (e) {
-    throw new Error(`${plik}: файл не читается как YAML (проверьте отступы и кавычки).\n${(e as Error).message}`);
+    throw new Error(`${plik}: pliku nie da się odczytać jako YAML (sprawdź wcięcia i cudzysłowy).\n${(e as Error).message}`);
   }
   if (!Array.isArray(dane)) {
-    throw new Error(`${plik}: файл должен быть списком записей, каждая начинается с "- nazwa: ..."`);
+    throw new Error(`${plik}: plik musi być listą wpisów, każdy zaczyna się od "- nazwa: ..."`);
   }
 
   const bledy: string[] = [];
@@ -121,9 +128,9 @@ function wczytaj(): Turniej[] {
       for (const p of r.error.issues) {
         const opis =
           p.code === 'unrecognized_keys'
-            ? `неизвестное поле: ${p.keys.join(', ')} (опечатка в названии?)`
-            : `${p.path.join('.') || 'запись'}: ${p.message}`;
-        bledy.push(`  запись №${i + 1}${nazwa}, ${opis}`);
+            ? `nieznane pole: ${p.keys.join(', ')} (literówka w nazwie?)`
+            : `${p.path.join('.') || 'wpis'}: ${p.message}`;
+        bledy.push(`  wpis nr ${i + 1}${nazwa}, ${opis}`);
       }
       return;
     }
@@ -141,7 +148,7 @@ function wczytaj(): Turniej[] {
   });
 
   if (bledy.length) {
-    throw new Error(`Ошибки в ${plik}:\n${bledy.join('\n')}`);
+    throw new Error(`Błędy w ${plik}:\n${bledy.join('\n')}`);
   }
   return wynik.sort((a, b) => a.start.localeCompare(b.start) || a.nazwa.localeCompare(b.nazwa, 'pl'));
 }
