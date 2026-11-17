@@ -36,7 +36,7 @@ Założenia:
 
 - CMS oparty na gicie (Keystatic albo Decap CMS) pod `/admin`: formularz zamiast ręcznej edycji YAML. Zapis = commit.
 - API dla agenta: GitHub API (pull requesty). Błędne dane zatrzymuje walidacja przy budowaniu, a Vercel pokazuje podgląd przed scaleniem.
-- Komunikaty błędów walidacji po polsku.
+- ~~Komunikaty błędów walidacji po polsku.~~ Zrobione.
 
 ## Etap 5. Wygląd
 

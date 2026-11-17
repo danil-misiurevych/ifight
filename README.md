@@ -67,17 +67,15 @@ Można pisać bez polskich znaków i dowolną wielkością liter (`slaskie`, `ml
 Budowanie strony sprawdza plik. Przy błędzie (nieistniejąca data, literówka w województwie lub w nazwie pola) wdrożenie na Vercel się nie uda, na stronie zostanie poprzednia wersja, a w logu budowania pojawi się linia w rodzaju:
 
 ```
-запись №7 «Turniej…», wojewodztwo: допустимые значения: …
+wpis nr 7 «Turniej…», wojewodztwo: dopuszczalne wartości: …
 ```
-
-(Komunikaty błędów są na razie po rosyjsku, tłumaczenie jest w planie.)
 
 ### Jak działa lista
 
 - Sortowanie po dacie rozpoczęcia, kolejność wpisów w pliku nie ma znaczenia.
 - Wydarzenia, które już się odbyły, chowają się same (dzień po `koniec`), nie trzeba ich usuwać. Sprawdzanie działa i przy budowaniu, i w przeglądarce, więc codzienne przebudowywanie strony nie jest potrzebne.
 - Termin zgłoszeń jest podświetlany na 7 dni przed datą (`dniWkrotce` w `src/site.ts`), a po niej pokazuje się „po terminie”.
-- Wydarzenie bez `kategorie` lub `plec` jest widoczny przy każdej wartości odpowiedniego filtra: lepiej pokazać za dużo niż ukryć.
+- Wydarzenie bez `kategorie` lub `plec` jest widoczne przy każdej wartości odpowiedniego filtra: lepiej pokazać za dużo niż ukryć.
 
 ### Wpisy testowe
 

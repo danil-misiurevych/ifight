@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Адрес сайта нужен для canonical, sitemap и robots.txt.
-// Порядок: переменная SITE_URL -> production-домен проекта на Vercel -> localhost.
-// Когда появится свой домен, достаточно привязать его в Vercel
-// (или задать SITE_URL в настройках проекта).
+// Adres strony jest potrzebny dla canonical, sitemap i robots.txt.
+// Kolejność: zmienna SITE_URL -> domena produkcyjna projektu na Vercel -> localhost.
+// Gdy będzie własna domena, wystarczy podpiąć ją w Vercel
+// (albo ustawić SITE_URL w ustawieniach projektu).
 const site =
   process.env.SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
