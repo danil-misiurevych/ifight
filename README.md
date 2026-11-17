@@ -55,7 +55,7 @@ Ważne: każdy wpis zaczyna się od `- `, pozostałe linie od dwóch spacji. Mi�
 | `termin_zgloszen` | nie | Termin zgłoszeń, `RRRR-MM-DD`. |
 | `miejsce` | nie | Obiekt lub adres (hala, hotel, ulica). |
 | `opis` | nie | Krótki opis na stronie wydarzenia. |
-| `linki` | nie | Linki na stronie wydarzenia, każdy w osobnej linii z dwiema spacjami wcięcia: `komunikat`, `wydarzenie` (Facebook), `zapisy`, `regulamin`, `bilety`, `transmisja`, `wyniki`. |
+| `linki` | nie | Linki na stronie wydarzenia, każdy w osobnej linii z dwiema spacjami wcięcia: `komunikat`, `wydarzenie` (wydarzenie na Facebooku), `facebook` (profil organizatora na Facebooku), `zapisy`, `regulamin`, `bilety`, `transmisja`, `wyniki`. |
 | `zrodlo` | tak | Link do źródła (z `https://`). Zawsze widoczny na stronie wydarzenia. |
 | `slug` | nie | Własny adres strony wydarzenia (`/wydarzenia/<slug>/`). Domyślnie z nazwy i roku. Ustaw, gdy dwa wydarzenia mają ten sam adres albo żeby adres nie zmienił się po zmianie nazwy. |
 | `sprawdzono` | tak | Kiedy ostatnio porównano dane ze źródłem. |
