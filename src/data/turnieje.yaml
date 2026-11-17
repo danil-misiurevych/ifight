@@ -1,9 +1,9 @@
-# Wszystkie turnieje na stronie. Dodanie turnieju = dodanie wpisu do tego pliku.
+# Wszystkie wydarzenia na stronie (turnieje, gale, sparingi…). Dodanie wydarzenia = dodanie wpisu.
 # Szczegółowa instrukcja i listy dopuszczalnych wartości: README.md.
 #
 # Pola wymagane: nazwa, start, miasto, wojewodztwo, zrodlo, sprawdzono.
-# Pozostałe można pominąć. Kolejność wpisów nie ma znaczenia: strona sortuje po dacie.
-# Minione turnieje chowają się automatycznie, nie trzeba ich usuwać.
+# Pozostałe można pominąć. Brak pola typ oznacza turniej. Kolejność wpisów nie ma znaczenia: strona sortuje po dacie.
+# Minione wydarzenia chowają się automatycznie, nie trzeba ich usuwać.
 #
 # Źródło "akredytacje.pdf" to oficjalna lista zawodów zatwierdzonych przez PZB
 # (pole "Wydarzenie", "Adres", "Data", "Organizator"). Szczegóły: docs/zrodla.md.
@@ -13,6 +13,15 @@
   miasto: Raszyn
   wojewodztwo: mazowieckie
   organizator: KS Raszyn
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-17
+
+- nazwa: KNOCKOUT BOXING NIGHT 47
+  typ: gala
+  start: 2026-11-21
+  miasto: Pomigacze (Majątek Howieny)
+  wojewodztwo: podlaskie
+  organizator: Podlaski OZB (walki boksu olimpijskiego podczas gali)
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
   sprawdzono: 2026-11-17
 
@@ -43,6 +52,7 @@
   sprawdzono: 2026-11-17
 
 - nazwa: Gala Boksu Szamotuły Boxing Night II
+  typ: gala
   start: 2026-11-28
   miasto: Szamotuły
   wojewodztwo: wielkopolskie

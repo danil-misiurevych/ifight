@@ -1,5 +1,5 @@
-// Client-side behaviour of the tournament list:
-// - hides tournaments that ended after the last build,
+// Client-side behaviour of the event list:
+// - hides events that ended after the last build,
 // - refreshes deadline states against today's date,
 // - applies filters without reloading and keeps them in the URL.
 import { dzisiaj, stanTerminu } from '../lib/daty';
@@ -15,7 +15,7 @@ if (lista && form) {
   const licznik = document.getElementById('licznik')!;
   const wyczysc = document.getElementById('wyczysc')!;
   const pusto = document.getElementById('pusto')!;
-  const pola = ['woj', 'kat', 'plec', 'mies'] as const;
+  const pola = ['typ', 'woj', 'kat', 'plec', 'mies'] as const;
   const select = (n: string) => form.elements.namedItem(n) as HTMLSelectElement;
 
   const aktualne = wiersze.filter((w) => {
@@ -31,14 +31,15 @@ if (lista && form) {
   }
 
   const odmiana = (n: number) => {
-    if (n === 1) return 'turniej';
+    if (n === 1) return 'wydarzenie';
     const j = n % 10, d = n % 100;
-    return j >= 2 && j <= 4 && (d < 12 || d > 14) ? 'turnieje' : 'turniejów';
+    return j >= 2 && j <= 4 && (d < 12 || d > 14) ? 'wydarzenia' : 'wydarzeń';
   };
 
   // A tournament with no categories/sex given matches any value:
   // better to show it than to hide it from a coach.
   const pasuje = (w: HTMLElement, f: Record<string, string>) =>
+    (!f.typ || w.dataset.typ === f.typ) &&
     (!f.woj || w.dataset.woj === f.woj) &&
     (!f.mies || w.dataset.mies === f.mies) &&
     (!f.kat || !w.dataset.kat || w.dataset.kat.split(' ').includes(f.kat)) &&
@@ -59,8 +60,8 @@ if (lista && form) {
     wyczysc.hidden = !aktywne;
     pusto.hidden = widoczne > 0;
     pusto.textContent = aktywne
-      ? 'Brak turniejów dla wybranych filtrów.'
-      : 'Brak nadchodzących turniejów w kalendarzu.';
+      ? 'Brak wydarzeń dla wybranych filtrów.'
+      : 'Brak nadchodzących wydarzeń w kalendarzu.';
 
     const q = new URLSearchParams();
     for (const p of pola) if (f[p]) q.set(p, f[p]);

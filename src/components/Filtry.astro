@@ -1,16 +1,25 @@
 ---
-import { KATEGORIE, slug } from '../lib/turnieje';
+import { KATEGORIE, slug, TYP_ETYKIETA } from '../lib/turnieje';
+import type { Turniej } from '../lib/turnieje';
 import { nazwaMiesiaca } from '../lib/daty';
 
 interface Props {
+  typy: Turniej['typ'][];
   wojewodztwa: string[];
   miesiace: string[];
 }
-const { wojewodztwa, miesiace } = Astro.props;
+const { typy, wojewodztwa, miesiace } = Astro.props;
 ---
 
 <!-- Hidden until the script runs: without JavaScript the full list is shown. -->
 <form class="filtry" id="filtry" hidden>
+  <label>
+    Rodzaj
+    <select name="typ">
+      <option value="">wszystkie</option>
+      {typy.map((t) => <option value={t}>{TYP_ETYKIETA[t].wiele}</option>)}
+    </select>
+  </label>
   <label>
     Województwo
     <select name="woj">

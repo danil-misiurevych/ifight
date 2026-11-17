@@ -3,7 +3,7 @@
 Zadania są śledzone jako issues na GitHubie. Każdy etap ma jedno zbiorcze issue z listą podzadań.
 Ten plik opisuje kierunek i kolejność. Szczegóły i postęp znajdziesz w issues.
 
-Cel: kalendarz wszystkich większych imprez bokserskich w Polsce. Nie tylko turnieje PZB, ale też gale, imprezy charytatywne, otwarte dni sparingowe i podobne wydarzenia.
+Cel: kalendarz wszystkich większych wydarzeń bokserskich w Polsce. Nie tylko turnieje PZB, ale też gale (także zawodowe i freak fighty w boksie), wydarzenia charytatywne, otwarte dni sparingowe i podobne wydarzenia.
 
 Założenia:
 - Jedna osoba edytuje dane, więc nie potrzebujemy kont użytkowników ani własnego backendu.
@@ -16,8 +16,8 @@ Założenia:
 - Usunąć 6 wpisów testowych.
 - Dodać pierwszą partię prawdziwych turniejów (cel: wszystkie znane do końca sezonu).
 
-- Dodać do danych typ imprezy (np. turniej, gala, charytatywna, sparingi) i filtr po typie.
-- Zmienić hasło i opis strony z „turniejów” na „imprezy bokserskie”.
+- ~~Dodać do danych typ wydarzenia i filtr po typie.~~ Zrobione.
+- ~~Zmienić hasło i opis strony z „turniejów” na „wydarzenia bokserskie”.~~ Zrobione.
 
 ## Etap 2. Organizacja GitHuba
 
