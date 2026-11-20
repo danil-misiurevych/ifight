@@ -17,7 +17,7 @@ Format wpisów i dopuszczalne wartości: README.md (sekcja „Jak dodać wydarze
 - Tylko boks: olimpijski, zawodowy, amatorski, freak fighty na zasadach bokserskich. Pomijaj gale MMA, kickboxingu, K1 i walk na gołe pięści, chyba że źródło wyraźnie podaje walki bokserskie (wtedy w nazwie lub organizatorze zaznacz, że chodzi o walki bokserskie podczas gali).
 - Nie zgaduj pól. Brak kategorii, płci albo terminu zgłoszeń w źródle oznacza, że pole zostaje puste.
 - Przy rozbieżności między źródłami ważniejszy jest komunikat organizatora albo związku. Opisz rozbieżność w PR.
-- Facebook i Instagram: **bez automatycznego przeglądania i scrapingu** (regulamin, ryzyko blokady konta). Jeśli użytkownik wklei link lub zrzut ekranu z FB, możesz z niego zrobić wpis. Wtedy `zrodlo` to ten link.
+- Facebook i Instagram: **bez automatycznego przeglądania i scrapingu** (regulamin, ryzyko blokady konta). Przegląd FB/IG robi osobny skill `przeglad-social`, tylko na żądanie użytkownika w jego przeglądarce. Jeśli użytkownik wklei link lub zrzut ekranu z FB, możesz z niego zrobić wpis. Wtedy `zrodlo` to ten link.
 - Nie dodawaj duplikatów. Przed dodaniem sprawdź, czy wydarzenia nie ma już pod inną nazwą tego samego dnia.
 
 ## Kroki
@@ -52,11 +52,16 @@ Sprawdź po kolei:
 3. Wyszukiwarka, zapytania na najbliższe 6 miesięcy, np.:
    - `gala boksu <miesiąc> <rok>`, `boxing night <miesiąc> <rok>`
    - `charytatywna gala boksu <rok>`, `turniej charytatywny boks <rok>`
+   - `seminarium bokserskie <rok>`, `kurs instruktora boksu <rok>`, `szkolenie sędziów boks <rok>`, `obóz bokserski <rok>`
    - `otwarty sparing boks <miasto>`, `open sparing boks <rok>`
    - promotorzy: MB Promotions, Tymex Boxing Promotion, KnockOut Promotions, Polsat Boxing Promotions, Rocky Boxing Night, TBS Promotions
 4. Polska Liga Boksu: terminarz na polskaligaboksu.pl.
 
-Typ: gala zawodowa lub amatorska → `gala`, wydarzenie na cel charytatywny → `charytatywna`, otwarte sparingi → `sparingi`.
+Typ: gala zawodowa lub amatorska → `gala`, wydarzenie na cel charytatywny → `charytatywna`, otwarte sparingi → `sparingi`, seminaria, szkolenia, kursy i obozy → `szkolenie`.
+
+Dla kogo (`udzial`), tylko jeśli wynika to ze źródła: `widownia` (tylko oglądanie, walczą zaproszeni zawodnicy), `zawodnicy` (start z licencją, zgłoszenia przez kluby), `otwarte` (może się zapisać każdy, np. white collar, otwarte sparingi). Brak pola = domyślna wartość dla rodzaju (turniej → zawodnicy, gala → widownia). Link do zapisów lub biletów wpisz w `linki.zapisy` / `linki.bilety`, bo pokazują się jako przyciski na liście.
+
+Plakat (`obraz`): tylko oficjalny plakat ze strony organizatora albo serwisu biletowego, nigdy z FB/IG. Zapisz go jako `src/assets/wydarzenia/<slug-wydarzenia>.jpg` (do 1 MB) i dopisz `obraz: <plik>`. Jeśli nie da się go pobrać, pomiń: strona pokaże zaślepkę. Szczegóły: src/assets/wydarzenia/README.md.
 W polu `organizator` możesz dopisać w nawiasie obiekt i rodzaj boksu, np. `MB Promotions (boks zawodowy, Hala OSiR)`.
 
 ### 4. Sprawdzenie

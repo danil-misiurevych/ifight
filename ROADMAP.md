@@ -33,7 +33,7 @@ Założenia:
 - ~~Uruchamianie agenta raz w tygodniu (zaplanowane zadanie Claude Code w chmurze).~~ Zrobione: w każdy poniedziałek ok. 7:00 agent otwiera PR z nowymi wydarzeniami.
 - Imprezy spoza PZB (gale charytatywne, otwarte sparingi) ogłaszane są głównie na Facebooku i Instagramie klubów i sal. Tu przydaje się lista klubów (docs/kluby.csv), którą trzeba uzupełnić o sale bokserskie spoza PZB.
 - Facebook bez automatycznego scrapingu: łamie regulamin FB i grozi blokadą. Zamiast tego: obserwowane profile i powiadomienia, wklejanie linków agentowi, prośba do klubów o wysyłanie komunikatów.
-- ~~Wytyczne do przeglądu FB agentem w przeglądarce użytkownika, na żądanie (`.claude/skills/przeglad-facebooka`).~~ Zrobione.
+- ~~Wytyczne do przeglądu FB i IG agentem w przeglądarce użytkownika, na żądanie, z rotacją profili (`.claude/skills/przeglad-social`).~~ Zrobione.
 
 ## Etap 4. Panel administracyjny
 

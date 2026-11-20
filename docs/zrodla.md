@@ -66,7 +66,7 @@ Jak odświeżyć listę: komunikaty PZB są dostępne przez publiczne API WordPr
 Automatyczne pobieranie danych z Facebooka (scraping) łamie regulamin FB. Konto może zostać zablokowane, a oficjalne API do publicznych stron wymaga trudnej weryfikacji aplikacji. Dlatego:
 
 1. **Lista klubów jest gotowa** ([kluby.csv](kluby.csv)). Wyszukiwarka, z której korzysta Claude, praktycznie nie zwraca stron z Facebooka ani stron klubów (sprawdzone na kilku dużych klubach), więc linków nie da się uzupełnić automatycznie z chmury.
-2. **Linki FB uzupełniasz Ty** albo Claude w Twojej przeglądarce (rozszerzenie Claude in Chrome), w ludzkim tempie: wyszukanie nazwy klubu i skopiowanie adresu profilu. To zwykłe korzystanie z FB, nie masowe pobieranie. Zasady i limity takiej sesji: [.claude/skills/przeglad-facebooka](../.claude/skills/przeglad-facebooka/SKILL.md). Wystarczy poprosić, np. „przejrzyj FB klubów ze śląskiego”.
+2. **Linki FB uzupełniasz Ty** albo Claude w Twojej przeglądarce (rozszerzenie Claude in Chrome), w ludzkim tempie: wyszukanie nazwy klubu i skopiowanie adresu profilu. To zwykłe korzystanie z FB, nie masowe pobieranie. Zasady i limity takiej sesji: [.claude/skills/przeglad-social](../.claude/skills/przeglad-social/SKILL.md). Wystarczy poprosić, np. „przejrzyj FB i IG” (kolejne profile z listy, po kolei według kolumny `przejrzano`) albo „przejrzyj FB klubów ze śląskiego”.
 3. **Obserwujesz te profile** (i grupy, np. trenerów lub boksu w regionie) z włączonymi powiadomieniami.
 4. **Gdy zobaczysz turniej**, wklejasz link lub zrzut ekranu agentowi, a on robi z tego wpis i pull request.
 5. **Na dłuższą metę**: prośba do klubów i okręgów o wysyłanie komunikatów mailem (adres jest na stronie „O serwisie”).
