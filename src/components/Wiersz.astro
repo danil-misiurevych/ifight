@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { Turniej } from '../lib/turnieje';
 import { slug, TYP_ETYKIETA, UDZIAL_ETYKIETA } from '../lib/turnieje';
 import { krotkaData, stanTerminu, zakresDat } from '../lib/daty';
@@ -51,6 +52,13 @@ const termin = !archiwum && t.termin_zgloszen && stanTerminu(t.termin_zgloszen, 
   data-plec={t.plec.join(' ')}
   data-udzial={t.udzial.join(' ')}
 >
+  {
+    t.obraz ? (
+      <Image class="t-obraz" src={t.obraz} alt="" width={420} loading="lazy" decoding="async" />
+    ) : (
+      <span class="t-obraz t-zaslepka" data-typ={t.typ} aria-hidden="true" />
+    )
+  }
   <time class="t-data" datetime={t.start}>
     {zakresDat(t.start, t.koniec)}{archiwum && <span class="t-rok">{t.start.slice(0, 4)}</span>}
   </time>

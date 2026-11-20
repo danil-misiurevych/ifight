@@ -196,6 +196,43 @@ h1, h2 { font-family: var(--naglowki); font-style: italic; font-weight: 800; tex
 .t-typ[data-typ='turniej'] { background: var(--cyjan); }
 .t-typ[data-typ='charytatywna'] { background: var(--zolty); }
 .t-typ[data-typ='sparingi'] { background: var(--pomarancz); }
+/* Poster (or a placeholder) faded into the right side of the card, brighter on hover.
+   isolation lets it sit under the text while staying above the card background. */
+.t { isolation: isolate; overflow: hidden; }
+.t-obraz {
+  position: absolute; z-index: -1; top: 0; right: 0; bottom: 0; width: 45%; height: 100%;
+  object-fit: cover; opacity: 0.16; pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 75%);
+  mask-image: linear-gradient(90deg, transparent, #000 75%);
+  transition: opacity 0.25s;
+}
+.t:hover .t-obraz, .t:focus-within .t-obraz { opacity: 0.5; }
+.t-zaslepka { --kolor: var(--szary); opacity: 0.22; }
+.t-zaslepka[data-typ='gala'] { --kolor: var(--roz); }
+.t-zaslepka[data-typ='turniej'] { --kolor: var(--cyjan); }
+.t-zaslepka[data-typ='charytatywna'] { --kolor: var(--zolty); }
+.t-zaslepka[data-typ='sparingi'] { --kolor: var(--pomarancz); }
+.t-zaslepka[data-typ='szkolenie'] { --kolor: var(--fiolet); }
+/* 80s sunset: a sun with stripes in its lower half, over a horizon line. */
+.t-zaslepka::before {
+  content: ''; position: absolute; right: 14%; top: 50%; width: 7.5rem; aspect-ratio: 1;
+  transform: translateY(-38%); border-radius: 50%;
+  background: linear-gradient(var(--zolty), var(--kolor) 75%);
+  -webkit-mask-image: linear-gradient(#000 48%, transparent 48%), repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 11px);
+  mask-image: linear-gradient(#000 48%, transparent 48%), repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 11px);
+}
+.t-zaslepka::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 18%; height: 2px; background: var(--kolor);
+  box-shadow: 0 0 10px var(--kolor);
+}
+.t:hover .t-zaslepka, .t:focus-within .t-zaslepka { opacity: 0.55; }
+@media (max-width: 40rem) {
+  .t-obraz { width: 55%; opacity: 0.12; }
+  .t-zaslepka { opacity: 0.14; }
+}
+.w-obraz { margin: 1rem 0 0; }
+.w-obraz img { display: block; max-width: 100%; max-height: min(30rem, 70vh); width: auto; height: auto; border-radius: 4px; border: 1px solid var(--linia); }
+
 /* Quick links sit above the whole-row link (.t-nazwa::after). */
 .t-akcje { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; margin-top: 0.45rem; }
 .t-akcja {

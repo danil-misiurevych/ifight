@@ -2,7 +2,15 @@
 // Any mistake in the data fails the build with a readable message.
 import { parse } from 'yaml';
 import { z } from 'astro/zod';
+import type { ImageMetadata } from 'astro';
 import surowe from '../data/turnieje.yaml?raw';
+
+// Event posters: src/assets/wydarzenia/<file>, referenced by file name in `obraz`.
+const OBRAZY = new Map(
+  Object.entries(
+    import.meta.glob<ImageMetadata>('../assets/wydarzenia/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' }),
+  ).map(([sciezka, obraz]) => [sciezka.split('/').pop()!, obraz]),
+);
 
 // Polish wording for Zod's built-in messages (e.g. a wrong value type).
 z.config(z.locales.pl());
@@ -129,6 +137,13 @@ const schemat = z
     termin_zgloszen: opcja(data),
     miejsce: opcja(tekst),
     opis: opcja(tekst),
+    obraz: opcja(
+      z
+        .string({ error: 'potrzebna nazwa pliku, np. plakat.jpg' })
+        .refine((plik) => OBRAZY.has(plik), {
+          error: 'nie ma takiego pliku w src/assets/wydarzenia/ (dopuszczalne: jpg, png, webp)',
+        }),
+    ),
     linki: opcja(
       z.strictObject(
         Object.fromEntries(Object.keys(LINKI).map((k) => [k, opcja(link)])) as Record<RodzajLinku, ReturnType<typeof opcja<typeof link>>>,
@@ -163,6 +178,8 @@ export interface Turniej {
   termin_zgloszen?: string;
   miejsce?: string;
   opis?: string;
+  /** Poster from src/assets/wydarzenia/, if the entry names one. */
+  obraz?: ImageMetadata;
   linki: { rodzaj: RodzajLinku; etykieta: string; url: string }[];
   zrodlo: string;
   /** Path segment of the event page: /wydarzenia/<slug>/ */
@@ -207,6 +224,7 @@ function wczytaj(): Turniej[] {
     if (nazwa.length > 80) nazwa = nazwa.slice(0, 81).replace(/-[^-]*$/, '');
     wynik.push({
       ...t,
+      obraz: t.obraz ? OBRAZY.get(t.obraz) : undefined,
       slug: t.slug ?? (nazwa.includes(rok) ? nazwa : `${nazwa}-${rok}`),
       linki: (Object.keys(LINKI) as RodzajLinku[])
         .filter((k) => t.linki?.[k])

@@ -1,6 +1,7 @@
 ---
 // One page per event: details, links (registration, rules, stream…) and schema.org markup.
 import type { GetStaticPaths } from 'astro';
+import { Image } from 'astro:assets';
 import Strona from '../../layouts/Strona.astro';
 import Wiersz from '../../components/Wiersz.astro';
 import SchemaWydarzen from '../../components/SchemaWydarzen.astro';
@@ -83,6 +84,14 @@ const temat = encodeURIComponent(`Poprawka: ${t.nazwa}`);
         <span class="w-miasto">{t.miasto}</span>
       </p>
     </header>
+
+    {
+      t.obraz && (
+        <figure class="w-obraz">
+          <Image src={t.obraz} alt={`Plakat: ${t.nazwa}`} width={860} />
+        </figure>
+      )
+    }
 
     <p class="uwaga" id="odbylo-sie" hidden={!minione}>To wydarzenie już się odbyło.</p>
 
