@@ -12,11 +12,15 @@
   start: 2026-11-21
   miasto: Raszyn
   wojewodztwo: mazowieckie
+  udzial: [zawodnicy, widownia]
   organizator: KS Raszyn
+  miejsce: Hala Centrum Sportu Raszyn, ul. Sportowa 30
+  opis: 25. Gala Boksu Olimpijskiego, start 16:00. Gala charytatywna z licytacjami. Bilety (cegiełki) wyprzedane.
   linki:
+    wydarzenie: https://www.facebook.com/events/971842629315973/
     facebook: https://www.facebook.com/p/KS-Raszyn-Boks-100065158322039/
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-17
+  sprawdzono: 2026-11-20
 
 - nazwa: KNOCKOUT BOXING NIGHT 47
   typ: gala
@@ -48,10 +52,12 @@
   wojewodztwo: dolnośląskie
   poziom: międzynarodowy
   organizator: KS Boxing Kaczor Wałbrzych
+  miejsce: Hala Wałbrzyskich Mistrzów, ul. Wysockiego
+  opis: Start 12:00, wstęp wolny.
   linki:
     facebook: https://www.facebook.com/kaczor.boks.team/
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-17
+  sprawdzono: 2026-11-20
 
 - nazwa: XXXIII Ogólnopolski Turniej Bokserski im. Janusza Pawlaka
   start: 2026-11-28
@@ -69,11 +75,15 @@
   start: 2026-11-28
   miasto: Szamotuły
   wojewodztwo: wielkopolskie
-  organizator: Koperski Boxing Team
+  organizator: Koperski Boxing Team i SBT Promotions
+  miejsce: Hala Wacław
+  opis: Gala boksu olimpijskiego i zawodowego. Wejście na halę od 17:00, walki od 18:00.
   linki:
+    wydarzenie: https://www.facebook.com/events/2275607409679179/
     facebook: https://www.facebook.com/szamotulyboxingteam/
+    bilety: https://biletyna.pl/inne/Szamotuly-Boxing-Night
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-17
+  sprawdzono: 2026-11-20
 
 - nazwa: Mirra Rocky Boxing Night Andrzejki
   typ: gala
@@ -189,6 +199,7 @@
   wojewodztwo: wielkopolskie
   poziom: ogólnopolski
   organizator: MLKB Sparta Złotów
+  miejsce: Hala Sportowa przy Zespole Szkół w Tarnówce
   opis: Druga edycja turnieju o Puchar Wójta Gminy Tarnówka, we wszystkich kategoriach wagowych i wiekowych. Waga 11:00–12:00, walki pokazowe od 14:00, turniej od 15:00.
   linki:
     facebook: https://www.facebook.com/p/MLKB-Sparta-Z%C5%82ot%C3%B3w-61574167616794/
@@ -208,3 +219,85 @@
     bilety: https://www.ebilet.pl/sport/sporty-walki/sasiedzi-development-boxing-night
   zrodlo: https://www.ebilet.pl/sport/sporty-walki/sasiedzi-development-boxing-night
   sprawdzono: 2026-11-17
+
+- nazwa: Seminarium bokserskie z Piotrem Wilczewskim
+  typ: szkolenie
+  start: 2026-11-21
+  miasto: Łódź
+  wojewodztwo: łódzkie
+  organizator: Widzew Fight Center
+  miejsce: Widzew Fight Center, ul. Widzewska 14
+  opis: Start 12:00.
+  zrodlo: https://www.facebook.com/events/1151836743961799/
+  sprawdzono: 2026-11-20
+
+- nazwa: Gala Boksu Walki Białych Kołnierzyków – Włocławek
+  typ: gala
+  start: 2026-11-28
+  miasto: Włocławek
+  wojewodztwo: kujawsko-pomorskie
+  udzial: [widownia, otwarte]
+  organizator: Walki Białych Kołnierzyków (Prywatne Treningi Boksu)
+  miejsce: sala sportowa, ul. Szkolna 13
+  opis: Walki osób trenujących boks rekreacyjnie (white collar), 14:00–16:30. Bilet kibica 30 zł.
+  linki:
+    wydarzenie: https://www.facebook.com/events/2124385721528235/
+    bilety: https://prywatnetreningiboksu.pl/produkt/bilet-kibica-walki-bialych-kolnierzykow-wloclawek-2
+  zrodlo: https://prywatnetreningiboksu.pl/produkt/bilet-kibica-walki-bialych-kolnierzykow-wloclawek-2
+  sprawdzono: 2026-11-20
+
+- nazwa: Tucholska Gala Boksu „Walczymy, by pomagać” IV
+  typ: charytatywna
+  start: 2026-11-28
+  miasto: Tuchola
+  wojewodztwo: kujawsko-pomorskie
+  udzial: [widownia]
+  miejsce: OSiR Tuchola, ul. Warszawska 17
+  opis: Charytatywna gala boksu na rzecz Stowarzyszenia „Się Uda”. Start 17:00. Bilety w serwisie kupbilecik.pl.
+  zrodlo: https://www.facebook.com/events/2592708907855138/
+  sprawdzono: 2026-11-20
+
+- nazwa: Seminarium bokserskie z Krzysztofem Głowackim
+  typ: szkolenie
+  start: 2026-11-28
+  miasto: Warszawa
+  wojewodztwo: mazowieckie
+  organizator: Skorpion Boxing Club
+  miejsce: Skorpion Boxing Club, ul. Modlińska 310/312
+  opis: Seminarium z mistrzem świata w boksie zawodowym. Start 9:00.
+  zrodlo: https://www.facebook.com/events/1598013208742385/
+  sprawdzono: 2026-11-20
+
+- nazwa: Seminarium bokserskie z Nikolasem Pawlikiem
+  typ: szkolenie
+  start: 2026-11-28
+  miasto: Łódź
+  wojewodztwo: łódzkie
+  organizator: SHARK Łódź
+  miejsce: SHARK, al. Piłsudskiego 135H
+  opis: 12:00–15:15.
+  zrodlo: https://www.facebook.com/events/1820797925901315/
+  sprawdzono: 2026-11-20
+
+- nazwa: Gala Waleczne Serca 4
+  typ: charytatywna
+  start: 2026-12-05
+  miasto: Paterek
+  wojewodztwo: kujawsko-pomorskie
+  udzial: [widownia]
+  organizator: Krisss Fight Club (MMA, kickboxing i boks)
+  miejsce: Zespół Szkolno-Przedszkolny, ul. Kcyńska 6A
+  opis: Charytatywna gala MMA, kickboxingu i boksu, start 17:00. Dochód na zbiórkę na leczenie dziecka.
+  zrodlo: https://www.facebook.com/events/4199283870369318/
+  sprawdzono: 2026-11-20
+
+- nazwa: 3. Charytatywna Mikołajkowa Gala Boksu i Sportów Walki
+  typ: charytatywna
+  start: 2026-12-12
+  miasto: Złoty Stok
+  wojewodztwo: dolnośląskie
+  udzial: [widownia]
+  organizator: Gmina Złoty Stok i Stowarzyszenie „Dostrzec Każdego”
+  opis: Start 16:00.
+  zrodlo: https://www.facebook.com/events/3224858911033128/
+  sprawdzono: 2026-11-20
