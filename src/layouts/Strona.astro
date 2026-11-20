@@ -3,12 +3,10 @@ import '@fontsource/barlow/latin-400.css';
 import '@fontsource/barlow/latin-ext-400.css';
 import '@fontsource/barlow/latin-600.css';
 import '@fontsource/barlow/latin-ext-600.css';
-import '@fontsource/barlow-condensed/latin-700-italic.css';
-import '@fontsource/barlow-condensed/latin-ext-700-italic.css';
-import '@fontsource/barlow-condensed/latin-800-italic.css';
-import '@fontsource/barlow-condensed/latin-ext-800-italic.css';
-import '@fontsource/space-mono/latin-700.css';
-import '@fontsource/space-mono/latin-ext-700.css';
+import '@fontsource/barlow-condensed/latin-700.css';
+import '@fontsource/barlow-condensed/latin-ext-700.css';
+import '@fontsource/barlow-condensed/latin-800.css';
+import '@fontsource/barlow-condensed/latin-ext-800.css';
 import '../styles/global.css';
 import { SITE } from '../site';
 import Analytics from '@vercel/analytics/astro';
@@ -36,8 +34,6 @@ const {
 const obrazUrl = new URL(obraz, Astro.site);
 const pelnyTytul = tytul ? `${tytul} – ${SITE.nazwa}` : `${SITE.haslo} – ${SITE.nazwa}`;
 const kanoniczny = new URL(Astro.url.pathname, Astro.site);
-// The "Wydarzenia" link is shown only on the "O stronie" page; everywhere else the logo leads to the list.
-const naOStronie = Astro.url.pathname.startsWith('/o-stronie');
 const rok = new Date().getFullYear();
 ---
 
@@ -48,7 +44,7 @@ const rok = new Date().getFullYear();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pelnyTytul}</title>
     <meta name="description" content={opis} />
-    <meta name="theme-color" content="#120428" />
+    <meta name="theme-color" content="#18191d" />
     <link rel="canonical" href={kanoniczny} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -73,20 +69,21 @@ const rok = new Date().getFullYear();
     <header class="naglowek">
       <div class="strona naglowek-wnetrze">
         <a class="logo" href="/" aria-label={`${SITE.nazwa} – strona główna`}>
-          <span class="logo-znak">{SITE.nazwa}</span>
-          <span class="logo-dopisek">wydarzenia bokserskie w Polsce</span>
+          <span class="logo-znak">i<b>Fight</b></span>
+          <span class="logo-dopisek">Kalendarz boksu w Polsce</span>
         </a>
         <nav class="menu" aria-label="Menu">
-          {naOStronie ? <a href="/">Wydarzenia</a> : <a href="/o-stronie/">O stronie</a>}
+          <a class="menu-o" href="/o-stronie/">O stronie</a>
+          <a class="zglos" href="/o-stronie/#kontakt">+ Zgłoś<span class="menu-dluzej"> wydarzenie</span></a>
         </nav>
       </div>
-      <div class="paski" aria-hidden="true"></div>
+      <div class="narozniki" aria-hidden="true"></div>
     </header>
     <main class="strona">
       <slot />
     </main>
     <footer class="stopka">
-      <div class="paski" aria-hidden="true"></div>
+      <div class="narozniki" aria-hidden="true"></div>
       <div class="strona">
         <nav class="stopka-menu" aria-label="Stopka">
           <a href="/">Wydarzenia</a>

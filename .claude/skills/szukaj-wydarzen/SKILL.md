@@ -61,7 +61,7 @@ Typ: gala zawodowa lub amatorska → `gala`, wydarzenie na cel charytatywny → 
 
 Dla kogo (`udzial`), tylko jeśli wynika to ze źródła: `widownia` (tylko oglądanie, walczą zaproszeni zawodnicy), `zawodnicy` (start z licencją, zgłoszenia przez kluby), `otwarte` (może się zapisać każdy, np. white collar, otwarte sparingi). Brak pola = domyślna wartość dla rodzaju (turniej → zawodnicy, gala → widownia). Link do zapisów lub biletów wpisz w `linki.zapisy` / `linki.bilety`, bo pokazują się jako przyciski na liście.
 
-Plakat (`obraz`): tylko oficjalny plakat ze strony organizatora albo serwisu biletowego, nigdy z FB/IG. Zapisz go jako `src/assets/wydarzenia/<slug-wydarzenia>.jpg` (do 1 MB) i dopisz `obraz: <plik>`. Jeśli nie da się go pobrać, pomiń: strona pokaże zaślepkę. Szczegóły: src/assets/wydarzenia/README.md.
+Plakat (`obraz`): tylko oficjalny plakat ze strony organizatora albo serwisu biletowego, nigdy z FB/IG. Zapisz go jako `src/assets/wydarzenia/<slug-wydarzenia>.jpg` (do 1 MB) i dopisz `obraz: <plik>`. Jeśli nie da się go pobrać, pomiń: strona obejdzie się bez niego. Szczegóły: src/assets/wydarzenia/README.md.
 W polu `organizator` możesz dopisać w nawiasie obiekt i rodzaj boksu, np. `MB Promotions (boks zawodowy, Hala OSiR)`.
 
 ### 4. Sprawdzenie

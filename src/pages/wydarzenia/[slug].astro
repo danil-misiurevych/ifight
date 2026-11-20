@@ -6,7 +6,7 @@ import Strona from '../../layouts/Strona.astro';
 import Wiersz from '../../components/Wiersz.astro';
 import SchemaWydarzen from '../../components/SchemaWydarzen.astro';
 import ZapiszUdostepnij from '../../components/ZapiszUdostepnij.astro';
-import { adresWojewodztwa, turnieje, TYP_ETYKIETA, UDZIAL_ETYKIETA, type Turniej } from '../../lib/turnieje';
+import { adresWojewodztwa, naroznik, turnieje, TYP_ETYKIETA, UDZIAL_ETYKIETA, type Turniej } from '../../lib/turnieje';
 import { dlugiZakres, dlugaData, dzisiaj, krotkaData, stanTerminu } from '../../lib/daty';
 import { SITE } from '../../site';
 
@@ -77,7 +77,7 @@ const temat = encodeURIComponent(`Poprawka: ${t.nazwa}`);
   </nav>
 
   <article class="wydarzenie" data-koniec={t.koniec}>
-    <header class="w-glowa">
+    <header class="w-glowa" data-strona={naroznik(t.udzial)}>
       <span class="t-typ" data-typ={t.typ}>{typ}</span>
       <h1>{t.nazwa}</h1>
       <p class="w-data">
@@ -86,10 +86,13 @@ const temat = encodeURIComponent(`Poprawka: ${t.nazwa}`);
       </p>
     </header>
 
+    <div class:list={['w-uklad', { 'z-plakatem': t.obraz }]}>
     {
       t.obraz && (
         <figure class="w-obraz">
-          <Image src={t.obraz} alt={`Plakat: ${t.nazwa}`} width={860} />
+          <a href={t.obraz.src} target="_blank" rel="noopener" aria-label="Plakat w pełnym rozmiarze">
+            <Image src={t.obraz} alt={`Plakat: ${t.nazwa}`} width={560} />
+          </a>
         </figure>
       )
     }
@@ -140,6 +143,7 @@ const temat = encodeURIComponent(`Poprawka: ${t.nazwa}`);
       zmienić – przed zgłoszeniem i wyjazdem potwierdź szczegóły u organizatora.
       Coś się nie zgadza? <a href={`mailto:${SITE.email}?subject=${temat}`}>Daj znać</a>.
     </p>
+    </div>
   </article>
 
   {

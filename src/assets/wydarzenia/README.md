@@ -8,4 +8,4 @@ Plakat albo zdjęcie wydarzenia. Plik wrzuć tutaj, a w `src/data/turnieje.yaml`
 
 - Formaty: jpg, png, webp. Najlepiej do 1 MB; strona sama robi z niego małe wersje.
 - Bierz tylko oficjalny plakat organizatora (strona organizatora, serwis biletowy, post organizatora). Jeśli organizator poprosi o usunięcie, usuń plik i pole `obraz`.
-- Wydarzenie bez obrazu dostaje na karcie zaślepkę w kolorze swojego rodzaju.
+- Wydarzenie bez obrazu nie ma miniatury na liście. Na grafice do udostępniania pojawia się tylko plakat pionowy (szeroki baner zostałby przycięty).

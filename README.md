@@ -56,7 +56,7 @@ Ważne: każdy wpis zaczyna się od `- `, pozostałe linie od dwóch spacji. Mi�
 | `termin_zgloszen` | nie | Termin zgłoszeń, `RRRR-MM-DD`. |
 | `miejsce` | nie | Obiekt lub adres (hala, hotel, ulica). |
 | `opis` | nie | Krótki opis na stronie wydarzenia. |
-| `obraz` | nie | Nazwa pliku plakatu z `src/assets/wydarzenia/`, np. `gala-2027.jpg`. Na liście widać go blado w tle karty; bez plakatu jest zaślepka. |
+| `obraz` | nie | Nazwa pliku plakatu z `src/assets/wydarzenia/`, np. `gala-2027.jpg`. Na liście jako miniatura (na komputerze), na stronie wydarzenia w całości; pionowy plakat trafia też na grafikę do udostępniania. Bez plakatu wydarzenie po prostu go nie ma. |
 | `linki` | nie | Linki na stronie wydarzenia (`zapisy`, `bilety` i `facebook` także jako przyciski na liście), każdy w osobnej linii z dwiema spacjami wcięcia: `komunikat`, `wydarzenie` (wydarzenie na Facebooku), `facebook` (profil organizatora na Facebooku), `zapisy`, `regulamin`, `bilety`, `transmisja`, `wyniki`. |
 | `zrodlo` | tak | Link do źródła (z `https://`). Zawsze widoczny na stronie wydarzenia. |
 | `slug` | nie | Własny adres strony wydarzenia (`/wydarzenia/<slug>/`). Domyślnie z nazwy i roku. Ustaw, gdy dwa wydarzenia mają ten sam adres albo żeby adres nie zmienił się po zmianie nazwy. |
