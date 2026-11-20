@@ -196,6 +196,19 @@ h1, h2 { font-family: var(--naglowki); font-style: italic; font-weight: 800; tex
 .t-typ[data-typ='turniej'] { background: var(--cyjan); }
 .t-typ[data-typ='charytatywna'] { background: var(--zolty); }
 .t-typ[data-typ='sparingi'] { background: var(--pomarancz); }
+/* Quick links sit above the whole-row link (.t-nazwa::after). */
+.t-akcje { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; margin-top: 0.45rem; }
+.t-akcja {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  padding: 0.12rem 0.55rem; border-radius: 2px; text-decoration: none;
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--szary); border: 1px solid var(--linia); background: rgba(18, 4, 40, 0.55);
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.t-akcja:hover { color: var(--cyjan); border-color: var(--cyjan); }
+.t-akcja[data-rodzaj='zapisy'], .t-akcja[data-rodzaj='bilety'] { color: var(--roz); border-color: rgba(255, 46, 136, 0.5); }
+.t-akcja[data-rodzaj='zapisy']:hover, .t-akcja[data-rodzaj='bilety']:hover { color: #fff; background: var(--roz); border-color: var(--roz); }
+.t-akcja-wiecej { border-color: transparent; background: none; }
 .t-udzial {
   display: inline-block; margin: 0 0 0.15rem 0.35rem; padding: 0 0.4rem;
   font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase;
