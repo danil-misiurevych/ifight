@@ -1,0 +1,80 @@
+---
+// "Add to calendar" and "Share" for a single event page.
+// Sharing uses the phone's share sheet when there is one, otherwise copies the link.
+import type { Turniej } from '../lib/turnieje';
+import { dlugiZakres } from '../lib/daty';
+
+interface Props {
+  t: Turniej;
+  /** Calendar links make no sense for an event that has already ended. */
+  minione: boolean;
+}
+const { t, minione } = Astro.props;
+
+const adres = new URL(`/wydarzenia/${t.slug}/`, Astro.site).href;
+const miejsce = [t.miejsce, t.miasto, t.wojewodztwo].filter(Boolean).join(', ');
+
+// Google Calendar template link. All-day event: the end date is exclusive.
+const dzien = (d: string) => d.replaceAll('-', '');
+const poKoncu = new Date(`${t.koniec}T00:00:00Z`);
+poKoncu.setUTCDate(poKoncu.getUTCDate() + 1);
+const google =
+  'https://calendar.google.com/calendar/render?' +
+  new URLSearchParams({
+    action: 'TEMPLATE',
+    text: t.nazwa,
+    dates: `${dzien(t.start)}/${dzien(poKoncu.toISOString().slice(0, 10))}`,
+    location: miejsce,
+    details: `${adres}\nŹródło: ${t.zrodlo}\nPrzed wyjazdem potwierdź szczegóły u organizatora.`,
+  });
+
+const tekst = `${t.nazwa} – ${dlugiZakres(t.start, t.koniec)}, ${t.miasto}`;
+const whatsapp = `https://wa.me/?text=${encodeURIComponent(`${tekst}\n${adres}`)}`;
+const facebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(adres)}`;
+---
+
+<section class="w-udostepnij" aria-label="Zapisz i udostępnij">
+  {
+    !minione && (
+      <div class="w-akcje">
+        <span class="w-akcje-tytul">Dodaj do kalendarza</span>
+        <a class="t-akcja" href={google} target="_blank" rel="noopener">Google ↗</a>
+        <a class="t-akcja" href={`/wydarzenia/${t.slug}.ics`} download>Apple / Outlook (.ics)</a>
+      </div>
+    )
+  }
+  <div class="w-akcje">
+    <span class="w-akcje-tytul">Udostępnij</span>
+    <button type="button" class="t-akcja" id="udostepnij" data-url={adres} data-tytul={tekst} hidden>
+      Udostępnij…
+    </button>
+    <a class="t-akcja" href={whatsapp} target="_blank" rel="noopener">WhatsApp ↗</a>
+    <a class="t-akcja" href={facebook} target="_blank" rel="noopener">Facebook ↗</a>
+    <button type="button" class="t-akcja" id="kopiuj" data-url={adres}>Kopiuj link</button>
+    <span class="w-skopiowano" id="skopiowano" role="status"></span>
+  </div>
+</section>
+
+<script>
+  const udostepnij = document.getElementById('udostepnij') as HTMLButtonElement | null;
+  const kopiuj = document.getElementById('kopiuj') as HTMLButtonElement | null;
+  const info = document.getElementById('skopiowano');
+
+  // The native share sheet (phones, some desktop browsers) covers Messenger, SMS and the rest.
+  if (udostepnij && navigator.share) {
+    udostepnij.hidden = false;
+    udostepnij.addEventListener('click', () => {
+      navigator.share({ title: udostepnij.dataset.tytul, url: udostepnij.dataset.url }).catch(() => {});
+    });
+  }
+
+  kopiuj?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(kopiuj.dataset.url!);
+      if (info) info.textContent = 'Skopiowano link';
+    } catch {
+      if (info) info.textContent = kopiuj.dataset.url!;
+    }
+    setTimeout(() => info && (info.textContent = ''), 3000);
+  });
+</script>

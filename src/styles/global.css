@@ -213,16 +213,17 @@ h1, h2 { font-family: var(--naglowki); font-style: italic; font-weight: 800; tex
 .t-zaslepka[data-typ='charytatywna'] { --kolor: var(--zolty); }
 .t-zaslepka[data-typ='sparingi'] { --kolor: var(--pomarancz); }
 .t-zaslepka[data-typ='szkolenie'] { --kolor: var(--fiolet); }
-/* 80s sunset: a sun with stripes in its lower half, over a horizon line. */
+.t-zaslepka { --rekawice: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 96' fill='none' stroke='%23000' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg id='r' transform='rotate%28-12 38 48%29'%3E%3Cpath d='M20 54C11 42 11 20 24 10C35 2 54 2 62 13C70 24 68 44 59 54Z'/%3E%3Cpath d='M60 47C71 47 73 32 64 28C59 26 55 30 55 37'/%3E%3Cpath d='M24 23C32 17 44 16 52 21'/%3E%3Cpath d='M22 59H58L56 84H24Z'/%3E%3Cpath d='M23 70H57'/%3E%3C/g%3E%3Cuse href='%23r' transform='translate%28150 0%29 scale%28-1 1%29'/%3E%3C/svg%3E"); }
+/* A pair of boxing gloves drawn as neon outline, coloured like the event type, over a horizon line. */
 .t-zaslepka::before {
-  content: ''; position: absolute; right: 14%; top: 50%; width: 7.5rem; aspect-ratio: 1;
-  transform: translateY(-38%); border-radius: 50%;
-  background: linear-gradient(var(--zolty), var(--kolor) 75%);
-  -webkit-mask-image: linear-gradient(#000 48%, transparent 48%), repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 11px);
-  mask-image: linear-gradient(#000 48%, transparent 48%), repeating-linear-gradient(180deg, #000 0 7px, transparent 7px 11px);
+  content: ''; position: absolute; right: 9%; top: 50%; width: 9.5rem; aspect-ratio: 150 / 96;
+  transform: translateY(-58%);
+  background: linear-gradient(var(--zolty), var(--kolor) 70%);
+  -webkit-mask: var(--rekawice) center / contain no-repeat;
+  mask: var(--rekawice) center / contain no-repeat;
 }
 .t-zaslepka::after {
-  content: ''; position: absolute; left: 0; right: 0; bottom: 18%; height: 2px; background: var(--kolor);
+  content: ''; position: absolute; left: 0; right: 0; bottom: 14%; height: 2px; background: var(--kolor);
   box-shadow: 0 0 10px var(--kolor);
 }
 .t:hover .t-zaslepka, .t:focus-within .t-zaslepka { opacity: 0.55; }
@@ -345,6 +346,20 @@ h1, h2 { font-family: var(--naglowki); font-style: italic; font-weight: 800; tex
 .w-stopka { margin-top: 1.75rem; font-size: 0.85rem; }
 .w-poblizu { margin-top: 2.5rem; }
 .w-poblizu h2 { font-size: 1.2rem; }
+
+/* Save and share on the event page */
+.w-udostepnij { margin-top: 1.25rem; display: grid; gap: 0.5rem; }
+.w-akcje { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.5rem; }
+.w-akcje-tytul {
+  min-width: 9.5rem; font-family: var(--mono); font-weight: 700; font-size: 0.7rem;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--szary);
+}
+.w-akcje .t-akcja { font-size: 0.75rem; padding: 0.25rem 0.65rem; cursor: pointer; }
+@media (max-width: 40rem) {
+  .w-akcje-tytul { flex-basis: 100%; }
+}
+button.t-akcja { font: inherit; font-family: var(--mono); }
+.w-skopiowano { font-family: var(--mono); font-size: 0.75rem; color: var(--zolty); overflow-wrap: anywhere; }
 
 /* Calendar subscription and region links */
 .subskrypcja { margin: 1.75rem 0 0; font-size: 0.875rem; color: var(--szary); }
