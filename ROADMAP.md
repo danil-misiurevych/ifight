@@ -38,6 +38,7 @@ Założenia:
 ## Etap 4. Panel administracyjny
 
 - CMS oparty na gicie (Keystatic albo Decap CMS) pod `/admin`: formularz zamiast ręcznej edycji YAML. Zapis = commit.
+- ~~Formularz dla organizatorów (`/dla-organizatorow/`): zgłoszenie zakłada issue z etykietą `zgłoszenie`.~~ Zrobione.
 - API dla agenta: GitHub API (pull requesty). Błędne dane zatrzymuje walidacja przy budowaniu, a Vercel pokazuje podgląd przed scaleniem.
 - ~~Komunikaty błędów walidacji po polsku.~~ Zrobione.
 
@@ -51,7 +52,8 @@ Założenia:
 - ~~Osobna strona dla każdego wydarzenia (`/wydarzenia/...`) z linkami: komunikat, zapisy, regulamin, bilety, transmisja.~~ Zrobione. Do uzupełnienia: opisy i linki w danych.
 - ~~Strony województw (np. „turnieje bokserskie śląskie”).~~ Zrobione: `/wojewodztwo/<nazwa>/`. Strony miast: gdy w jednym mieście będzie kilka wydarzeń.
 - ~~Kalendarz do subskrypcji (.ics) dla całej Polski i każdego województwa.~~ Zrobione.
-- ~~Sitemap, dane strukturalne schema.org.~~ Zrobione. Do zrobienia: zgłoszenie sitemap w Google Search Console (wymaga konta właściciela domeny).
+- ~~Sitemap, dane strukturalne schema.org.~~ Zrobione.
+- ~~Google Search Console: domena zweryfikowana, sitemap zgłoszona.~~ Zrobione (20.11.2026, 36 stron).
 
 ## Etap 7. Social media
 

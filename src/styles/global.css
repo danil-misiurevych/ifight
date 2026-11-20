@@ -377,3 +377,24 @@ button.t-akcja { font: inherit; font-family: var(--mono); }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+/* "Dla organizatorów" form */
+.zgl { display: grid; gap: 0.9rem; margin-top: 1rem; }
+.zgl-rzad { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.9rem; }
+.zgl-pole { display: grid; gap: 0.3rem; font-size: 0.9rem; }
+.zgl-pole > span { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--szary); }
+.zgl-pole em { color: var(--roz); font-style: normal; }
+.zgl-pole small { color: var(--szary); font-size: 0.8rem; }
+.zgl input, .zgl select, .zgl textarea {
+  width: 100%; box-sizing: border-box; padding: 0.55rem 0.7rem; border-radius: 3px;
+  font: inherit; font-size: 1rem; color: var(--tekst);
+  background: rgba(0, 0, 0, 0.25); border: 1px solid var(--linia); color-scheme: dark;
+}
+.zgl input:focus, .zgl select:focus, .zgl textarea:focus { outline: none; border-color: var(--cyjan); }
+.zgl textarea { resize: vertical; }
+.zgl .przycisk { justify-self: start; cursor: pointer; }
+.zgl .przycisk:disabled { opacity: 0.6; cursor: wait; }
+.zgl-info { font-size: 0.8rem; margin: 0; }
+.zgl-bledy { margin: 0; color: var(--zolty); }
+.zgl-bledy:empty { display: none; }
+.zgl[hidden] { display: none; }
