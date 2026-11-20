@@ -11,6 +11,7 @@ import '@fontsource/space-mono/latin-700.css';
 import '@fontsource/space-mono/latin-ext-700.css';
 import '../styles/global.css';
 import { SITE } from '../site';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   tytul?: string;
@@ -65,6 +66,8 @@ const rok = new Date().getFullYear();
     <meta property="og:image:alt" content={obrazOpis} />
     <meta name="twitter:card" content="summary_large_image" />
     <slot name="head" />
+    <!-- Statystyki odwiedzin: Vercel Web Analytics (bez ciasteczek). -->
+    <Analytics />
   </head>
   <body>
     <header class="naglowek">
