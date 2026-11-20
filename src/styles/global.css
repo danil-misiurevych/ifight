@@ -347,6 +347,20 @@ h1, h2 { font-family: var(--naglowki); font-style: italic; font-weight: 800; tex
 .w-poblizu { margin-top: 2.5rem; }
 .w-poblizu h2 { font-size: 1.2rem; }
 
+/* Save and share on the event page */
+.w-udostepnij { margin-top: 1.25rem; display: grid; gap: 0.5rem; }
+.w-akcje { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.5rem; }
+.w-akcje-tytul {
+  min-width: 9.5rem; font-family: var(--mono); font-weight: 700; font-size: 0.7rem;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--szary);
+}
+.w-akcje .t-akcja { font-size: 0.75rem; padding: 0.25rem 0.65rem; cursor: pointer; }
+@media (max-width: 40rem) {
+  .w-akcje-tytul { flex-basis: 100%; }
+}
+button.t-akcja { font: inherit; font-family: var(--mono); }
+.w-skopiowano { font-family: var(--mono); font-size: 0.75rem; color: var(--zolty); overflow-wrap: anywhere; }
+
 /* Calendar subscription and region links */
 .subskrypcja { margin: 1.75rem 0 0; font-size: 0.875rem; color: var(--szary); }
 .wojewodztwa { margin-top: 2rem; }

@@ -5,6 +5,7 @@ import { Image } from 'astro:assets';
 import Strona from '../../layouts/Strona.astro';
 import Wiersz from '../../components/Wiersz.astro';
 import SchemaWydarzen from '../../components/SchemaWydarzen.astro';
+import ZapiszUdostepnij from '../../components/ZapiszUdostepnij.astro';
 import { adresWojewodztwa, turnieje, TYP_ETYKIETA, UDZIAL_ETYKIETA, type Turniej } from '../../lib/turnieje';
 import { dlugiZakres, dlugaData, dzisiaj, krotkaData, stanTerminu } from '../../lib/daty';
 import { SITE } from '../../site';
@@ -116,6 +117,8 @@ const temat = encodeURIComponent(`Poprawka: ${t.nazwa}`);
     </dl>
 
     {t.opis && <p class="w-opis">{t.opis}</p>}
+
+    <ZapiszUdostepnij t={t} minione={minione} />
 
     <section class="w-linki">
       <h2>Linki</h2>
