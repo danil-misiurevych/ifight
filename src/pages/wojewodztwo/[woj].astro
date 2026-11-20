@@ -1,0 +1,51 @@
+---
+// One page per region, for searches like „turnieje bokserskie śląskie”.
+// All 16 pages always exist so their addresses never break;
+// a page with no upcoming events is marked noindex.
+import type { GetStaticPaths } from 'astro';
+import Strona from '../../layouts/Strona.astro';
+import ListaWydarzen from '../../components/ListaWydarzen.astro';
+import SchemaWydarzen from '../../components/SchemaWydarzen.astro';
+import Subskrypcja from '../../components/Subskrypcja.astro';
+import Wojewodztwa from '../../components/Wojewodztwa.astro';
+import { slug, turnieje, wMiejscowniku, WOJEWODZTWA } from '../../lib/turnieje';
+import { dzisiaj } from '../../lib/daty';
+import { SITE } from '../../site';
+
+export const getStaticPaths = (() =>
+  WOJEWODZTWA.map((w) => ({ params: { woj: slug(w) }, props: { wojewodztwo: w } }))) satisfies GetStaticPaths;
+
+const { wojewodztwo } = Astro.props;
+const dzis = dzisiaj();
+const nadchodzace = turnieje.filter((t) => t.koniec >= dzis);
+const tutaj = nadchodzace.filter((t) => t.wojewodztwo === wojewodztwo);
+const miejsce = `w województwie ${wMiejscowniku(wojewodztwo)}`;
+const ics = `/wojewodztwo/${slug(wojewodztwo)}/kalendarz.ics`;
+---
+
+<Strona
+  tytul={`Turnieje i gale bokserskie ${miejsce}`}
+  opis={`Nadchodzące wydarzenia bokserskie ${miejsce}: turnieje, gale, wydarzenia charytatywne i sparingi. Daty, miasta, kategorie wiekowe, terminy zgłoszeń i linki do organizatorów.`}
+  noindex={tutaj.length === 0}
+>
+  <SchemaWydarzen slot="head" turnieje={tutaj} />
+  <link slot="head" rel="alternate" type="text/calendar" title={`Kalendarz ${SITE.nazwa} – ${wojewodztwo}`} href={ics} />
+  <p class="okruszki"><a href="/">Cała Polska</a> › {wojewodztwo}</p>
+  <h1>Wydarzenia bokserskie {miejsce}</h1>
+  <p class="szary">
+    Turnieje, gale i sparingi {miejsce}. Kliknij wydarzenie, aby otworzyć ogłoszenie organizatora.
+  </p>
+
+  {
+    tutaj.length > 0 ? (
+      <ListaWydarzen turnieje={tutaj} dzis={dzis} filtrWojewodztwa={false} />
+    ) : (
+      <p>
+        Na razie nie znamy nadchodzących wydarzeń {miejsce}. Zobacz{' '}
+        <a href="/">kalendarz dla całej Polski</a> albo <a href="/o-serwisie/#kontakt">zgłoś wydarzenie</a>.
+      </p>
+    )
+  }
+  <Subskrypcja sciezka={ics} />
+  <Wojewodztwa nadchodzace={nadchodzace} biezace={wojewodztwo} />
+</Strona>

@@ -5,8 +5,10 @@ import { SITE } from '../site';
 interface Props {
   tytul?: string;
   opis?: string;
+  // Keeps the page out of search results (e.g. a region page with no events yet).
+  noindex?: boolean;
 }
-const { tytul, opis = SITE.opis } = Astro.props;
+const { tytul, opis = SITE.opis, noindex = false } = Astro.props;
 const pelnyTytul = tytul ? `${tytul} – ${SITE.nazwa}` : `${SITE.haslo} – ${SITE.nazwa}`;
 const kanoniczny = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -19,6 +21,7 @@ const kanoniczny = new URL(Astro.url.pathname, Astro.site);
     <title>{pelnyTytul}</title>
     <meta name="description" content={opis} />
     <link rel="canonical" href={kanoniczny} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:type" content="website" />

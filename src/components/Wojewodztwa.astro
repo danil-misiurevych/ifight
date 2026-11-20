@@ -1,0 +1,30 @@
+---
+// Links to all 16 region pages with the number of upcoming events in each.
+import type { Turniej } from '../lib/turnieje';
+import { adresWojewodztwa, WOJEWODZTWA } from '../lib/turnieje';
+
+interface Props {
+  nadchodzace: Turniej[];
+  biezace?: string;
+}
+const { nadchodzace, biezace } = Astro.props;
+const liczba = (w: string) => nadchodzace.filter((t) => t.wojewodztwo === w).length;
+---
+
+<nav class="wojewodztwa" aria-labelledby="woj-naglowek">
+  <h2 id="woj-naglowek">Wydarzenia według województw</h2>
+  <ul>
+    {
+      WOJEWODZTWA.map((w) => (
+        <li>
+          {w === biezace ? (
+            <strong aria-current="page">{w}</strong>
+          ) : (
+            <a href={adresWojewodztwa(w)}>{w}</a>
+          )}{' '}
+          <span class="szary">({liczba(w)})</span>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

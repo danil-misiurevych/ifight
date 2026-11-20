@@ -15,8 +15,9 @@ if (lista && form) {
   const licznik = document.getElementById('licznik')!;
   const wyczysc = document.getElementById('wyczysc')!;
   const pusto = document.getElementById('pusto')!;
-  const pola = ['typ', 'woj', 'kat', 'plec', 'mies'] as const;
   const select = (n: string) => form.elements.namedItem(n) as HTMLSelectElement;
+  // A page may leave some filters out (a region page has no region filter).
+  const pola = (['typ', 'woj', 'kat', 'plec', 'mies'] as const).filter((p) => select(p));
 
   const aktualne = wiersze.filter((w) => {
     const trwa = w.dataset.koniec! >= dzis;

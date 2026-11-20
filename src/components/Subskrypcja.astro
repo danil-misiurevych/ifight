@@ -1,0 +1,20 @@
+---
+// Subscribe links for the iCalendar feed. `sciezka` is the feed path, e.g. '/kalendarz.ics'.
+interface Props {
+  sciezka: string;
+}
+const adres = new URL(Astro.props.sciezka, Astro.site);
+const webcal = `webcal://${adres.host}${adres.pathname}`;
+const google = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(webcal)}`;
+---
+
+<p class="subskrypcja">
+  {'Dodaj do swojego kalendarza: '}
+  <a href={google} target="_blank" rel="noopener">Google</a>
+  {' · '}
+  <a href={webcal}>Apple / Outlook</a>
+  {' · '}
+  <a href={adres.pathname} download>plik .ics</a>
+  {' '}
+  <span class="szary">– nowe wydarzenia i zmiany pojawią się same.</span>
+</p>

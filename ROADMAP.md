@@ -49,8 +49,9 @@ Założenia:
 ## Etap 6. Opisy turniejów i SEO
 
 - Osobna strona dla każdego turnieju (`/turniej/...`) z opisem opartym na komunikacie: hala, kategorie wagowe, regulamin, kontakt.
-- Strony województw i miast (np. „turnieje bokserskie śląskie”).
-- Sitemap, dane strukturalne schema.org dla każdej strony, Google Search Console.
+- ~~Strony województw (np. „turnieje bokserskie śląskie”).~~ Zrobione: `/wojewodztwo/<nazwa>/`. Strony miast: gdy w jednym mieście będzie kilka wydarzeń.
+- ~~Kalendarz do subskrypcji (.ics) dla całej Polski i każdego województwa.~~ Zrobione.
+- ~~Sitemap, dane strukturalne schema.org na stronach list.~~ Zrobione. Do zrobienia: zgłoszenie sitemap w Google Search Console (wymaga konta właściciela domeny).
 
 ## Etap 7. Social media
 

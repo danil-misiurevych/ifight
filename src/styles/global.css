@@ -102,3 +102,18 @@ p { margin: 0.5rem 0; }
 /* Text pages */
 .tresc h2 { margin-top: 1.5rem; }
 .tresc ul { padding-left: 1.2rem; }
+
+/* Breadcrumbs, calendar subscription, region links */
+.okruszki { margin: 0.75rem 0 0; font-size: 0.875rem; color: var(--szary); }
+.subskrypcja { margin: 1.25rem 0 0; font-size: 0.875rem; }
+.wojewodztwa h2 {
+  margin-top: 1.5rem; padding: 0.3rem 0; border-bottom: 1px solid var(--tekst);
+  text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.8125rem;
+}
+.wojewodztwa ul {
+  list-style: none; margin: 0.5rem 0 0; padding: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem 1rem; font-size: 0.875rem;
+}
+@media (min-width: 40rem) {
+  .wojewodztwa ul { grid-template-columns: repeat(4, 1fr); }
+}

@@ -121,6 +121,12 @@ Dopisuje brakujące wydarzenia na koniec pliku i ustawia `sprawdzono` na dziś w
 PDF nie podaje województwa ani kategorii: województwo jest zgadywane z miasta. Gdzie się nie udało, wpis ma komentarz `# SPRAWDŹ` i puste pole, więc budowanie strony go zatrzyma, dopóki go nie poprawisz.
 Inne opcje: `--json` (wynik dla agenta), `--plik akredytacje.pdf` (PDF z dysku), `--od RRRR-MM-DD` (udaje inną datę, do testów).
 
+## Strony województw i kalendarz do subskrypcji
+
+- `/wojewodztwo/<nazwa>/` (np. `/wojewodztwo/slaskie/`): lista wydarzeń z jednego województwa, pod wyszukiwania w rodzaju „turnieje bokserskie śląskie”. Istnieje wszystkie 16 stron; strona bez nadchodzących wydarzeń dostaje `noindex` i nie trafia do sitemap.
+- `/kalendarz.ics`: kalendarz wszystkich wydarzeń do subskrypcji w Google, Apple lub Outlook. Każde województwo ma własny: `/wojewodztwo/<nazwa>/kalendarz.ics`. Wydarzenia zostają w kalendarzu jeszcze 60 dni po zakończeniu (`DNI_WSTECZ` w `src/lib/ics.ts`).
+- Kalendarze i liczby przy województwach odświeżają się przy każdym budowaniu strony, czyli przy każdej zmianie danych.
+
 ## Struktura
 
 ```
@@ -130,7 +136,10 @@ src/lib/turnieje.ts            wczytywanie i sprawdzanie danych
 src/lib/daty.ts                formatowanie dat, status terminu zgłoszeń
 src/pages/index.astro          strona główna z listą
 src/pages/o-serwisie.astro     strona „O serwisie”
-src/components/                wiersz turnieju, filtry, znaczniki schema.org
+src/pages/wojewodztwo/         strony województw i ich kalendarze .ics
+src/pages/kalendarz.ics.ts     kalendarz wszystkich wydarzeń
+src/lib/ics.ts                 budowanie pliku iCalendar
+src/components/                lista, wiersz, filtry, województwa, subskrypcja, schema.org
 src/scripts/lista.ts           filtry i ukrywanie minionych turniejów w przeglądarce
 scripts/akredytacje.mjs        porównanie z listą akredytacji PZB
 docs/                          dokumentacja: źródła (zrodla.md), lista klubów (kluby.csv)
