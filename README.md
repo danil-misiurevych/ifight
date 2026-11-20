@@ -140,6 +140,12 @@ Inne opcje: `--json` (wynik dla agenta), `--plik akredytacje.pdf` (PDF z dysku),
 - `/kalendarz.ics`: kalendarz wszystkich wydarzeń do subskrypcji w Google, Apple lub Outlook. Każde województwo ma własny: `/wojewodztwo/<nazwa>/kalendarz.ics`. Wydarzenia zostają w kalendarzu jeszcze 60 dni po zakończeniu (`DNI_WSTECZ` w `src/lib/ics.ts`).
 - Kalendarze i liczby przy województwach odświeżają się przy każdym budowaniu strony, czyli przy każdej zmianie danych.
 
+## Grafiki do udostępniania
+
+Każde wydarzenie i województwo ma własną grafikę (Open Graph), którą Facebook, Messenger, WhatsApp czy X pokazują przy udostępnionym linku. Grafiki powstają przy budowaniu z tych samych danych (satori + resvg), więc nie trzeba ich robić ręcznie. Podgląd: `/og/wydarzenia/<adres-wydarzenia>.png`.
+
+Facebook zapamiętuje grafikę na długo. Po zmianie danych wydarzenia można ją odświeżyć w [narzędziu do debugowania udostępnień](https://developers.facebook.com/tools/debug/).
+
 ## Struktura
 
 ```
@@ -154,6 +160,8 @@ src/pages/wydarzenia/[slug].astro  osobna strona każdego wydarzenia
 src/pages/wojewodztwo/         strony województw i ich kalendarze .ics
 src/pages/kalendarz.ics.ts     kalendarz wszystkich wydarzeń
 src/lib/ics.ts                 budowanie pliku iCalendar
+src/lib/og.ts                  grafiki do udostępniania (1200×630 PNG)
+src/pages/og/                  adresy grafik: /og/strona.png, /og/wydarzenia/…, /og/wojewodztwo/…
 src/components/                lista, wiersz, filtry, województwa, subskrypcja, schema.org
 src/scripts/lista.ts           filtry i ukrywanie minionych turniejów w przeglądarce
 scripts/akredytacje.mjs        porównanie z listą akredytacji PZB
