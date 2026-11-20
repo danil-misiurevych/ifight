@@ -100,6 +100,7 @@ Wpis z `test: true` jest traktowany jako testowy: dopóki na stronie jest choć 
 ## Przed startem
 
 - Domena: adres dla canonical, sitemap i robots.txt jest brany automatycznie z domeny produkcyjnej projektu na Vercel. Żeby ustawić go wprost, dodaj w Vercel zmienną środowiskową `SITE_URL` (np. `https://example.pl`).
+- Statystyki odwiedzin: strona ładuje skrypt Vercel Web Analytics (`<Analytics />` w `src/layouts/Strona.astro`, bez ciasteczek). Dane zbierają się dopiero po włączeniu Web Analytics w panelu Vercel: projekt **ifight** → zakładka **Analytics** → **Enable**. Wyniki są w tej samej zakładce.
 
 ## Uruchomienie lokalne
 
