@@ -57,7 +57,13 @@ const wPoblizu = turnieje
 const temat = encodeURIComponent(`Poprawka: ${t.nazwa}`);
 ---
 
-<Strona tytul={`${t.nazwa} – ${t.miasto} ${rok}`} opis={opis} ogTyp="article">
+<Strona
+  tytul={`${t.nazwa} – ${t.miasto} ${rok}`}
+  opis={opis}
+  ogTyp="article"
+  obraz={`/og/wydarzenia/${t.slug}.png`}
+  obrazOpis={`${t.nazwa}, ${dlugiZakres(t.start, t.koniec)}, ${t.miasto}`}
+>
   <Fragment slot="head">
     <SchemaWydarzen turnieje={[t]} />
     {t.test && <meta name="robots" content="noindex" />}

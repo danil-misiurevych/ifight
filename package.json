@@ -21,6 +21,8 @@
     "yaml": "^2.9.1"
   },
   "devDependencies": {
-    "pdfjs-dist": "^4.10.38"
+    "@resvg/resvg-js": "^2.6.2",
+    "pdfjs-dist": "^4.10.38",
+    "satori": "^0.63.2"
   }
 }

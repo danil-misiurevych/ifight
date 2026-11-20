@@ -44,7 +44,7 @@ Założenia:
 ## Etap 5. Wygląd
 
 - ~~Logo, paleta kolorów, czcionki (styl lat 80.).~~ Zrobione.
-- Grafika do udostępniania (Open Graph) i nowy favicon.
+- ~~Grafika do udostępniania (Open Graph).~~ Zrobione: osobna dla każdego wydarzenia i województwa, generowana przy budowaniu (`src/lib/og.ts`).
 
 ## Etap 6. Opisy turniejów i SEO
 
@@ -56,7 +56,7 @@ Założenia:
 ## Etap 7. Social media
 
 - Profile: Instagram i strona na Facebooku, TikTok opcjonalnie.
-- Automatyczne grafiki „Turnieje w tym tygodniu / miesiącu” generowane z danych.
+- Automatyczne grafiki „Turnieje w tym tygodniu / miesiącu” generowane z danych (można użyć `src/lib/og.ts`).
 - Krótkie filmy z szablonów (np. Remotion) generowane z tych samych danych.
 - Pierwsze posty dopiero po etapach 1 i 5, żeby było co pokazać i dobrze to wyglądało.
 

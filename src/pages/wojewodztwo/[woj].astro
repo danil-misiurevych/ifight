@@ -27,6 +27,8 @@ const ics = `/wojewodztwo/${slug(wojewodztwo)}/kalendarz.ics`;
   tytul={`Turnieje i gale bokserskie ${miejsce}`}
   opis={`Nadchodzące wydarzenia bokserskie ${miejsce}: turnieje, gale, wydarzenia charytatywne i sparingi. Daty, miasta, kategorie wiekowe, terminy zgłoszeń i linki do organizatorów.`}
   noindex={tutaj.length === 0}
+  obraz={`/og/wojewodztwo/${slug(wojewodztwo)}.png`}
+  obrazOpis={`Wydarzenia bokserskie ${miejsce}`}
 >
   <SchemaWydarzen slot="head" turnieje={tutaj} />
   <link slot="head" rel="alternate" type="text/calendar" title={`Kalendarz ${SITE.nazwa} – ${wojewodztwo}`} href={ics} />
