@@ -3,7 +3,7 @@
 import Wiersz from './Wiersz.astro';
 import Filtry from './Filtry.astro';
 import type { Turniej } from '../lib/turnieje';
-import { TYPY, WOJEWODZTWA } from '../lib/turnieje';
+import { TYPY, UDZIALY, WOJEWODZTWA } from '../lib/turnieje';
 import { nazwaMiesiaca } from '../lib/daty';
 import { SITE } from '../site';
 
@@ -17,12 +17,13 @@ const { turnieje, dzis, filtrWojewodztwa = true } = Astro.props;
 
 const miesiace = [...new Set(turnieje.map((t) => t.start.slice(0, 7)))];
 const typy = TYPY.filter((typ) => turnieje.some((t) => t.typ === typ));
+const udzialy = UDZIALY.filter((u) => turnieje.some((t) => t.udzial.includes(u)));
 const wojewodztwa = filtrWojewodztwa
   ? WOJEWODZTWA.filter((w) => turnieje.some((t) => t.wojewodztwo === w))
   : [];
 ---
 
-<Filtry typy={typy} wojewodztwa={wojewodztwa} miesiace={miesiace} />
+<Filtry typy={typy} wojewodztwa={wojewodztwa} miesiace={miesiace} udzialy={udzialy} />
 
 <div id="turnieje" data-dni-wkrotce={SITE.dniWkrotce}>
   {

@@ -1,6 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import type { Turniej } from '../lib/turnieje';
-import { slug, TYP_ETYKIETA } from '../lib/turnieje';
+import { slug, TYP_ETYKIETA, UDZIAL_ETYKIETA } from '../lib/turnieje';
 import { krotkaData, stanTerminu, zakresDat } from '../lib/daty';
 import { SITE } from '../site';
 
@@ -24,6 +25,20 @@ const meta = [
   t.organizator && `org. ${t.organizator}`,
 ].filter(Boolean);
 
+// Quick links on the card. The primary action depends on who the event is for:
+// tickets for spectators, sign-up for those who can take part.
+const link = (r: string) => t.linki.find((l) => l.rodzaj === r)?.url;
+const przyciski = archiwum
+  ? []
+  : [
+      { rodzaj: 'zapisy', etykieta: 'Zapisy', url: link('zapisy') },
+      { rodzaj: 'bilety', etykieta: 'Bilety', url: link('bilety') },
+      { rodzaj: 'organizator', etykieta: 'Organizator', url: link('facebook') },
+    ].filter((p): p is { rodzaj: string; etykieta: string; url: string } => Boolean(p.url));
+if (t.udzial.includes('widownia') && !t.udzial.some((u) => u !== 'widownia')) {
+  przyciski.sort((a, b) => Number(b.rodzaj === 'bilety') - Number(a.rodzaj === 'bilety'));
+}
+
 const termin = !archiwum && t.termin_zgloszen && stanTerminu(t.termin_zgloszen, dzis, SITE.dniWkrotce);
 ---
 
@@ -35,14 +50,35 @@ const termin = !archiwum && t.termin_zgloszen && stanTerminu(t.termin_zgloszen, 
   data-woj={slug(t.wojewodztwo)}
   data-kat={t.kategorie.map(slug).join(' ')}
   data-plec={t.plec.join(' ')}
+  data-udzial={t.udzial.join(' ')}
 >
+  {
+    t.obraz ? (
+      <Image class="t-obraz" src={t.obraz} alt="" width={420} loading="lazy" decoding="async" />
+    ) : (
+      <span class="t-obraz t-zaslepka" data-typ={t.typ} aria-hidden="true" />
+    )
+  }
   <time class="t-data" datetime={t.start}>
     {zakresDat(t.start, t.koniec)}{archiwum && <span class="t-rok">{t.start.slice(0, 4)}</span>}
   </time>
   <div class="t-opis">
     <span class="t-typ" data-typ={t.typ}>{TYP_ETYKIETA[t.typ].jeden}</span>
+    {t.udzial.map((u) => <span class="t-udzial" data-udzial={u} title={UDZIAL_ETYKIETA[u].opis}>{UDZIAL_ETYKIETA[u].krotka}</span>)}
     <a class="t-nazwa" href={`/wydarzenia/${t.slug}/`}>{t.nazwa}</a>
     <span class="t-meta">{meta.join(' · ')}</span>
+    <span class="t-akcje">
+      {
+        przyciski.map((p) => (
+          <a class="t-akcja" data-rodzaj={p.rodzaj} href={p.url} target="_blank" rel="noopener">
+            {p.etykieta} <span aria-hidden="true">↗</span>
+          </a>
+        ))
+      }
+      <a class="t-akcja t-akcja-wiecej" href={`/wydarzenia/${t.slug}/`} tabindex="-1" aria-hidden="true">
+        Szczegóły →
+      </a>
+    </span>
   </div>
   {
     termin && (

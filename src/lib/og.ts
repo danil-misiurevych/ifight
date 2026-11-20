@@ -26,6 +26,7 @@ const KOLOR_TYPU: Record<string, { tlo: string; tekst: string }> = {
   turniej: { tlo: K.cyjan, tekst: K.tlo },
   charytatywna: { tlo: K.zolty, tekst: K.tlo },
   sparingi: { tlo: K.pomarancz, tekst: K.tlo },
+  szkolenie: { tlo: K.fiolet, tekst: '#ffffff' },
 };
 
 // satori reads TTF/OTF/WOFF (not WOFF2); @fontsource ships WOFF next to WOFF2.

@@ -51,11 +51,13 @@ Ważne: każdy wpis zaczyna się od `- `, pozostałe linie od dwóch spacji. Mi�
 | `kategorie` | nie | Kategorie wiekowe w nawiasach kwadratowych, po przecinku. |
 | `plec` | nie | `[K]`, `[M]` albo `[K, M]`. |
 | `poziom` | nie | `okręgowy`, `ogólnopolski` albo `międzynarodowy`. |
+| `udzial` | nie | Dla kogo, w nawiasach kwadratowych: `widownia` (tylko oglądanie), `zawodnicy` (start z licencją, zgłoszenia przez kluby), `otwarte` (może się zapisać każdy). Brak: turniej → zawodnicy, gala → widownia, sparingi i szkolenie → otwarte. |
 | `organizator` | nie | Kto organizuje. |
 | `termin_zgloszen` | nie | Termin zgłoszeń, `RRRR-MM-DD`. |
 | `miejsce` | nie | Obiekt lub adres (hala, hotel, ulica). |
 | `opis` | nie | Krótki opis na stronie wydarzenia. |
-| `linki` | nie | Linki na stronie wydarzenia, każdy w osobnej linii z dwiema spacjami wcięcia: `komunikat`, `wydarzenie` (wydarzenie na Facebooku), `facebook` (profil organizatora na Facebooku), `zapisy`, `regulamin`, `bilety`, `transmisja`, `wyniki`. |
+| `obraz` | nie | Nazwa pliku plakatu z `src/assets/wydarzenia/`, np. `gala-2027.jpg`. Na liście widać go blado w tle karty; bez plakatu jest zaślepka. |
+| `linki` | nie | Linki na stronie wydarzenia (`zapisy`, `bilety` i `facebook` także jako przyciski na liście), każdy w osobnej linii z dwiema spacjami wcięcia: `komunikat`, `wydarzenie` (wydarzenie na Facebooku), `facebook` (profil organizatora na Facebooku), `zapisy`, `regulamin`, `bilety`, `transmisja`, `wyniki`. |
 | `zrodlo` | tak | Link do źródła (z `https://`). Zawsze widoczny na stronie wydarzenia. |
 | `slug` | nie | Własny adres strony wydarzenia (`/wydarzenia/<slug>/`). Domyślnie z nazwy i roku. Ustaw, gdy dwa wydarzenia mają ten sam adres albo żeby adres nie zmienił się po zmianie nazwy. |
 | `sprawdzono` | tak | Kiedy ostatnio porównano dane ze źródłem. |
@@ -65,7 +67,8 @@ Pole niewymagane można pominąć albo zostawić puste.
 
 ### Dopuszczalne wartości
 
-- **typ**: turniej, gala (także zawodowa i freak fighty w boksie), charytatywna, sparingi, inne
+- **typ**: turniej, gala (także zawodowa i freak fighty w boksie), charytatywna, sparingi, szkolenie (seminaria, szkolenia, kursy, obozy), inne
+- **udzial**: widownia, zawodnicy, otwarte
 - **wojewodztwo**: dolnośląskie, kujawsko-pomorskie, lubelskie, lubuskie, łódzkie, małopolskie, mazowieckie, opolskie, podkarpackie, podlaskie, pomorskie, śląskie, świętokrzyskie, warmińsko-mazurskie, wielkopolskie, zachodniopomorskie
 - **kategorie**: młodzik, kadet, junior, młodzieżowiec, senior
 - **poziom**: okręgowy, ogólnopolski, międzynarodowy

@@ -21,7 +21,7 @@ if (lista && form) {
   const ile = document.getElementById('filtry-ile')!;
   const select = (n: string) => form.elements.namedItem(n) as HTMLSelectElement;
   // A page may leave some filters out (a region page has no region filter).
-  const pola = (['typ', 'woj', 'kat', 'plec', 'mies'] as const).filter((p) => select(p));
+  const pola = (['typ', 'udzial', 'woj', 'kat', 'plec', 'mies'] as const).filter((p) => select(p));
 
   const aktualne = wiersze.filter((w) => {
     const trwa = w.dataset.koniec! >= dzis;
@@ -48,7 +48,8 @@ if (lista && form) {
     (!f.woj || w.dataset.woj === f.woj) &&
     (!f.mies || w.dataset.mies === f.mies) &&
     (!f.kat || !w.dataset.kat || w.dataset.kat.split(' ').includes(f.kat)) &&
-    (!f.plec || !w.dataset.plec || w.dataset.plec.split(' ').includes(f.plec));
+    (!f.plec || !w.dataset.plec || w.dataset.plec.split(' ').includes(f.plec)) &&
+    (!f.udzial || !w.dataset.udzial || w.dataset.udzial.split(' ').includes(f.udzial));
 
   const zastosuj = () => {
     const f = Object.fromEntries(pola.map((p) => [p, select(p).value]));
