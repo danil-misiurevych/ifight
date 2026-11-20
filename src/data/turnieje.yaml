@@ -9,6 +9,7 @@
 # (pole "Wydarzenie", "Adres", "Data", "Organizator"). Szczegóły: docs/zrodla.md.
 
 - nazwa: XXV Turniej Boksu im. Michała Szczepana
+  obraz: xxv-turniej-boksu-im-michala-szczepana-2026.jpg
   start: 2026-11-21
   miasto: Raszyn
   wojewodztwo: mazowieckie
@@ -47,6 +48,7 @@
   sprawdzono: 2026-11-17
 
 - nazwa: Międzynarodowy Barbórkowy Turniej Bokserski
+  obraz: miedzynarodowy-barborkowy-turniej-bokserski-2026.jpg
   start: 2026-11-28
   miasto: Wałbrzych
   wojewodztwo: dolnośląskie
@@ -71,6 +73,7 @@
   sprawdzono: 2026-11-17
 
 - nazwa: Gala Boksu Szamotuły Boxing Night II
+  obraz: gala-boksu-szamotuly-boxing-night-ii-2026.jpg
   typ: gala
   start: 2026-11-28
   miasto: Szamotuły
@@ -194,6 +197,7 @@
   sprawdzono: 2026-11-17
 
 - nazwa: II Ogólnopolski Turniej Bokserski
+  obraz: ii-ogolnopolski-turniej-bokserski-2026.webp
   start: 2026-12-12
   miasto: Tarnówka
   wojewodztwo: wielkopolskie
