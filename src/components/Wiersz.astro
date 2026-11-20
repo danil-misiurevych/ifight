@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { Turniej } from '../lib/turnieje';
-import { slug, TYP_ETYKIETA, UDZIAL_ETYKIETA } from '../lib/turnieje';
+import { dlaStartujacych, dlaWidzow, naroznik, slug, TYP_ETYKIETA } from '../lib/turnieje';
 import { krotkaData, stanTerminu, zakresDat } from '../lib/daty';
 import { SITE } from '../site';
 
@@ -13,17 +13,26 @@ interface Props {
 }
 const { t, dzis, archiwum = false } = Astro.props;
 
+const MIES = ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'];
+// Date block: day (or day range within a month) over the month abbreviation.
+const jedenMiesiac = t.start.slice(0, 7) === t.koniec.slice(0, 7);
+const dzien = jedenMiesiac && t.koniec !== t.start
+  ? `${Number(t.start.slice(8))}–${Number(t.koniec.slice(8))}`
+  : String(Number(t.start.slice(8)));
+const miesiac = MIES[Number(t.start.slice(5, 7)) - 1];
+
 const plec =
   t.plec.length === 2 ? 'K+M' : t.plec[0] === 'K' ? 'kobiety' : t.plec[0] === 'M' ? 'mężczyźni' : '';
+const znaczniki = [...t.kategorie, plec, t.poziom].filter(Boolean) as string[];
 
 // Only non-empty parts are shown, so missing optional fields just shorten the row.
 const meta = [
   `${t.miasto}, ${t.wojewodztwo}`,
-  t.kategorie.join(', '),
-  plec,
-  t.poziom,
+  !jedenMiesiac && zakresDat(t.start, t.koniec),
   t.organizator && `org. ${t.organizator}`,
 ].filter(Boolean);
+
+const tryby = [dlaStartujacych(t.udzial) && 'start', dlaWidzow(t.udzial) && 'ogladam'].filter(Boolean).join(' ');
 
 // Quick links on the card. The primary action depends on who the event is for:
 // tickets for spectators, sign-up for those who can take part.
@@ -35,7 +44,7 @@ const przyciski = archiwum
       { rodzaj: 'bilety', etykieta: 'Bilety', url: link('bilety') },
       { rodzaj: 'organizator', etykieta: 'Organizator', url: link('facebook') },
     ].filter((p): p is { rodzaj: string; etykieta: string; url: string } => Boolean(p.url));
-if (t.udzial.includes('widownia') && !t.udzial.some((u) => u !== 'widownia')) {
+if (dlaWidzow(t.udzial) && !dlaStartujacych(t.udzial)) {
   przyciski.sort((a, b) => Number(b.rodzaj === 'bilety') - Number(a.rodzaj === 'bilety'));
 }
 
@@ -44,48 +53,51 @@ const termin = !archiwum && t.termin_zgloszen && stanTerminu(t.termin_zgloszen, 
 
 <li
   class="t"
+  data-strona={naroznik(t.udzial)}
   data-koniec={t.koniec}
   data-typ={t.typ}
   data-mies={t.start.slice(0, 7)}
   data-woj={slug(t.wojewodztwo)}
   data-kat={t.kategorie.map(slug).join(' ')}
   data-plec={t.plec.join(' ')}
-  data-udzial={t.udzial.join(' ')}
+  data-tryby={tryby}
 >
-  {
-    t.obraz ? (
-      <Image class="t-obraz" src={t.obraz} alt="" width={420} loading="lazy" decoding="async" />
-    ) : (
-      <span class="t-obraz t-zaslepka" data-typ={t.typ} aria-hidden="true" />
-    )
-  }
   <time class="t-data" datetime={t.start}>
-    {zakresDat(t.start, t.koniec)}{archiwum && <span class="t-rok">{t.start.slice(0, 4)}</span>}
+    <span class:list={['t-dzien', { dlugi: dzien.length > 3 }]}>{dzien}</span>
+    <span class="t-mies">{miesiac}</span>
+    {archiwum && <span class="t-rok">{t.start.slice(0, 4)}</span>}
   </time>
   <div class="t-opis">
-    <span class="t-typ" data-typ={t.typ}>{TYP_ETYKIETA[t.typ].jeden}</span>
-    {t.udzial.map((u) => <span class="t-udzial" data-udzial={u} title={UDZIAL_ETYKIETA[u].opis}>{UDZIAL_ETYKIETA[u].krotka}</span>)}
+    <span class="t-typ">{TYP_ETYKIETA[t.typ].jeden}</span>
     <a class="t-nazwa" href={`/wydarzenia/${t.slug}/`}>{t.nazwa}</a>
     <span class="t-meta">{meta.join(' · ')}</span>
-    <span class="t-akcje">
-      {
-        przyciski.map((p) => (
-          <a class="t-akcja" data-rodzaj={p.rodzaj} href={p.url} target="_blank" rel="noopener">
-            {p.etykieta} <span aria-hidden="true">↗</span>
-          </a>
-        ))
-      }
-      <a class="t-akcja t-akcja-wiecej" href={`/wydarzenia/${t.slug}/`} tabindex="-1" aria-hidden="true">
-        Szczegóły →
-      </a>
-    </span>
+    {
+      (znaczniki.length > 0 || t.udzial.includes('otwarte')) && (
+        <span class="znaczniki">
+          {t.udzial.includes('otwarte') && <span class="znacznik otwarte">otwarte zapisy</span>}
+          {znaczniki.map((z) => <span class="znacznik">{z}</span>)}
+        </span>
+      )
+    }
+    {
+      termin && (
+        <span class="termin" data-termin={t.termin_zgloszen} data-stan={termin.stan}>
+          Zgłoszenia do <span class="termin-data">{krotkaData(t.termin_zgloszen!)}</span>{' '}
+          <span class="termin-dopisek">{termin.dopisek && `(${termin.dopisek})`}</span>
+        </span>
+      )
+    }
+    {
+      przyciski.length > 0 && (
+        <span class="t-akcje">
+          {przyciski.map((p) => (
+            <a class="t-akcja" data-rodzaj={p.rodzaj} href={p.url} target="_blank" rel="noopener">
+              {p.etykieta} <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </span>
+      )
+    }
   </div>
-  {
-    termin && (
-      <span class="termin" data-termin={t.termin_zgloszen} data-stan={termin.stan}>
-        zgłoszenia do <span class="termin-data">{krotkaData(t.termin_zgloszen!)}</span>{' '}
-        <span class="termin-dopisek">{termin.dopisek && `(${termin.dopisek})`}</span>
-      </span>
-    )
-  }
+  {t.obraz && <Image class="t-obraz" src={t.obraz} alt="" width={150} loading="lazy" decoding="async" />}
 </li>

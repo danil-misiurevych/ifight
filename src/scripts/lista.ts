@@ -1,8 +1,7 @@
 // Client-side behaviour of the event list:
 // - hides events that ended after the last build,
 // - refreshes deadline states against today's date,
-// - applies filters without reloading and keeps them in the URL,
-// - opens and closes the filter panel (collapsed unless the URL has filters).
+// - applies the mode switch and filters without reloading and keeps them in the URL.
 import { dzisiaj, stanTerminu } from '../lib/daty';
 
 const lista = document.getElementById('turnieje');
@@ -16,12 +15,12 @@ if (lista && form) {
   const licznik = document.getElementById('licznik')!;
   const wyczysc = document.getElementById('wyczysc')!;
   const pusto = document.getElementById('pusto')!;
-  const pasek = document.getElementById('filtry-pasek')!;
-  const przycisk = document.getElementById('filtry-przycisk')!;
-  const ile = document.getElementById('filtry-ile')!;
-  const select = (n: string) => form.elements.namedItem(n) as HTMLSelectElement;
   // A page may leave some filters out (a region page has no region filter).
-  const pola = (['typ', 'udzial', 'woj', 'kat', 'plec', 'mies'] as const).filter((p) => select(p));
+  const selecty = (['woj', 'kat', 'plec', 'typ', 'mies'] as const)
+    .map((n) => form.elements.namedItem(n))
+    .filter((el): el is HTMLSelectElement => el instanceof HTMLSelectElement);
+  const tryby = [...form.querySelectorAll<HTMLInputElement>('input[name="tryb"]')];
+  const tryb = () => tryby.find((r) => r.checked)?.value ?? '';
 
   const aktualne = wiersze.filter((w) => {
     const trwa = w.dataset.koniec! >= dzis;
@@ -41,18 +40,20 @@ if (lista && form) {
     return j >= 2 && j <= 4 && (d < 12 || d > 14) ? 'wydarzenia' : 'wydarzeń';
   };
 
-  // A tournament with no categories/sex given matches any value:
+  // An event with no categories/sex/participation given matches any value:
   // better to show it than to hide it from a coach.
+  const zawiera = (lista: string | undefined, v: string) => !lista || lista.split(' ').includes(v);
   const pasuje = (w: HTMLElement, f: Record<string, string>) =>
     (!f.typ || w.dataset.typ === f.typ) &&
     (!f.woj || w.dataset.woj === f.woj) &&
     (!f.mies || w.dataset.mies === f.mies) &&
-    (!f.kat || !w.dataset.kat || w.dataset.kat.split(' ').includes(f.kat)) &&
-    (!f.plec || !w.dataset.plec || w.dataset.plec.split(' ').includes(f.plec)) &&
-    (!f.udzial || !w.dataset.udzial || w.dataset.udzial.split(' ').includes(f.udzial));
+    (!f.kat || zawiera(w.dataset.kat, f.kat)) &&
+    (!f.plec || zawiera(w.dataset.plec, f.plec)) &&
+    (!f.tryb || zawiera(w.dataset.tryby, f.tryb));
 
   const zastosuj = () => {
-    const f = Object.fromEntries(pola.map((p) => [p, select(p).value]));
+    const f: Record<string, string> = Object.fromEntries(selecty.map((s) => [s.name, s.value]));
+    f.tryb = tryb();
     let widoczne = 0;
     for (const w of aktualne) {
       const ok = pasuje(w, f);
@@ -60,11 +61,9 @@ if (lista && form) {
       if (ok) widoczne++;
     }
     for (const m of miesiace) m.hidden = !m.querySelector('.t:not([hidden])');
+    for (const s of selecty) s.classList.toggle('wybrany', Boolean(s.value));
 
-    const liczbaAktywnych = pola.filter((p) => f[p]).length;
-    const aktywne = liczbaAktywnych > 0;
-    ile.textContent = String(liczbaAktywnych);
-    ile.hidden = !aktywne;
+    const aktywne = Object.values(f).some(Boolean);
     licznik.textContent = `${widoczne} ${odmiana(widoczne)}`;
     wyczysc.hidden = !aktywne;
     pusto.hidden = widoczne > 0;
@@ -73,30 +72,25 @@ if (lista && form) {
       : 'Brak nadchodzących wydarzeń w kalendarzu.';
 
     const q = new URLSearchParams();
-    for (const p of pola) if (f[p]) q.set(p, f[p]);
+    for (const [k, v] of Object.entries(f)) if (v) q.set(k, v);
     const s = q.toString();
     history.replaceState(null, '', s ? `?${s}` : location.pathname);
   };
 
   // Restore filters from the URL, ignoring values that are not in the lists.
   const q = new URLSearchParams(location.search);
-  for (const p of pola) {
-    const v = q.get(p);
-    if (v && [...select(p).options].some((o) => o.value === v)) select(p).value = v;
+  for (const s of selecty) {
+    const v = q.get(s.name);
+    if (v && [...s.options].some((o) => o.value === v)) s.value = v;
   }
-
-  const pokaz = (otwarte: boolean) => {
-    form.hidden = !otwarte;
-    przycisk.setAttribute('aria-expanded', String(otwarte));
-  };
-  przycisk.addEventListener('click', () => pokaz(form.hidden));
+  const t = q.get('tryb');
+  for (const r of tryby) if (r.value === t) r.checked = true;
 
   form.addEventListener('change', zastosuj);
   wyczysc.addEventListener('click', () => {
     form.reset();
     zastosuj();
   });
-  pasek.hidden = false;
-  pokaz(pola.some((p) => select(p).value));
+  form.hidden = false;
   zastosuj();
 }

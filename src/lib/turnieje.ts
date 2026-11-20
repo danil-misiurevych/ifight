@@ -62,6 +62,13 @@ const UDZIAL_DOMYSLNY: Partial<Record<(typeof TYPY)[number], Udzial[]>> = {
   szkolenie: ['otwarte'],
 };
 
+/** Events someone can enter (licensed boxers or open sign-up) count as „Startuję”. */
+export const dlaStartujacych = (udzial: Udzial[]) => udzial.some((u) => u !== 'widownia');
+export const dlaWidzow = (udzial: Udzial[]) => udzial.includes('widownia');
+/** Ring corner of an event: red for taking part, blue for watching, none when unknown. */
+export const naroznik = (udzial: Udzial[]): 'start' | 'ogladam' | '' =>
+  dlaStartujacych(udzial) ? 'start' : dlaWidzow(udzial) ? 'ogladam' : '';
+
 // Optional links shown on the event page, in this order.
 export const LINKI = {
   komunikat: 'Komunikat / ogłoszenie',
@@ -180,6 +187,8 @@ export interface Turniej {
   opis?: string;
   /** Poster from src/assets/wydarzenia/, if the entry names one. */
   obraz?: ImageMetadata;
+  /** File name of the poster in src/assets/wydarzenia/ (used by the share images). */
+  plikObrazu?: string;
   linki: { rodzaj: RodzajLinku; etykieta: string; url: string }[];
   zrodlo: string;
   /** Path segment of the event page: /wydarzenia/<slug>/ */
@@ -225,6 +234,7 @@ function wczytaj(): Turniej[] {
     wynik.push({
       ...t,
       obraz: t.obraz ? OBRAZY.get(t.obraz) : undefined,
+      plikObrazu: t.obraz,
       slug: t.slug ?? (nazwa.includes(rok) ? nazwa : `${nazwa}-${rok}`),
       linki: (Object.keys(LINKI) as RodzajLinku[])
         .filter((k) => t.linki?.[k])

@@ -45,6 +45,7 @@ Założenia:
 ## Etap 5. Wygląd
 
 - ~~Logo, paleta kolorów, czcionki (styl lat 80.).~~ Zrobione.
+- ~~Nowy wygląd „Narożniki” (po researchu, listopad 2026): czerwony i niebieski narożnik ringu, tryby „Startuję / Oglądam”, widoczne filtry, kategorie i termin zgłoszeń na karcie, przycisk „Zgłoś wydarzenie”. Grafiki do udostępniania w stylu plakatu gali.~~ Zrobione.
 - ~~Grafika do udostępniania (Open Graph).~~ Zrobione: osobna dla każdego wydarzenia i województwa, generowana przy budowaniu (`src/lib/og.ts`).
 
 ## Etap 6. Opisy turniejów i SEO

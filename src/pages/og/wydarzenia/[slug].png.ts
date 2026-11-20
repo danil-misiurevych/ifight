@@ -1,6 +1,6 @@
 // Share image of a single event: /og/wydarzenia/<slug>.png
 import type { APIRoute, GetStaticPaths } from 'astro';
-import { turnieje, TYP_ETYKIETA, type Turniej } from '../../../lib/turnieje';
+import { naroznik, turnieje, TYP_ETYKIETA, type Turniej } from '../../../lib/turnieje';
 import { dlugaData, dlugiZakres } from '../../../lib/daty';
 import { obrazKarty, odpowiedzPng } from '../../../lib/og';
 
@@ -12,12 +12,13 @@ export const GET: APIRoute = async ({ props }) => {
   return odpowiedzPng(
     await obrazKarty({
       etykieta: TYP_ETYKIETA[t.typ].jeden,
-      typ: t.typ,
+      naroznik: naroznik(t.udzial),
+      plakat: t.plikObrazu,
       tytul: t.nazwa,
       data: dlugiZakres(t.start, t.koniec),
       miejsce: [t.miejsce, t.miasto].filter(Boolean).join(', '),
       dopisek: t.termin_zgloszen
-        ? `Zgłoszenia do ${dlugaData(t.termin_zgloszen)}`
+        ? `Zgłoszenia do ${dlugaData(t.termin_zgloszen).split(', ')[1]}`
         : t.organizator && `Organizator: ${t.organizator}`,
     }),
   );

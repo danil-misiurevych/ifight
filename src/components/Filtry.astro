@@ -1,5 +1,5 @@
 ---
-import { KATEGORIE, slug, TYP_ETYKIETA, UDZIAL_ETYKIETA, type Udzial } from '../lib/turnieje';
+import { KATEGORIE, slug, TYP_ETYKIETA } from '../lib/turnieje';
 import type { Turniej } from '../lib/turnieje';
 import { nazwaMiesiaca } from '../lib/daty';
 
@@ -7,70 +7,85 @@ interface Props {
   typy: Turniej['typ'][];
   wojewodztwa: string[];
   miesiace: string[];
-  udzialy: Udzial[];
+  /** The mode switch is shown only when the list has both kinds of events. */
+  tryby: boolean;
 }
-const { typy, wojewodztwa, miesiace, udzialy } = Astro.props;
+const { typy, wojewodztwa, miesiace, tryby } = Astro.props;
 ---
 
-<!-- Hidden until the script runs: without JavaScript the full list is shown.
-     The filter panel itself starts collapsed and opens with the "Filtry" button. -->
-<div class="filtry-pasek" id="filtry-pasek" hidden>
-  <button type="button" class="filtry-przycisk" id="filtry-przycisk" aria-expanded="false" aria-controls="filtry">
-    Filtry <span class="filtry-ile" id="filtry-ile" hidden></span>
-  </button>
-  <span class="licznik" id="licznik" aria-live="polite"></span>
-  <button type="button" class="wyczysc" id="wyczysc" hidden>wyczyść filtry</button>
-</div>
+<!-- Hidden until the script runs: without JavaScript the full list is shown. -->
 <form class="filtry" id="filtry" hidden>
-  <label>
-    Rodzaj
-    <select name="typ">
-      <option value="">wszystkie</option>
-      {typy.map((t) => <option value={t}>{TYP_ETYKIETA[t].wiele}</option>)}
-    </select>
-  </label>
   {
-    wojewodztwa.length > 0 && (
-      <label>
-        Województwo
-        <select name="woj">
-          <option value="">wszystkie</option>
-          {wojewodztwa.map((w) => <option value={slug(w)}>{w}</option>)}
-        </select>
-      </label>
+    tryby && (
+      <fieldset class="tryby">
+        <legend class="ukryty">Co cię interesuje</legend>
+        <label class="tryb" data-tryb="">
+          <input type="radio" name="tryb" value="" checked />
+          <span>Wszystko</span>
+        </label>
+        <label class="tryb" data-tryb="start">
+          <input type="radio" name="tryb" value="start" />
+          <span>Startuję<small>turnieje, sparingi, szkolenia</small></span>
+        </label>
+        <label class="tryb" data-tryb="ogladam">
+          <input type="radio" name="tryb" value="ogladam" />
+          <span>Oglądam<small>gale i walki z widownią</small></span>
+        </label>
+      </fieldset>
     )
   }
-  {
-    udzialy.length > 1 && (
-      <label>
-        Udział
-        <select name="udzial">
-          <option value="">wszystkie</option>
-          {udzialy.map((u) => <option value={u}>{UDZIAL_ETYKIETA[u].krotka}</option>)}
-        </select>
-      </label>
-    )
-  }
-  <label>
-    Kategoria wiekowa
-    <select name="kat">
-      <option value="">wszystkie</option>
-      {KATEGORIE.map((k) => <option value={slug(k)}>{k}</option>)}
-    </select>
-  </label>
-  <label>
-    Płeć
-    <select name="plec">
-      <option value="">wszystkie</option>
-      <option value="K">kobiety</option>
-      <option value="M">mężczyźni</option>
-    </select>
-  </label>
-  <label>
-    Miesiąc
-    <select name="mies">
-      <option value="">wszystkie</option>
-      {miesiace.map((m) => <option value={m}>{nazwaMiesiaca(m).toLowerCase()}</option>)}
-    </select>
-  </label>
+  <div class="filtry-wybor">
+    {
+      wojewodztwa.length > 0 && (
+        <label>
+          <span class="ukryty">Województwo</span>
+          <select name="woj">
+            <option value="">Województwo</option>
+            {wojewodztwa.map((w) => <option value={slug(w)}>{w}</option>)}
+          </select>
+        </label>
+      )
+    }
+    <label>
+      <span class="ukryty">Kategoria wiekowa</span>
+      <select name="kat">
+        <option value="">Kategoria wiekowa</option>
+        {KATEGORIE.map((k) => <option value={slug(k)}>{k}</option>)}
+      </select>
+    </label>
+    <label>
+      <span class="ukryty">Płeć</span>
+      <select name="plec">
+        <option value="">Płeć</option>
+        <option value="K">kobiety</option>
+        <option value="M">mężczyźni</option>
+      </select>
+    </label>
+    {
+      typy.length > 1 && (
+        <label>
+          <span class="ukryty">Rodzaj</span>
+          <select name="typ">
+            <option value="">Rodzaj</option>
+            {typy.map((t) => <option value={t}>{TYP_ETYKIETA[t].wiele}</option>)}
+          </select>
+        </label>
+      )
+    }
+    {
+      miesiace.length > 1 && (
+        <label>
+          <span class="ukryty">Miesiąc</span>
+          <select name="mies">
+            <option value="">Miesiąc</option>
+            {miesiace.map((m) => <option value={m}>{nazwaMiesiaca(m).toLowerCase()}</option>)}
+          </select>
+        </label>
+      )
+    }
+  </div>
+  <div class="filtry-stan">
+    <span class="licznik" id="licznik" aria-live="polite"></span>
+    <button type="button" class="wyczysc" id="wyczysc" hidden>wyczyść filtry</button>
+  </div>
 </form>
