@@ -24,7 +24,14 @@ const temat = encodeURIComponent('Wydarzenie do kalendarza');
         Każde wydarzenie ma własną stronę z podstawowymi danymi i linkami: do komunikatu organizatora,
         zapisów, regulaminu, biletów czy transmisji – tam, gdzie są dostępne.
       </li>
-      <li>Serwis nie przyjmuje zgłoszeń ani opłat – zgłoszenia wysyła się zawsze do organizatora.</li>
+      <li>
+        Dodanie wydarzenia do kalendarza jest bezpłatne – organizator może je{' '}
+        <a href="/dla-organizatorow/">zgłosić sam</a>.
+      </li>
+      <li>
+        Nie prowadzimy zapisów zawodników ani sprzedaży biletów – te zawsze obsługuje organizator,
+        a my podajemy do nich link.
+      </li>
       <li>Przy każdym wydarzeniu podajemy datę, kiedy ostatnio sprawdziliśmy dane.</li>
       <li>
         Wydarzenia, które już się odbyły, znikają z listy automatycznie i trafiają do{' '}
@@ -41,15 +48,12 @@ const temat = encodeURIComponent('Wydarzenie do kalendarza');
 
     <h2 id="kontakt">Zgłoś wydarzenie lub poprawkę</h2>
     <p>
-      Organizujesz wydarzenie albo widzisz błąd? Napisz:{' '}
-      <a href={`mailto:${SITE.email}?subject=${temat}`}>{SITE.email}</a>
+      Organizujesz wydarzenie? Najszybciej przez{' '}
+      <a href="/dla-organizatorow/">formularz dla organizatorów</a> – wystarczy kilka pól i link do ogłoszenia.
     </p>
-    <p>W wiadomości podaj:</p>
-    <ul>
-      <li>nazwę i rodzaj wydarzenia (turniej, gala, sparingi…), daty i miasto,</li>
-      <li>kategorie wiekowe i płeć, jeśli dotyczą,</li>
-      <li>termin zgłoszeń,</li>
-      <li>link do oficjalnego komunikatu lub ogłoszenia.</li>
-    </ul>
+    <p>
+      Widzisz błąd albo wolisz napisać? <a href={`mailto:${SITE.email}?subject=${temat}`}>{SITE.email}</a>
+      {' '}– podaj nazwę wydarzenia, daty, miasto i link do oficjalnego komunikatu.
+    </p>
   </div>
 </Strona>

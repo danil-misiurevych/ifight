@@ -1,12 +1,25 @@
 # iFight — kalendarz wydarzeń bokserskich w Polsce
 
 Minimalistyczna strona statyczna: lista nadchodzących wydarzeń bokserskich (turnieje, gale, wydarzenia charytatywne, otwarte sparingi) z linkami do źródeł.
-Serwis jest nieoficjalny, nie przyjmuje zgłoszeń ani opłat.
+Serwis jest nieoficjalny i bezpłatny. Organizatorzy mogą zgłaszać wydarzenia do kalendarza; zapisy zawodników i bilety obsługuje zawsze organizator.
 
 Technologia: [Astro](https://astro.build) (generowanie statyczne), bez bazy danych i backendu.
 Wdrożenie: Vercel, automatycznie z GitHuba.
 
 Plan rozwoju: [ROADMAP.md](ROADMAP.md). Źródła turniejów: [docs/zrodla.md](docs/zrodla.md).
+
+## Zgłoszenia od organizatorów
+
+Strona `/dla-organizatorow/` ma formularz. Wysyła go funkcja Vercel `api/zgloszenie.ts`, która zakłada issue z etykietą `zgłoszenie` i gotowym szkicem wpisu YAML. Na stronie nic się nie pojawia, dopóki ktoś nie sprawdzi źródła i nie scali PR.
+
+Repozytorium jest publiczne, więc issue też: formularz nie prosi o dane kontaktowe.
+
+Ustawienia w Vercel (Settings → Environment Variables, środowisko Production i Preview):
+
+- `GITHUB_TOKEN`: token „fine-grained” tylko do tego repozytorium, uprawnienie *Issues: Read and write*.
+- `GITHUB_REPO` (opcjonalnie): domyślnie `danil-misiurevych/ifight`.
+
+Lokalnie (`npm run dev`) funkcja nie działa: formularz pokaże komunikat o błędzie z adresem e-mail.
 
 ## Jak dodać wydarzenie
 

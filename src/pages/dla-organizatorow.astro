@@ -1,0 +1,189 @@
+---
+import Strona from '../layouts/Strona.astro';
+import { SITE } from '../site';
+import { TYPY, TYP_ETYKIETA, WOJEWODZTWA } from '../lib/turnieje';
+
+const temat = encodeURIComponent('Wydarzenie do kalendarza');
+const mail = `mailto:${SITE.email}?subject=${temat}`;
+---
+
+<Strona
+  tytul="Dla organizatorów – dodaj wydarzenie"
+  opis={`Organizujesz turniej, galę, sparingi albo seminarium bokserskie? Dodaj je bezpłatnie do kalendarza ${SITE.nazwa} – wystarczy link do ogłoszenia.`}
+>
+  <div class="tresc">
+    <h1 class="tytul-strony">Dla organizatorów</h1>
+    <p>
+      Organizujesz turniej, galę, otwarte sparingi albo seminarium? Dodaj je do kalendarza –
+      <strong>bezpłatnie, bez zakładania konta</strong>. Wystarczą podstawowe dane i link do ogłoszenia,
+      resztę uzupełnimy sami.
+    </p>
+
+    <h2>Co zyskujesz</h2>
+    <ul>
+      <li>
+        <strong>Własną stronę wydarzenia</strong> z linkami do zapisów, regulaminu, biletów i transmisji.
+      </li>
+      <li>
+        <strong>Gotową grafikę do udostępnienia</strong> – link do Twojego wydarzenia wygląda dobrze na
+        Facebooku, Instagramie i w Messengerze.
+      </li>
+      <li>
+        <strong>Zawodników i widzów z całej Polski</strong>: wydarzenie trafia na listę ogólnopolską, na stronę
+        województwa i do kalendarzy, które ludzie subskrybują w telefonie.
+      </li>
+      <li>
+        <strong>Przypomnienie o terminie zgłoszeń</strong> – podświetlamy go na tydzień przed końcem, żeby kluby
+        nie przegapiły zapisów.
+      </li>
+    </ul>
+
+    <h2 id="formularz">Zgłoś wydarzenie</h2>
+
+    <p class="uwaga zgl-wynik" data-wynik="ok" hidden>
+      <strong>Dziękujemy!</strong> Zgłoszenie dotarło. Sprawdzimy dane w podanym ogłoszeniu i zwykle w ciągu
+      kilku dni wydarzenie pojawi się w kalendarzu.
+    </p>
+    <p class="uwaga zgl-wynik" data-wynik="blad" hidden>
+      Nie udało się wysłać zgłoszenia. Spróbuj ponownie albo napisz na{' '}
+      <a href={mail}>{SITE.email}</a>.
+    </p>
+
+    <form class="zgl" method="post" action="/api/zgloszenie">
+      <label class="zgl-pole">
+        <span>Nazwa wydarzenia <em>*</em></span>
+        <input name="nazwa" required maxlength="150" placeholder="np. Turniej o Puchar Prezydenta Miasta" />
+      </label>
+
+      <label class="zgl-pole">
+        <span>Rodzaj</span>
+        <select name="typ">
+          {TYPY.map((t) => <option value={t}>{TYP_ETYKIETA[t].jeden}</option>)}
+        </select>
+      </label>
+
+      <div class="zgl-rzad">
+        <label class="zgl-pole">
+          <span>Pierwszy dzień <em>*</em></span>
+          <input type="date" name="start" required />
+        </label>
+        <label class="zgl-pole">
+          <span>Ostatni dzień</span>
+          <input type="date" name="koniec" />
+        </label>
+      </div>
+
+      <div class="zgl-rzad">
+        <label class="zgl-pole">
+          <span>Miasto <em>*</em></span>
+          <input name="miasto" required maxlength="80" />
+        </label>
+        <label class="zgl-pole">
+          <span>Województwo <em>*</em></span>
+          <select name="wojewodztwo" required>
+            <option value="">wybierz…</option>
+            {WOJEWODZTWA.map((w) => <option value={w}>{w}</option>)}
+          </select>
+        </label>
+      </div>
+
+      <label class="zgl-pole">
+        <span>Link do ogłoszenia <em>*</em></span>
+        <input inputmode="url" name="zrodlo" required maxlength="500" placeholder="komunikat, post na Facebooku lub Instagramie" />
+        <small>Na tej podstawie sprawdzamy i uzupełniamy dane.</small>
+      </label>
+
+      <label class="zgl-pole">
+        <span>Organizator</span>
+        <input name="organizator" maxlength="150" placeholder="klub, związek, firma" />
+      </label>
+
+      <div class="zgl-rzad">
+        <label class="zgl-pole">
+          <span>Link do zapisów lub biletów</span>
+          <input inputmode="url" name="zapisy" maxlength="500" />
+        </label>
+        <label class="zgl-pole">
+          <span>Termin zgłoszeń</span>
+          <input type="date" name="termin_zgloszen" />
+        </label>
+      </div>
+
+      <label class="zgl-pole">
+        <span>Coś jeszcze?</span>
+        <textarea name="opis" rows="4" maxlength="2000" placeholder="kategorie wiekowe, miejsce, transmisja, ważne informacje…"></textarea>
+      </label>
+
+      <!-- Spam trap: hidden from people, bots fill it in. -->
+      <label class="ukryty" aria-hidden="true">
+        Strona www <input name="strona_www" tabindex="-1" autocomplete="off" />
+      </label>
+      <input type="hidden" name="czas" value="" />
+
+      <p class="szary zgl-info">
+        Zgłoszenie jest publiczne (trafia do naszego repozytorium na GitHubie), dlatego nie prosimy o dane
+        kontaktowe. Chcesz, żebyśmy się odezwali? Napisz na <a href={mail}>{SITE.email}</a>.
+      </p>
+
+      <button class="przycisk" data-rodzaj="zapisy" type="submit">Wyślij zgłoszenie</button>
+      <ul class="zgl-bledy" role="alert"></ul>
+    </form>
+
+    <h2>Wolisz napisać?</h2>
+    <p>
+      Wyślij link do ogłoszenia na <a href={mail}>{SITE.email}</a>. Tam też zgłaszaj poprawki do
+      wydarzeń, które już są w kalendarzu.
+    </p>
+  </div>
+</Strona>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('form.zgl')!;
+  const czas = form.querySelector<HTMLInputElement>('[name=czas]')!;
+  const bledy = form.querySelector<HTMLUListElement>('.zgl-bledy')!;
+  const przycisk = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+  czas.value = String(Date.now());
+
+  const pokaz = (wynik: string) => {
+    document.querySelectorAll<HTMLElement>('.zgl-wynik').forEach((el) => (el.hidden = el.dataset.wynik !== wynik));
+    document.getElementById('formularz')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Result after a submit without JavaScript (the function redirects back here).
+  const wynik = new URLSearchParams(location.search).get('wynik');
+  if (wynik) pokaz(wynik);
+
+  // The end date cannot be before the start date.
+  const start = form.querySelector<HTMLInputElement>('[name=start]')!;
+  const koniec = form.querySelector<HTMLInputElement>('[name=koniec]')!;
+  start.addEventListener('change', () => (koniec.min = start.value));
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    bledy.replaceChildren();
+    przycisk.disabled = true;
+    przycisk.textContent = 'Wysyłanie…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { accept: 'application/json' },
+        body: new FormData(form),
+      });
+      const dane = await res.json().catch(() => ({ ok: false }));
+      if (dane.ok) {
+        form.reset();
+        form.hidden = true;
+        pokaz('ok');
+      } else if (dane.bledy?.length) {
+        bledy.replaceChildren(...dane.bledy.map((b: string) => Object.assign(document.createElement('li'), { textContent: b })));
+      } else {
+        pokaz('blad');
+      }
+    } catch {
+      pokaz('blad');
+    } finally {
+      przycisk.disabled = false;
+      przycisk.textContent = 'Wyślij zgłoszenie';
+    }
+  });
+</script>
