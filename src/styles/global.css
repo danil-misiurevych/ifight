@@ -196,6 +196,13 @@ h1, h2 { font-family: var(--naglowki); font-style: italic; font-weight: 800; tex
 .t-typ[data-typ='turniej'] { background: var(--cyjan); }
 .t-typ[data-typ='charytatywna'] { background: var(--zolty); }
 .t-typ[data-typ='sparingi'] { background: var(--pomarancz); }
+.t-udzial {
+  display: inline-block; margin: 0 0 0.15rem 0.35rem; padding: 0 0.4rem;
+  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--szary); border: 1px solid var(--linia); border-radius: 2px; vertical-align: 1px;
+}
+.t-udzial[data-udzial='otwarte'] { color: var(--zolty); border-color: rgba(255, 211, 25, 0.45); }
+.t-typ[data-typ='szkolenie'] { background: var(--fiolet); color: #fff; }
 .t-nazwa {
   display: block; color: var(--tekst); text-decoration: none;
   font-weight: 600; font-size: 1.05rem; line-height: 1.3; overflow-wrap: anywhere;

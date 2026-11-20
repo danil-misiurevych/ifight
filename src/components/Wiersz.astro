@@ -1,6 +1,6 @@
 ---
 import type { Turniej } from '../lib/turnieje';
-import { slug, TYP_ETYKIETA } from '../lib/turnieje';
+import { slug, TYP_ETYKIETA, UDZIAL_ETYKIETA } from '../lib/turnieje';
 import { krotkaData, stanTerminu, zakresDat } from '../lib/daty';
 import { SITE } from '../site';
 
@@ -35,12 +35,14 @@ const termin = !archiwum && t.termin_zgloszen && stanTerminu(t.termin_zgloszen, 
   data-woj={slug(t.wojewodztwo)}
   data-kat={t.kategorie.map(slug).join(' ')}
   data-plec={t.plec.join(' ')}
+  data-udzial={t.udzial.join(' ')}
 >
   <time class="t-data" datetime={t.start}>
     {zakresDat(t.start, t.koniec)}{archiwum && <span class="t-rok">{t.start.slice(0, 4)}</span>}
   </time>
   <div class="t-opis">
     <span class="t-typ" data-typ={t.typ}>{TYP_ETYKIETA[t.typ].jeden}</span>
+    {t.udzial.map((u) => <span class="t-udzial" data-udzial={u} title={UDZIAL_ETYKIETA[u].opis}>{UDZIAL_ETYKIETA[u].krotka}</span>)}
     <a class="t-nazwa" href={`/wydarzenia/${t.slug}/`}>{t.nazwa}</a>
     <span class="t-meta">{meta.join(' · ')}</span>
   </div>

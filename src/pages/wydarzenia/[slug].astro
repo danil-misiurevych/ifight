@@ -4,7 +4,7 @@ import type { GetStaticPaths } from 'astro';
 import Strona from '../../layouts/Strona.astro';
 import Wiersz from '../../components/Wiersz.astro';
 import SchemaWydarzen from '../../components/SchemaWydarzen.astro';
-import { adresWojewodztwa, turnieje, TYP_ETYKIETA, type Turniej } from '../../lib/turnieje';
+import { adresWojewodztwa, turnieje, TYP_ETYKIETA, UDZIAL_ETYKIETA, type Turniej } from '../../lib/turnieje';
 import { dlugiZakres, dlugaData, dzisiaj, krotkaData, stanTerminu } from '../../lib/daty';
 import { SITE } from '../../site';
 
@@ -29,6 +29,7 @@ const szczegoly = [
   ['Kategorie wiekowe', t.kategorie.join(', ')],
   ['Płeć', plec],
   ['Poziom', t.poziom],
+  ['Udział', t.udzial.map((u) => UDZIAL_ETYKIETA[u].opis).join('; ')],
   ['Organizator', t.organizator],
 ].filter(([, v]) => v) as [string, string][];
 

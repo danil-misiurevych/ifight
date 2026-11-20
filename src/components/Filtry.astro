@@ -1,5 +1,5 @@
 ---
-import { KATEGORIE, slug, TYP_ETYKIETA } from '../lib/turnieje';
+import { KATEGORIE, slug, TYP_ETYKIETA, UDZIAL_ETYKIETA, type Udzial } from '../lib/turnieje';
 import type { Turniej } from '../lib/turnieje';
 import { nazwaMiesiaca } from '../lib/daty';
 
@@ -7,8 +7,9 @@ interface Props {
   typy: Turniej['typ'][];
   wojewodztwa: string[];
   miesiace: string[];
+  udzialy: Udzial[];
 }
-const { typy, wojewodztwa, miesiace } = Astro.props;
+const { typy, wojewodztwa, miesiace, udzialy } = Astro.props;
 ---
 
 <!-- Hidden until the script runs: without JavaScript the full list is shown.
@@ -35,6 +36,17 @@ const { typy, wojewodztwa, miesiace } = Astro.props;
         <select name="woj">
           <option value="">wszystkie</option>
           {wojewodztwa.map((w) => <option value={slug(w)}>{w}</option>)}
+        </select>
+      </label>
+    )
+  }
+  {
+    udzialy.length > 1 && (
+      <label>
+        Udział
+        <select name="udzial">
+          <option value="">wszystkie</option>
+          {udzialy.map((u) => <option value={u}>{UDZIAL_ETYKIETA[u].krotka}</option>)}
         </select>
       </label>
     )

@@ -10,7 +10,7 @@ const wydarzenia = Astro.props.turnieje
   .filter((t) => !t.test)
   .map((t) => ({
     '@context': 'https://schema.org',
-    '@type': 'SportsEvent',
+    '@type': t.typ === 'szkolenie' ? 'EducationEvent' : 'SportsEvent',
     name: t.nazwa,
     sport: 'Boxing',
     startDate: t.start,

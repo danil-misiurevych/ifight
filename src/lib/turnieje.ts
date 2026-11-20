@@ -25,14 +25,33 @@ export const KATEGORIE = ['młodzik', 'kadet', 'junior', 'młodzieżowiec', 'sen
 export const POZIOMY = ['okręgowy', 'ogólnopolski', 'międzynarodowy'] as const;
 export const PLCIE = ['K', 'M'] as const;
 // Kind of event. A missing `typ` means 'turniej'.
-export const TYPY = ['turniej', 'gala', 'charytatywna', 'sparingi', 'inne'] as const;
+export const TYPY = ['turniej', 'gala', 'charytatywna', 'sparingi', 'szkolenie', 'inne'] as const;
 // Label of a single event in a row, and plural label in the filter.
 export const TYP_ETYKIETA: Record<(typeof TYPY)[number], { jeden: string; wiele: string }> = {
   turniej: { jeden: 'turniej', wiele: 'turnieje' },
   gala: { jeden: 'gala', wiele: 'gale' },
   charytatywna: { jeden: 'wydarzenie charytatywne', wiele: 'charytatywne' },
   sparingi: { jeden: 'sparingi', wiele: 'sparingi' },
+  // Seminars, courses (coach/referee licences), training camps.
+  szkolenie: { jeden: 'szkolenie', wiele: 'szkolenia i seminaria' },
   inne: { jeden: 'inne', wiele: 'inne' },
+};
+
+// Who the event is for. An event can have more than one, e.g. a gala with ticketed
+// pro bouts and an open amateur card: `udzial: [widownia, otwarte]`.
+export const UDZIALY = ['widownia', 'zawodnicy', 'otwarte'] as const;
+export type Udzial = (typeof UDZIALY)[number];
+export const UDZIAL_ETYKIETA: Record<Udzial, { krotka: string; opis: string }> = {
+  widownia: { krotka: 'do oglądania', opis: 'dla widzów – walczą zaproszeni zawodnicy' },
+  zawodnicy: { krotka: 'start z licencją', opis: 'dla zawodników z licencją, zgłoszenia przez kluby' },
+  otwarte: { krotka: 'otwarte zapisy', opis: 'może się zapisać każdy, także bez licencji' },
+};
+// Used when an entry has no `udzial`. Charity events and „inne” vary too much to assume.
+const UDZIAL_DOMYSLNY: Partial<Record<(typeof TYPY)[number], Udzial[]>> = {
+  turniej: ['zawodnicy'],
+  gala: ['widownia'],
+  sparingi: ['otwarte'],
+  szkolenie: ['otwarte'],
 };
 
 // Optional links shown on the event page, in this order.
@@ -105,6 +124,7 @@ const schemat = z
     kategorie: opcja(lista(zListy(KATEGORIE), '[kadet, junior]')),
     plec: opcja(lista(zListy(PLCIE), '[K, M]')),
     poziom: opcja(zListy(POZIOMY)),
+    udzial: opcja(lista(zListy(UDZIALY), '[widownia] albo [zawodnicy, otwarte]')),
     organizator: opcja(tekst),
     termin_zgloszen: opcja(data),
     miejsce: opcja(tekst),
@@ -137,6 +157,8 @@ export interface Turniej {
   kategorie: (typeof KATEGORIE)[number][];
   plec: (typeof PLCIE)[number][];
   poziom?: (typeof POZIOMY)[number];
+  /** Who can take part; from `udzial` or derived from the type (may be empty). */
+  udzial: Udzial[];
   organizator?: string;
   termin_zgloszen?: string;
   miejsce?: string;
@@ -190,6 +212,7 @@ function wczytaj(): Turniej[] {
         .filter((k) => t.linki?.[k])
         .map((k) => ({ rodzaj: k, etykieta: LINKI[k], url: t.linki![k]! })),
       typ: t.typ ?? 'turniej',
+      udzial: wKolejnosci(UDZIALY, t.udzial ?? UDZIAL_DOMYSLNY[t.typ ?? 'turniej']),
       koniec: t.koniec ?? t.start,
       kategorie: wKolejnosci(KATEGORIE, t.kategorie),
       plec: wKolejnosci(PLCIE, t.plec),
