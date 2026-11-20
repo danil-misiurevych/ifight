@@ -31,18 +31,16 @@ const ics = `/wojewodztwo/${slug(wojewodztwo)}/kalendarz.ics`;
   <SchemaWydarzen slot="head" turnieje={tutaj} />
   <link slot="head" rel="alternate" type="text/calendar" title={`Kalendarz ${SITE.nazwa} – ${wojewodztwo}`} href={ics} />
   <p class="okruszki"><a href="/">Cała Polska</a> › {wojewodztwo}</p>
-  <h1>Wydarzenia bokserskie {miejsce}</h1>
-  <p class="szary">
-    Turnieje, gale i sparingi {miejsce}. Kliknij wydarzenie, aby otworzyć ogłoszenie organizatora.
-  </p>
+  <h1 class="tytul-strony">Boks – {wojewodztwo}</h1>
+  <p class="szary">Nadchodzące turnieje, gale i sparingi {miejsce}.</p>
 
   {
     tutaj.length > 0 ? (
       <ListaWydarzen turnieje={tutaj} dzis={dzis} filtrWojewodztwa={false} />
     ) : (
-      <p>
+      <p class="pusto">
         Na razie nie znamy nadchodzących wydarzeń {miejsce}. Zobacz{' '}
-        <a href="/">kalendarz dla całej Polski</a> albo <a href="/o-serwisie/#kontakt">zgłoś wydarzenie</a>.
+        <a href="/">kalendarz dla całej Polski</a> albo <a href="/o-stronie/#kontakt">zgłoś wydarzenie</a>.
       </p>
     )
   }

@@ -4,7 +4,7 @@ export const SITE = {
   haslo: 'Kalendarz wydarzeń bokserskich w Polsce',
   opis:
     'Nadchodzące wydarzenia bokserskie w Polsce w jednym miejscu: turnieje, gale, wydarzenia charytatywne i otwarte sparingi. Daty, miasta, kategorie wiekowe, terminy zgłoszeń i linki do organizatorów.',
-  // Adres do zgłaszania wydarzeń (widoczny na stronie „O serwisie”).
+  // Adres do zgłaszania wydarzeń (widoczny na stronie „O stronie”).
   email: 'danil.misiurevych@gmail.com',
   // Ile dni przed terminem zgłoszeń podświetlać go jako „wkrótce”.
   dniWkrotce: 7,

@@ -1,7 +1,8 @@
 // Client-side behaviour of the event list:
 // - hides events that ended after the last build,
 // - refreshes deadline states against today's date,
-// - applies filters without reloading and keeps them in the URL.
+// - applies filters without reloading and keeps them in the URL,
+// - opens and closes the filter panel (collapsed unless the URL has filters).
 import { dzisiaj, stanTerminu } from '../lib/daty';
 
 const lista = document.getElementById('turnieje');
@@ -15,6 +16,9 @@ if (lista && form) {
   const licznik = document.getElementById('licznik')!;
   const wyczysc = document.getElementById('wyczysc')!;
   const pusto = document.getElementById('pusto')!;
+  const pasek = document.getElementById('filtry-pasek')!;
+  const przycisk = document.getElementById('filtry-przycisk')!;
+  const ile = document.getElementById('filtry-ile')!;
   const select = (n: string) => form.elements.namedItem(n) as HTMLSelectElement;
   // A page may leave some filters out (a region page has no region filter).
   const pola = (['typ', 'woj', 'kat', 'plec', 'mies'] as const).filter((p) => select(p));
@@ -56,7 +60,10 @@ if (lista && form) {
     }
     for (const m of miesiace) m.hidden = !m.querySelector('.t:not([hidden])');
 
-    const aktywne = pola.some((p) => f[p]);
+    const liczbaAktywnych = pola.filter((p) => f[p]).length;
+    const aktywne = liczbaAktywnych > 0;
+    ile.textContent = String(liczbaAktywnych);
+    ile.hidden = !aktywne;
     licznik.textContent = `${widoczne} ${odmiana(widoczne)}`;
     wyczysc.hidden = !aktywne;
     pusto.hidden = widoczne > 0;
@@ -77,11 +84,18 @@ if (lista && form) {
     if (v && [...select(p).options].some((o) => o.value === v)) select(p).value = v;
   }
 
+  const pokaz = (otwarte: boolean) => {
+    form.hidden = !otwarte;
+    przycisk.setAttribute('aria-expanded', String(otwarte));
+  };
+  przycisk.addEventListener('click', () => pokaz(form.hidden));
+
   form.addEventListener('change', zastosuj);
   wyczysc.addEventListener('click', () => {
     form.reset();
     zastosuj();
   });
-  form.hidden = false;
+  pasek.hidden = false;
+  pokaz(pola.some((p) => select(p).value));
   zastosuj();
 }

@@ -43,15 +43,15 @@ Założenia:
 
 ## Etap 5. Wygląd
 
-- Logo, paleta kolorów, czcionki (nagłówki + tekst).
+- ~~Logo, paleta kolorów, czcionki (styl lat 80.).~~ Zrobione.
 - Grafika do udostępniania (Open Graph) i nowy favicon.
 
 ## Etap 6. Opisy turniejów i SEO
 
-- Osobna strona dla każdego turnieju (`/turniej/...`) z opisem opartym na komunikacie: hala, kategorie wagowe, regulamin, kontakt.
+- ~~Osobna strona dla każdego wydarzenia (`/wydarzenia/...`) z linkami: komunikat, zapisy, regulamin, bilety, transmisja.~~ Zrobione. Do uzupełnienia: opisy i linki w danych.
 - ~~Strony województw (np. „turnieje bokserskie śląskie”).~~ Zrobione: `/wojewodztwo/<nazwa>/`. Strony miast: gdy w jednym mieście będzie kilka wydarzeń.
 - ~~Kalendarz do subskrypcji (.ics) dla całej Polski i każdego województwa.~~ Zrobione.
-- ~~Sitemap, dane strukturalne schema.org na stronach list.~~ Zrobione. Do zrobienia: zgłoszenie sitemap w Google Search Console (wymaga konta właściciela domeny).
+- ~~Sitemap, dane strukturalne schema.org.~~ Zrobione. Do zrobienia: zgłoszenie sitemap w Google Search Console (wymaga konta właściciela domeny).
 
 ## Etap 7. Social media
 

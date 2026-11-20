@@ -1,7 +1,7 @@
 // iCalendar (RFC 5545) feed built from the event list, so people can subscribe
 // in Google Calendar, Apple Calendar or Outlook and get updates automatically.
 import type { Turniej } from './turnieje';
-import { slug, TYP_ETYKIETA } from './turnieje';
+import { TYP_ETYKIETA } from './turnieje';
 import { SITE } from '../site';
 
 // Recently finished events stay in the feed for a while,
@@ -42,15 +42,12 @@ function zawin(linia: string): string {
   return czesci.join('\r\n ');
 }
 
-/** Stable across rebuilds as long as name, start and city do not change. */
-export function uid(t: Turniej): string {
-  const s = slug(`${t.start}-${t.miasto}-${t.nazwa}`).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  return `${s}@ifight.pl`;
-}
+/** Stable across rebuilds as long as the event page address does not change. */
+export const uid = (t: Turniej) => `${t.slug}@ifight.pl`;
 
 export function kalendarzIcs(
   turnieje: Turniej[],
-  opcje: { nazwa: string; dzis: string; teraz?: Date },
+  opcje: { nazwa: string; dzis: string; site: URL; teraz?: Date },
 ): string {
   const teraz = opcje.teraz ?? new Date();
   const stamp = teraz.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
@@ -74,6 +71,7 @@ export function kalendarzIcs(
 
   for (const t of turnieje) {
     if (t.test || t.koniec < granica) continue;
+    const strona = new URL(`/wydarzenia/${t.slug}/`, opcje.site).href;
     const opis = [
       TYP_ETYKIETA[t.typ].jeden,
       t.kategorie.length > 0 && `kategorie: ${t.kategorie.join(', ')}`,
@@ -81,7 +79,9 @@ export function kalendarzIcs(
       t.poziom && `poziom: ${t.poziom}`,
       t.organizator && `organizator: ${t.organizator}`,
       t.termin_zgloszen && `termin zgłoszeń: ${t.termin_zgloszen}`,
+      ...t.linki.map((l) => `${l.etykieta}: ${l.url}`),
       `źródło: ${t.zrodlo}`,
+      `szczegóły: ${strona}`,
       `sprawdzono: ${t.sprawdzono}. Przed wyjazdem potwierdź szczegóły u organizatora.`,
     ].filter(Boolean);
 
@@ -92,9 +92,9 @@ export function kalendarzIcs(
       `DTSTART;VALUE=DATE:${dataIcs(t.start)}`,
       `DTEND;VALUE=DATE:${dataIcs(nastepnyDzien(t.koniec))}`,
       `SUMMARY:${escape(t.nazwa)}`,
-      `LOCATION:${escape(`${t.miasto}, ${t.wojewodztwo}`)}`,
+      `LOCATION:${escape([t.miejsce, t.miasto, t.wojewodztwo].filter(Boolean).join(', '))}`,
       `DESCRIPTION:${escape(opis.join('\n'))}`,
-      `URL:${t.zrodlo}`,
+      `URL:${strona}`,
       `CATEGORIES:${escape(TYP_ETYKIETA[t.typ].jeden)}`,
       'TRANSP:TRANSPARENT',
       'END:VEVENT',

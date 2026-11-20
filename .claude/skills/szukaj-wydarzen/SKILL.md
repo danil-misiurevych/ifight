@@ -41,7 +41,7 @@ Skrypt dopisuje nowe zawody z listy akredytacji i odświeża `sprawdzono`. Potem
 
 ### 2. Szczegóły turniejów
 
-Dla nowych turniejów z akredytacji poszukaj komunikatu organizatora (strona klubu, okręgowego związku, PZB). Jeśli go znajdziesz, uzupełnij `kategorie`, `plec`, `poziom`, `termin_zgloszen` i zmień `zrodlo` na komunikat.
+Dla nowych turniejów z akredytacji poszukaj komunikatu organizatora (strona klubu, okręgowego związku, PZB). Jeśli go znajdziesz, uzupełnij `kategorie`, `plec`, `poziom`, `termin_zgloszen`, `miejsce`, `linki` (np. `zapisy`, `regulamin`, `bilety`, `transmisja`, tylko jeśli są w źródle) i zmień `zrodlo` na komunikat.
 
 ### 3. Gale i wydarzenia spoza PZB
 

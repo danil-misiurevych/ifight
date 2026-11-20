@@ -1,16 +1,31 @@
 ---
+import '@fontsource/barlow/latin-400.css';
+import '@fontsource/barlow/latin-ext-400.css';
+import '@fontsource/barlow/latin-600.css';
+import '@fontsource/barlow/latin-ext-600.css';
+import '@fontsource/barlow-condensed/latin-700-italic.css';
+import '@fontsource/barlow-condensed/latin-ext-700-italic.css';
+import '@fontsource/barlow-condensed/latin-800-italic.css';
+import '@fontsource/barlow-condensed/latin-ext-800-italic.css';
+import '@fontsource/space-mono/latin-700.css';
+import '@fontsource/space-mono/latin-ext-700.css';
 import '../styles/global.css';
 import { SITE } from '../site';
 
 interface Props {
   tytul?: string;
   opis?: string;
+  /** Page type for Open Graph. */
+  ogTyp?: 'website' | 'article';
   // Keeps the page out of search results (e.g. a region page with no events yet).
   noindex?: boolean;
 }
-const { tytul, opis = SITE.opis, noindex = false } = Astro.props;
+const { tytul, opis = SITE.opis, ogTyp = 'website', noindex = false } = Astro.props;
 const pelnyTytul = tytul ? `${tytul} – ${SITE.nazwa}` : `${SITE.haslo} – ${SITE.nazwa}`;
 const kanoniczny = new URL(Astro.url.pathname, Astro.site);
+// The "Wydarzenia" link is shown only on the "O stronie" page; everywhere else the logo leads to the list.
+const naOStronie = Astro.url.pathname.startsWith('/o-stronie');
+const rok = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -20,11 +35,12 @@ const kanoniczny = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pelnyTytul}</title>
     <meta name="description" content={opis} />
+    <meta name="theme-color" content="#120428" />
     <link rel="canonical" href={kanoniczny} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogTyp} />
     <meta property="og:site_name" content={SITE.nazwa} />
     <meta property="og:title" content={pelnyTytul} />
     <meta property="og:description" content={opis} />
@@ -34,29 +50,36 @@ const kanoniczny = new URL(Astro.url.pathname, Astro.site);
     <slot name="head" />
   </head>
   <body>
-    <div class="strona">
-      <header class="naglowek">
-        <a class="logo" href="/">{SITE.nazwa}</a>
-        <span class="szary">wydarzenia bokserskie w Polsce</span>
-        <nav>
-          <a href="/">Kalendarz</a>
-          <a href="/o-serwisie/">O serwisie</a>
+    <header class="naglowek">
+      <div class="strona naglowek-wnetrze">
+        <a class="logo" href="/" aria-label={`${SITE.nazwa} – strona główna`}>
+          <span class="logo-znak">{SITE.nazwa}</span>
+          <span class="logo-dopisek">wydarzenia bokserskie w Polsce</span>
+        </a>
+        <nav class="menu" aria-label="Menu">
+          {naOStronie ? <a href="/">Wydarzenia</a> : <a href="/o-stronie/">O stronie</a>}
         </nav>
-      </header>
-      <main>
-        <slot />
-      </main>
-      <footer class="stopka">
+      </div>
+      <div class="paski" aria-hidden="true"></div>
+    </header>
+    <main class="strona">
+      <slot />
+    </main>
+    <footer class="stopka">
+      <div class="paski" aria-hidden="true"></div>
+      <div class="strona">
+        <nav class="stopka-menu" aria-label="Stopka">
+          <a href="/">Wydarzenia</a>
+          <a href="/archiwum/">Archiwum wydarzeń</a>
+          <a href="/o-stronie/">O stronie</a>
+          <a href="/o-stronie/#kontakt">Zgłoś wydarzenie</a>
+        </nav>
         <p>
           {SITE.nazwa} to niezależny, nieoficjalny serwis – nie jest powiązany z żadnym związkiem
-          ani organizatorem. Zbieramy tylko podstawowe dane i linki do źródeł. Przed wyjazdem
-          zawsze sprawdź aktualność informacji u organizatora.
+          ani organizatorem. Przed wyjazdem zawsze sprawdź aktualność informacji u organizatora.
         </p>
-        <p>
-          Brakuje wydarzenia albo coś się nie zgadza?{' '}
-          <a href="/o-serwisie/#kontakt">Daj znać</a>.
-        </p>
-      </footer>
-    </div>
+        <p class="prawa">© {rok} {SITE.nazwa}. Wszystkie prawa zastrzeżone.</p>
+      </div>
+    </footer>
   </body>
 </html>

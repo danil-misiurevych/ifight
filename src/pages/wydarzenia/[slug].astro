@@ -1,0 +1,145 @@
+---
+// One page per event: details, links (registration, rules, stream…) and schema.org markup.
+import type { GetStaticPaths } from 'astro';
+import Strona from '../../layouts/Strona.astro';
+import Wiersz from '../../components/Wiersz.astro';
+import SchemaWydarzen from '../../components/SchemaWydarzen.astro';
+import { adresWojewodztwa, turnieje, TYP_ETYKIETA, type Turniej } from '../../lib/turnieje';
+import { dlugiZakres, dlugaData, dzisiaj, krotkaData, stanTerminu } from '../../lib/daty';
+import { SITE } from '../../site';
+
+export const getStaticPaths = (() =>
+  turnieje.map((t) => ({ params: { slug: t.slug }, props: { t } }))) satisfies GetStaticPaths;
+
+const { t } = Astro.props as { t: Turniej };
+const dzis = dzisiaj();
+const minione = t.koniec < dzis;
+const rok = t.start.slice(0, 4);
+const typ = TYP_ETYKIETA[t.typ].jeden;
+
+const plec =
+  t.plec.length === 2 ? 'kobiety i mężczyźni' : t.plec[0] === 'K' ? 'kobiety' : t.plec[0] === 'M' ? 'mężczyźni' : '';
+const termin = t.termin_zgloszen && stanTerminu(t.termin_zgloszen, dzis, SITE.dniWkrotce);
+
+const szczegoly = [
+  ['Data', dlugiZakres(t.start, t.koniec)],
+  ['Miejsce', [t.miejsce, t.miasto].filter(Boolean).join(', ')],
+  ['Województwo', t.wojewodztwo],
+  ['Rodzaj', typ],
+  ['Kategorie wiekowe', t.kategorie.join(', ')],
+  ['Płeć', plec],
+  ['Poziom', t.poziom],
+  ['Organizator', t.organizator],
+].filter(([, v]) => v) as [string, string][];
+
+// The source is always listed, unless it is already one of the named links.
+const linki = [
+  ...t.linki,
+  ...(t.linki.some((l) => l.url === t.zrodlo)
+    ? []
+    : [{ rodzaj: 'zrodlo', etykieta: 'Źródło informacji', url: t.zrodlo }]),
+];
+
+const opis = [
+  `${t.nazwa} (${typ}): ${dlugiZakres(t.start, t.koniec)}, ${t.miasto}, woj. ${t.wojewodztwo}.`,
+  t.kategorie.length > 0 && `Kategorie: ${t.kategorie.join(', ')}.`,
+  t.termin_zgloszen && `Zgłoszenia do ${dlugaData(t.termin_zgloszen)}.`,
+  linki.length > 1 && `Linki: ${linki.map((l) => l.etykieta.toLowerCase()).join(', ')}.`,
+]
+  .filter(Boolean)
+  .join(' ');
+
+// Other upcoming events in the same voivodeship, for readers and for internal linking.
+const wPoblizu = turnieje
+  .filter((x) => x !== t && x.wojewodztwo === t.wojewodztwo && x.koniec >= dzis)
+  .slice(0, 4);
+
+const temat = encodeURIComponent(`Poprawka: ${t.nazwa}`);
+---
+
+<Strona tytul={`${t.nazwa} – ${t.miasto} ${rok}`} opis={opis} ogTyp="article">
+  <Fragment slot="head">
+    <SchemaWydarzen turnieje={[t]} />
+    {t.test && <meta name="robots" content="noindex" />}
+  </Fragment>
+
+  <nav class="okruszki" aria-label="Ścieżka">
+    {minione ? <a href="/archiwum/">← Archiwum wydarzeń</a> : <a href="/">← Wszystkie wydarzenia</a>}
+  </nav>
+
+  <article class="wydarzenie" data-koniec={t.koniec}>
+    <header class="w-glowa">
+      <span class="t-typ" data-typ={t.typ}>{typ}</span>
+      <h1>{t.nazwa}</h1>
+      <p class="w-data">
+        <time datetime={t.start}>{dlugiZakres(t.start, t.koniec)}</time>
+        <span class="w-miasto">{t.miasto}</span>
+      </p>
+    </header>
+
+    <p class="uwaga" id="odbylo-sie" hidden={!minione}>To wydarzenie już się odbyło.</p>
+
+    {
+      termin && (
+        <p class="w-termin termin" data-stan={termin.stan}>
+          Zgłoszenia do <strong>{dlugaData(t.termin_zgloszen!)}</strong>
+          {termin.dopisek && ` (${termin.dopisek})`}
+        </p>
+      )
+    }
+
+    <dl class="w-szczegoly">
+      {
+        szczegoly.map(([k, v]) => (
+          <div>
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    {t.opis && <p class="w-opis">{t.opis}</p>}
+
+    <section class="w-linki">
+      <h2>Linki</h2>
+      <ul>
+        {
+          linki.map((l) => (
+            <li>
+              <a class="przycisk" data-rodzaj={l.rodzaj} href={l.url} target="_blank" rel="noopener">
+                {l.etykieta} <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <p class="w-stopka szary">
+      Dane sprawdzone ze źródłem {krotkaData(t.sprawdzono)}.{t.sprawdzono.slice(0, 4)}. Terminy i miejsca mogą się
+      zmienić – przed zgłoszeniem i wyjazdem potwierdź szczegóły u organizatora.
+      Coś się nie zgadza? <a href={`mailto:${SITE.email}?subject=${temat}`}>Daj znać</a>.
+    </p>
+  </article>
+
+  {
+    wPoblizu.length > 0 && (
+      <section class="miesiac w-poblizu">
+        <h2>Nadchodzące w województwie <a href={adresWojewodztwa(t.wojewodztwo)}>{t.wojewodztwo}</a></h2>
+        <ul class="lista">
+          {wPoblizu.map((x) => (
+            <Wiersz t={x} dzis={dzis} />
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</Strona>
+
+<script>
+  // The page is static: mark the event as past even if the site was not rebuilt since.
+  import { dzisiaj } from '../../lib/daty';
+  const w = document.querySelector<HTMLElement>('.wydarzenie');
+  if (w && w.dataset.koniec! < dzisiaj()) document.getElementById('odbylo-sie')!.hidden = false;
+</script>

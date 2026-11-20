@@ -41,4 +41,6 @@ export default defineConfig({
       },
     }),
   ],
+  // The page used to be called "O serwisie"; old links keep working.
+  redirects: { '/o-serwisie': '/o-stronie/' },
 });
