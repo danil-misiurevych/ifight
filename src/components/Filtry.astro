@@ -28,13 +28,17 @@ const { typy, wojewodztwa, miesiace } = Astro.props;
       {typy.map((t) => <option value={t}>{TYP_ETYKIETA[t].wiele}</option>)}
     </select>
   </label>
-  <label>
-    Województwo
-    <select name="woj">
-      <option value="">wszystkie</option>
-      {wojewodztwa.map((w) => <option value={slug(w)}>{w}</option>)}
-    </select>
-  </label>
+  {
+    wojewodztwa.length > 0 && (
+      <label>
+        Województwo
+        <select name="woj">
+          <option value="">wszystkie</option>
+          {wojewodztwa.map((w) => <option value={slug(w)}>{w}</option>)}
+        </select>
+      </label>
+    )
+  }
   <label>
     Kategoria wiekowa
     <select name="kat">

@@ -14,6 +14,12 @@ export const WOJEWODZTWA = [
   'świętokrzyskie', 'warmińsko-mazurskie', 'wielkopolskie', 'zachodniopomorskie',
 ] as const;
 
+/** 'śląskie' -> 'śląskim', as in „w województwie śląskim”. Holds for all 16 names. */
+export const wMiejscowniku = (w: string) => w.replace(/ie$/, 'im');
+
+/** Address of the region page, e.g. '/wojewodztwo/slaskie/'. */
+export const adresWojewodztwa = (w: string) => `/wojewodztwo/${slug(w)}/`;
+
 // Ordered from youngest to oldest.
 export const KATEGORIE = ['młodzik', 'kadet', 'junior', 'młodzieżowiec', 'senior'] as const;
 export const POZIOMY = ['okręgowy', 'ogólnopolski', 'międzynarodowy'] as const;

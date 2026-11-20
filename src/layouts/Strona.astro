@@ -17,8 +17,10 @@ interface Props {
   opis?: string;
   /** Page type for Open Graph. */
   ogTyp?: 'website' | 'article';
+  // Keeps the page out of search results (e.g. a region page with no events yet).
+  noindex?: boolean;
 }
-const { tytul, opis = SITE.opis, ogTyp = 'website' } = Astro.props;
+const { tytul, opis = SITE.opis, ogTyp = 'website', noindex = false } = Astro.props;
 const pelnyTytul = tytul ? `${tytul} – ${SITE.nazwa}` : `${SITE.haslo} – ${SITE.nazwa}`;
 const kanoniczny = new URL(Astro.url.pathname, Astro.site);
 // The "Wydarzenia" link is shown only on the "O stronie" page; everywhere else the logo leads to the list.
@@ -35,6 +37,7 @@ const rok = new Date().getFullYear();
     <meta name="description" content={opis} />
     <meta name="theme-color" content="#120428" />
     <link rel="canonical" href={kanoniczny} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:type" content={ogTyp} />

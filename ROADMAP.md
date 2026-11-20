@@ -30,7 +30,7 @@ Założenia:
 - Zebrać listę klubów i organizatorów z ich stronami i profilami na FB (Claude pomaga, szczegóły w docs/zrodla.md).
 - ~~Parser listy akredytacji PZB (`npm run akredytacje`).~~ Zrobione.
 - ~~Instrukcja agenta wyszukującego wydarzenia (`.claude/skills/szukaj-wydarzen`): akredytacje, serwisy biletowe, wyszukiwarka, pull request.~~ Zrobione.
-- Uruchamianie agenta raz w tygodniu (zaplanowane zadanie Claude Code w chmurze).
+- ~~Uruchamianie agenta raz w tygodniu (zaplanowane zadanie Claude Code w chmurze).~~ Zrobione: w każdy poniedziałek ok. 7:00 agent otwiera PR z nowymi wydarzeniami.
 - Imprezy spoza PZB (gale charytatywne, otwarte sparingi) ogłaszane są głównie na Facebooku i Instagramie klubów i sal. Tu przydaje się lista klubów (docs/kluby.csv), którą trzeba uzupełnić o sale bokserskie spoza PZB.
 - Facebook bez automatycznego scrapingu: łamie regulamin FB i grozi blokadą. Zamiast tego: obserwowane profile i powiadomienia, wklejanie linków agentowi, prośba do klubów o wysyłanie komunikatów.
 - ~~Wytyczne do przeglądu FB agentem w przeglądarce użytkownika, na żądanie (`.claude/skills/przeglad-facebooka`).~~ Zrobione.
@@ -49,8 +49,9 @@ Założenia:
 ## Etap 6. Opisy turniejów i SEO
 
 - ~~Osobna strona dla każdego wydarzenia (`/wydarzenia/...`) z linkami: komunikat, zapisy, regulamin, bilety, transmisja.~~ Zrobione. Do uzupełnienia: opisy i linki w danych.
-- Strony województw i miast (np. „turnieje bokserskie śląskie”).
-- Sitemap, dane strukturalne schema.org dla każdej strony, Google Search Console.
+- ~~Strony województw (np. „turnieje bokserskie śląskie”).~~ Zrobione: `/wojewodztwo/<nazwa>/`. Strony miast: gdy w jednym mieście będzie kilka wydarzeń.
+- ~~Kalendarz do subskrypcji (.ics) dla całej Polski i każdego województwa.~~ Zrobione.
+- ~~Sitemap, dane strukturalne schema.org.~~ Zrobione. Do zrobienia: zgłoszenie sitemap w Google Search Console (wymaga konta właściciela domeny).
 
 ## Etap 7. Social media
 

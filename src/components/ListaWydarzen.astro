@@ -1,0 +1,43 @@
+---
+// Filters plus the month-by-month list. Shared by the home page and the region pages.
+import Wiersz from './Wiersz.astro';
+import Filtry from './Filtry.astro';
+import type { Turniej } from '../lib/turnieje';
+import { TYPY, WOJEWODZTWA } from '../lib/turnieje';
+import { nazwaMiesiaca } from '../lib/daty';
+import { SITE } from '../site';
+
+interface Props {
+  turnieje: Turniej[];
+  dzis: string;
+  // On a region page the region filter would have a single option, so it is left out.
+  filtrWojewodztwa?: boolean;
+}
+const { turnieje, dzis, filtrWojewodztwa = true } = Astro.props;
+
+const miesiace = [...new Set(turnieje.map((t) => t.start.slice(0, 7)))];
+const typy = TYPY.filter((typ) => turnieje.some((t) => t.typ === typ));
+const wojewodztwa = filtrWojewodztwa
+  ? WOJEWODZTWA.filter((w) => turnieje.some((t) => t.wojewodztwo === w))
+  : [];
+---
+
+<Filtry typy={typy} wojewodztwa={wojewodztwa} miesiace={miesiace} />
+
+<div id="turnieje" data-dni-wkrotce={SITE.dniWkrotce}>
+  {
+    miesiace.map((m) => (
+      <section class="miesiac">
+        <h2>{nazwaMiesiaca(m)}</h2>
+        <ul class="lista">
+          {turnieje.filter((t) => t.start.startsWith(m)).map((t) => <Wiersz t={t} dzis={dzis} />)}
+        </ul>
+      </section>
+    ))
+  }
+  <p id="pusto" class="pusto" hidden={turnieje.length > 0}>Brak nadchodzących wydarzeń w kalendarzu.</p>
+</div>
+
+<script>
+  import '../scripts/lista.ts';
+</script>

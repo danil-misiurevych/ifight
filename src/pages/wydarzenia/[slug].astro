@@ -4,7 +4,7 @@ import type { GetStaticPaths } from 'astro';
 import Strona from '../../layouts/Strona.astro';
 import Wiersz from '../../components/Wiersz.astro';
 import SchemaWydarzen from '../../components/SchemaWydarzen.astro';
-import { turnieje, TYP_ETYKIETA, type Turniej } from '../../lib/turnieje';
+import { adresWojewodztwa, turnieje, TYP_ETYKIETA, type Turniej } from '../../lib/turnieje';
 import { dlugiZakres, dlugaData, dzisiaj, krotkaData, stanTerminu } from '../../lib/daty';
 import { SITE } from '../../site';
 
@@ -126,7 +126,7 @@ const temat = encodeURIComponent(`Poprawka: ${t.nazwa}`);
   {
     wPoblizu.length > 0 && (
       <section class="miesiac w-poblizu">
-        <h2>Nadchodzące w województwie {t.wojewodztwo}</h2>
+        <h2>Nadchodzące w województwie <a href={adresWojewodztwa(t.wojewodztwo)}>{t.wojewodztwo}</a></h2>
         <ul class="lista">
           {wPoblizu.map((x) => (
             <Wiersz t={x} dzis={dzis} />

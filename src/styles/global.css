@@ -289,6 +289,19 @@ h1, h2 { font-family: var(--naglowki); font-style: italic; font-weight: 800; tex
 .w-poblizu { margin-top: 2.5rem; }
 .w-poblizu h2 { font-size: 1.2rem; }
 
+/* Calendar subscription and region links */
+.subskrypcja { margin: 1.75rem 0 0; font-size: 0.875rem; color: var(--szary); }
+.wojewodztwa { margin-top: 2rem; }
+.wojewodztwa h2 { margin: 0 0 0.5rem; font-size: 1.2rem; color: var(--cyjan); }
+.wojewodztwa ul {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 1rem; font-size: 0.875rem;
+}
+.wojewodztwa li { color: var(--szary); }
+@media (min-width: 40rem) {
+  .wojewodztwa ul { grid-template-columns: repeat(4, 1fr); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
