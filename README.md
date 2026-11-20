@@ -1,7 +1,7 @@
 # iFight — kalendarz wydarzeń bokserskich w Polsce
 
 Minimalistyczna strona statyczna: lista nadchodzących wydarzeń bokserskich (turnieje, gale, wydarzenia charytatywne, otwarte sparingi) z linkami do źródeł.
-Serwis jest nieoficjalny, nie przyjmuje zgłoszeń ani opłat.
+Serwis jest nieoficjalny i bezpłatny. Organizatorzy mogą zgłaszać wydarzenia do kalendarza; zapisy zawodników i bilety obsługuje zawsze organizator.
 
 Technologia: [Astro](https://astro.build) (generowanie statyczne), bez bazy danych i backendu.
 Wdrożenie: Vercel, automatycznie z GitHuba.
@@ -142,6 +142,7 @@ Inne opcje: `--json` (wynik dla agenta), `--plik akredytacje.pdf` (PDF z dysku),
 
 - `/wojewodztwo/<nazwa>/` (np. `/wojewodztwo/slaskie/`): lista wydarzeń z jednego województwa, pod wyszukiwania w rodzaju „turnieje bokserskie śląskie”. Istnieje wszystkie 16 stron; strona bez nadchodzących wydarzeń dostaje `noindex` i nie trafia do sitemap.
 - `/kalendarz.ics`: kalendarz wszystkich wydarzeń do subskrypcji w Google, Apple lub Outlook. Każde województwo ma własny: `/wojewodztwo/<nazwa>/kalendarz.ics`. Wydarzenia zostają w kalendarzu jeszcze 60 dni po zakończeniu (`DNI_WSTECZ` w `src/lib/ics.ts`).
+- Każde wydarzenie ma na swojej stronie przyciski „Dodaj do kalendarza” (Google oraz plik `/wydarzenia/<adres>.ics` dla Apple i Outlooka) i „Udostępnij” (menu udostępniania w telefonie, WhatsApp, Facebook, kopiowanie linku).
 - Kalendarze i liczby przy województwach odświeżają się przy każdym budowaniu strony, czyli przy każdej zmianie danych.
 
 ## Grafiki do udostępniania
