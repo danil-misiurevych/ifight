@@ -258,15 +258,18 @@ h1, h2 { font-family: var(--naglowki); font-weight: 800; text-wrap: balance; }
 .t-akcja[data-rodzaj='zapisy']:hover, .t-akcja[data-rodzaj='bilety']:hover { color: #fff; filter: brightness(1.12); }
 .t-akcja-wiecej { border-color: transparent; background: none; color: var(--szary); }
 
-/* Poster thumbnail on wider screens. */
-.t-obraz { display: none; }
-@media (min-width: 40rem) {
-  .t { grid-template-columns: 3.8rem 1fr auto; }
-  .t-obraz {
-    display: block; width: 4.6rem; height: 6.2rem; object-fit: cover; border-radius: 2px;
-    align-self: start; border: 1px solid var(--linia);
-  }
+/* Poster faded into the right corner of the card, behind the text; clearer on hover. */
+.t { isolation: isolate; overflow: hidden; }
+.t-obraz {
+  position: absolute; z-index: -1; top: 0; right: 0; bottom: 0; width: 45%; height: 100%;
+  object-fit: cover; opacity: 0.18; pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 75%);
+  mask-image: linear-gradient(90deg, transparent, #000 75%);
+  transition: opacity 0.25s;
 }
+.t:hover .t-obraz, .t:focus-within .t-obraz { opacity: 0.45; }
+@media (min-width: 40rem) { .t { grid-template-columns: 3.8rem 1fr; } }
+@media (max-width: 40rem) { .t-obraz { width: 55%; opacity: 0.13; } }
 .pusto { margin: 2rem 0; color: var(--szary); text-align: center; }
 
 /* Text pages */
