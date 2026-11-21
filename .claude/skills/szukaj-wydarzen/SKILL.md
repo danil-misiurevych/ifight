@@ -1,12 +1,14 @@
 ---
 name: szukaj-wydarzen
-description: Wyszukuje nadchodzące wydarzenia bokserskie w Polsce (turnieje PZB, gale zawodowe i amatorskie, wydarzenia charytatywne, otwarte sparingi), sprawdza je u źródła i otwiera pull request ze zmianami w src/data/turnieje.yaml. Używaj przy cotygodniowym przeglądzie albo gdy użytkownik prosi o poszukanie nowych wydarzeń lub wkleja link do wydarzenia.
+description: Wyszukuje nadchodzące wydarzenia bokserskie w Polsce, na które można zgłosić zawodników (turnieje PZB i klubowe, otwarte sparingi, gale z otwartą kartą amatorską), sprawdza je u źródła i otwiera pull request ze zmianami w src/data/turnieje.yaml. Używaj przy cotygodniowym przeglądzie albo gdy użytkownik prosi o poszukanie nowych wydarzeń lub wkleja link do wydarzenia.
 ---
 
 # Wyszukiwanie wydarzeń bokserskich
 
 Cel: `src/data/turnieje.yaml` zawiera wszystkie znane nadchodzące wydarzenia bokserskie w Polsce, każde z linkiem do źródła.
 Wynik pracy to **jeden pull request**. Nigdy nie scalaj go sam i nie commituj na `main`.
+
+**Strefa zawodników (od 21.11.2026).** Strona pokazuje tylko wydarzenia, na które zawodnik może się zapisać albo trener zgłosić zawodników: turnieje (PZB i klubowe), otwarte sparingi, gale z otwartą kartą amatorską. Gale tylko do oglądania, wydarzenia charytatywne bez otwartych zapisów i szkolenia (seminaria, kursy, obozy) nie są publikowane (`wStrefie` w `src/lib/turnieje.ts`). Szukaj przede wszystkim takich wydarzeń. Wydarzenia spoza strefy dodawaj tylko przy okazji, z poprawnym `typ` i `udzial`, bez osobnego szukania.
 
 Format wpisów i dopuszczalne wartości: README.md (sekcja „Jak dodać wydarzenie”). Lista źródeł: docs/zrodla.md.
 

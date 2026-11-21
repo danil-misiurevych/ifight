@@ -1,9 +1,9 @@
 // Ustawienia strony w jednym miejscu.
 export const SITE = {
   nazwa: 'iFight',
-  haslo: 'Kalendarz wydarzeń bokserskich w Polsce',
+  haslo: 'Turnieje i zawody bokserskie w Polsce',
   opis:
-    'Nadchodzące wydarzenia bokserskie w Polsce w jednym miejscu: turnieje, gale, wydarzenia charytatywne i otwarte sparingi. Daty, miasta, kategorie wiekowe, terminy zgłoszeń i linki do organizatorów.',
+    'Nadchodzące turnieje i zawody bokserskie w Polsce, na które można zgłosić zawodników: terminy zgłoszeń, kategorie wiekowe, miasta, regulaminy i zapisy w jednym miejscu.',
   // Adres do zgłaszania wydarzeń (widoczny na stronie „O stronie”).
   email: 'danil.misiurevych@gmail.com',
   // Ile dni przed terminem zgłoszeń podświetlać go jako „wkrótce”.

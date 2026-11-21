@@ -3,7 +3,9 @@
 Zadania są śledzone jako issues na GitHubie. Każdy etap ma jedno zbiorcze issue z listą podzadań.
 Ten plik opisuje kierunek i kolejność. Szczegóły i postęp znajdziesz w issues.
 
-Cel: kalendarz wszystkich większych wydarzeń bokserskich w Polsce. Nie tylko turnieje PZB, ale też gale (także zawodowe i freak fighty w boksie), wydarzenia charytatywne, otwarte dni sparingowe i podobne wydarzenia.
+Cel: najpełniejszy kalendarz turniejów i zawodów bokserskich w Polsce, na które zawodnik może się zapisać albo trener zgłosić zawodników (turnieje PZB i klubowe, otwarte sparingi, gale z otwartą kartą amatorską).
+
+Od 21.11.2026 strona skupia się tylko na tej strefie. Gale do oglądania, wydarzenia charytatywne i szkolenia zostają w danych, ale nie są publikowane. Może kiedyś trafią do osobnej części marki iFight (agregator wydarzeń dla kibiców).
 
 Założenia:
 - Jedna osoba edytuje dane, więc nie potrzebujemy kont użytkowników ani własnego backendu.

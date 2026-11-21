@@ -1,6 +1,8 @@
 # iFight — kalendarz wydarzeń bokserskich w Polsce
 
-Minimalistyczna strona statyczna: lista nadchodzących wydarzeń bokserskich (turnieje, gale, wydarzenia charytatywne, otwarte sparingi) z linkami do źródeł.
+Minimalistyczna strona statyczna: lista nadchodzących turniejów i zawodów bokserskich, na które można zgłosić zawodników, z terminami zgłoszeń i linkami do źródeł.
+
+**Strefa zawodników:** publikowane są tylko wpisy, w których `udzial` zawiera `zawodnicy` lub `otwarte`, z wyjątkiem typu `szkolenie` (funkcja `wStrefie` w `src/lib/turnieje.ts`). Pozostałe wpisy (gale do oglądania, wydarzenia charytatywne, szkolenia) zostają w `turnieje.yaml`, ale nie mają stron, nie trafiają do kalendarzy .ics ani do sitemap. Przy zmianie zasad popraw też kopię warunku w `astro.config.mjs`.
 Serwis jest nieoficjalny i bezpłatny. Organizatorzy mogą zgłaszać wydarzenia do kalendarza; zapisy zawodników i bilety obsługuje zawsze organizator.
 
 Technologia: [Astro](https://astro.build) (generowanie statyczne), bez bazy danych i backendu.

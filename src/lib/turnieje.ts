@@ -261,4 +261,14 @@ function wczytaj(): Turniej[] {
   return wynik.sort((a, b) => a.start.localeCompare(b.start) || a.nazwa.localeCompare(b.nazwa, 'pl'));
 }
 
-export const turnieje: Turniej[] = wczytaj();
+/**
+ * Strefa zawodników: na stronie są tylko wydarzenia, na które zawodnik może się zapisać
+ * albo trener zgłosić zawodników (turnieje, otwarte sparingi, gale z otwartą kartą).
+ * Gale i wydarzenia tylko do oglądania oraz szkolenia zostają w danych, ale nie są publikowane.
+ */
+export const wStrefie = (t: Pick<Turniej, 'typ' | 'udzial'>) => dlaStartujacych(t.udzial) && t.typ !== 'szkolenie';
+
+/** Wszystkie wpisy z pliku, także ukryte. */
+export const wszystkie: Turniej[] = wczytaj();
+/** Wydarzenia publikowane na stronie. */
+export const turnieje: Turniej[] = wszystkie.filter(wStrefie);

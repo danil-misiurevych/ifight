@@ -59,7 +59,7 @@ Jeśli w kluby.csv jest mniej niż 10 profili z linkami, zaproponuj najpierw try
 ## Tryb A: profile z listy klubów
 
 1. Otwórz profil FB, a jeśli jest, także IG (IG liczy się jako osobny profil do limitu).
-2. Szukaj zapowiedzi z datą w przyszłości: turniej, gala, wydarzenie charytatywne, otwarte sparingi, seminarium, szkolenie, kurs trenerski lub sędziowski, obóz.
+2. Szukaj zapowiedzi z datą w przyszłości, na które można zgłosić zawodników: turniej, otwarte sparingi, gala z otwartą kartą amatorską. Gale tylko do oglądania, wydarzenia charytatywne i szkolenia nie są teraz publikowane (strefa zawodników): zapisz je tylko, gdy trafisz na nie przy okazji.
 3. Dla każdej zapowiedzi zapisz: nazwę, datę, miasto, obiekt, organizatora, czy są zapisy i dla kogo (patrz pole `udzial`), oraz **stały link** do posta lub wydarzenia (z menu „…” → „Kopiuj link” albo adres z paska po otwarciu posta).
 4. Po przejrzeniu profilu wpisz dzisiejszą datę w `przejrzano` tego klubu, także gdy nic nie znalazłeś.
 5. Profil, na którym klub regularnie ogłasza wydarzenia, oznacz w `uwagi`, np. „turnieje ogłasza na FB”.

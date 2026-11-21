@@ -25,9 +25,16 @@ try {
 } catch {
   // Błąd w pliku zgłosi z czytelnym komunikatem src/lib/turnieje.ts.
 }
+// Tylko wydarzenia ze strefy zawodników (to samo co wStrefie w src/lib/turnieje.ts).
+const UDZIAL_DOMYSLNY = { turniej: ['zawodnicy'], gala: ['widownia'], sparingi: ['otwarte'], szkolenie: ['otwarte'] };
+const wStrefie = (t) => {
+  const typ = t.typ ?? 'turniej';
+  const udzial = t.udzial ?? UDZIAL_DOMYSLNY[typ] ?? [];
+  return typ !== 'szkolenie' && udzial.some((u) => u !== 'widownia');
+};
 const zWydarzeniami = new Set(
   (Array.isArray(wpisy) ? wpisy : [])
-    .filter((t) => t && tekst(t.koniec || t.start) >= dzis)
+    .filter((t) => t && wStrefie(t) && tekst(t.koniec || t.start) >= dzis)
     .map((t) => slug(t.wojewodztwo)),
 );
 
