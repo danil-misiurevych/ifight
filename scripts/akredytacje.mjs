@@ -8,7 +8,8 @@
 //   npm run akredytacje -- --od 2026-10-01  udaje, że dziś jest podana data (do testów)
 //   npm run akredytacje -- --json       wynik jako JSON (dla agenta)
 //
-// PDF nie podaje województwa ani kategorii. Województwo zgadujemy z miasta
+// PDF nie podaje województwa ani kolumny kategorii. Kategorie, płeć i poziom bierzemy
+// tylko z nazwy zawodów (zNazwy). Województwo zgadujemy z miasta
 // (lista miast z docs/kluby.csv). Wpisy, których nie udało się dopasować, mają
 // komentarz "# SPRAWDŹ" i puste pole, więc budowanie strony je zatrzyma.
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -47,7 +48,8 @@ async function wierszePdf(dane) {
   const doc = await getDocument({ data: dane, verbosity: 0 }).promise;
   const wiersze = [];
   for (let p = 1; p <= doc.numPages; p++) {
-    const elementy = (await (await doc.getPage(p)).getTextContent()).items
+    const strona = await doc.getPage(p);
+    const elementy = (await strona.getTextContent()).items
       .filter((it) => it.str.trim())
       .map((it) => ({ x: it.transform[4], y: it.transform[5], s: it.str.trim() }));
     // Każdy wiersz tabeli ma numer akredytacji w pierwszej kolumnie. Tekst wielowierszowych
@@ -62,6 +64,10 @@ async function wierszePdf(dane) {
       if (Math.abs(w.y - e.y) > 40) continue; // nagłówek tabeli lub stopka
       (w.komorki[kolumna(e.x)] ??= []).push(e);
     }
+    // Kolumna „Protokół zawodów”: napis „Załącznik” jest linkiem do protokołu (wyniki), dodawanym po zawodach.
+    const linki = (await strona.getAnnotations())
+      .filter((a) => a.subtype === 'Link' && a.url && a.rect[0] >= 140 && a.rect[0] < 245)
+      .map((a) => ({ url: a.url, y: (a.rect[1] + a.rect[3]) / 2 }));
     for (const w of naStronie) {
       const tekst = (k) =>
         (w.komorki[k] ?? [])
@@ -70,13 +76,18 @@ async function wierszePdf(dane) {
           .join(' ')
           .replace(/\s+/g, ' ')
           .replace(/\s+([,.])/g, '$1')
+          // Wyraz przeniesiony z dywizem: "80- lecia" -> "80-lecia", "Sportowo- Widowiskowa", "27- 400".
+          .replace(/(\p{L}|\d)- (\p{L}|\d)/gu, '$1-$2')
           .trim();
+      const brak = (s) => (/^[-–]?$/.test(s) ? '' : s);
       wiersze.push({
         numer: w.numer,
         wydarzenie: tekst('wydarzenie'),
         adres: tekst('adres'),
         data: tekst('data'),
-        organizator: tekst('organizator'),
+        organizator: brak(tekst('organizator')),
+        wnioskuje: brak(tekst('wnioskuje')),
+        protokol: linki.find((l) => Math.abs(l.y - w.y) < 12)?.url,
         strona: p,
       });
     }
@@ -140,6 +151,40 @@ function zgadnijMiejsce(w, miasta) {
 
 const zgadnijTyp = (nazwa) => (/\bgal[aiy]\b|boxing (night|show)|fight night/i.test(nazwa) ? 'gala' : undefined);
 
+// Kategorie, płeć i poziom, o ile wynikają wprost z oficjalnej nazwy zawodów
+// ("Mistrzostwa Wielkopolski Młodzików i Młodziczek" -> [młodzik], [K, M], okręgowy).
+// Czego nie ma w nazwie, zostaje puste.
+const KATEGORIE_W_NAZWIE = [
+  ['młodzik', /\bmlodzi(k|cz)|\bu ?15\b/],
+  // „Junior młodszy” to dawna nazwa kadeta. OOM (Ogólnopolska Olimpiada Młodzieży) to zawody kadetów.
+  ['kadet', /\bkadet|\bu ?17\b|junior\w* mlodsz|ogolnopolsk\w* olimpiad\w* mlodziezy|\boom\b/],
+  ['junior', /\bjunior(?!\w* mlodsz)|\bu ?19\b/],
+  ['młodzieżowiec', /\bmlodziezow(c|ek)|mlodziezowe mistrzostw|\bu ?23\b/],
+  ['senior', /\bsenior|\belite\b/],
+];
+const ZENSKIE = /\b(mlodziczek|kadetek|juniorek|mlodziezowek|seniorek|kobiet|zawodniczek)\b/;
+const MESKIE = /\b(mlodzikow|kadetow|juniorow|mlodziezowcow|seniorow|mezczyzn)\b/;
+const REGIONY =
+  'slaska|slaskie\\w*|wielkopolski|malopolski|mazowsza|pomorza|podkarpacia|lubelszczyzny|podlasia|warmii|kujaw|' +
+  'opolszczyzny|dolnego slaska|ziemi lubuskiej|zachodniego pomorza|wybrzeza|warszawy|wojewodztwa|okregu|ozb';
+function zNazwy(nazwa) {
+  const s = ` ${slug(nazwa)} `;
+  const kategorie = KATEGORIE_W_NAZWIE.filter(([, r]) => r.test(s)).map(([k]) => k);
+  const kim = /\bk ?m\b/.test(s); // "(K+M)"
+  const k = ZENSKIE.test(s);
+  // Męska forma bywa ogólna ("turniej kadetów"), więc samo [M] nie wynika z nazwy. Tylko [K] albo obie.
+  const plec = kim || (k && MESKIE.test(s)) ? ['K', 'M'] : k ? ['K'] : undefined;
+  // Eliminacje do mistrzostw Polski i OOM rozgrywają okręgi, więc to zawody okręgowe.
+  const poziom = /miedzynarodow/.test(s)
+    ? 'międzynarodowy'
+    : /eliminacj/.test(s) || new RegExp(`mistrzostw\\w* (\\w+ )?(${REGIONY})\\b|\\bozb\\b`).test(s)
+      ? 'okręgowy'
+      : /ogolnopolsk|mistrzostw\w* polski|puchar\w* polski/.test(s)
+        ? 'ogólnopolski'
+        : undefined;
+  return { kategorie: kategorie.length ? kategorie : undefined, plec, poziom };
+}
+
 // ---------- 3. Porównanie z danymi ----------
 
 // Słowa, które występują w nazwach prawie wszystkich wydarzeń i nic nie mówią o tym, które to.
@@ -188,6 +233,10 @@ function wpisYaml(w, miasta) {
   const q = (s) => (/: | #|^[-?:,\[\]{}#&*!|>'"%@`]|:$/.test(s) ? JSON.stringify(s) : s);
   // "Nazwa" -> „Nazwa”, żeby nie trzeba było jej brać w cudzysłów.
   const nazwa = w.wydarzenie.replace(/"([^"]*)"/g, '„$1”').replace(/^"+|"+$/g, '').replace(/"/g, '”');
+  const { kategorie, plec, poziom } = zNazwy(w.wydarzenie);
+  const lista = (l) => `[${l.join(', ')}]`;
+  // Organizator z PDF, a gdy go brak, klub, który złożył wniosek o akredytację.
+  const organizator = w.organizator || w.wnioskuje;
   const linie = [
     `- nazwa: ${q(nazwa)}`,
     typ && `  typ: ${typ}`,
@@ -195,7 +244,12 @@ function wpisYaml(w, miasta) {
     w.koniec && `  koniec: ${w.koniec}`,
     `  miasto: ${[q(m.miasto), !m.pewne && `# SPRAWDŹ, adres w PDF: ${w.adres}`].filter(Boolean).join(' ')}`,
     `  wojewodztwo: ${[m.wojewodztwo, !m.pewne && '# SPRAWDŹ'].filter(Boolean).join(' ')}`,
-    w.organizator && w.organizator !== '-' && `  organizator: ${q(w.organizator)}`,
+    kategorie && `  kategorie: ${lista(kategorie)}`,
+    plec && `  plec: ${lista(plec)}`,
+    poziom && `  poziom: ${poziom}`,
+    organizator && `  organizator: ${q(organizator)}`,
+    w.adres && `  miejsce: ${q(w.adres)}`,
+    w.protokol && `  linki:\n    wyniki: ${w.protokol}`,
     `  zrodlo: ${URL_PDF}`,
     `  sprawdzono: ${dzisiaj}`,
   ];
@@ -244,7 +298,7 @@ if (opcja('--json')) {
         wierszy_w_pdf: wszystkie.length,
         nadchodzace: zPdf.length,
         nieczytelne_daty: bledne.map((w) => ({ numer: w.numer, data: w.data })),
-        nowe: nowe.map((w) => ({ ...w, ...zgadnijMiejsce(w, miasta), typ: zgadnijTyp(w.wydarzenie) ?? 'turniej' })),
+        nowe: nowe.map((w) => ({ ...w, ...zgadnijMiejsce(w, miasta), ...zNazwy(w.wydarzenie), typ: zgadnijTyp(w.wydarzenie) ?? 'turniej' })),
         potwierdzone: potwierdzone.map((t) => t.nazwa),
         zniknely: zniknely.map((t) => ({ nazwa: t.nazwa, start: t.start })),
       },

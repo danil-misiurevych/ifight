@@ -21,7 +21,7 @@
     wydarzenie: https://www.facebook.com/events/971842629315973/
     facebook: https://www.facebook.com/p/KS-Raszyn-Boks-100065158322039/
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-20
+  sprawdzono: 2026-11-21
 
 - nazwa: KNOCKOUT BOXING NIGHT 47
   typ: gala
@@ -35,17 +35,21 @@
     facebook: https://www.facebook.com/KnockoutBoxingNight/
     bilety: https://www.ebilet.pl/sport/sporty-walki/knockout-boxing-night
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-17
+  sprawdzono: 2026-11-21
 
 - nazwa: XVIII Turniej o Puchar Kazimierza Paździora
   start: 2026-11-28
   miasto: Radom
   wojewodztwo: mazowieckie
   organizator: BTS 1926 Broń Radom
+  termin_zgloszen: 2026-11-15
+  miejsce: Hala OSiR, ul. Narutowicza 9
+  opis: Turniej dla wszystkich kategorii wiekowych i wagowych. Waga i badania lekarskie o 9:00, walki od 12:00. Zgłoszenia mailem do Wydziału Sportowego WM OZB (adres w komunikacie). Organizator przewiduje 15–20 walk, więc lista może zostać zamknięta wcześniej.
   linki:
+    komunikat: http://wmozb.pl/komunikat-nr-38-2026-xviii-turniej-o-puchar-kazimierza-pazdziora/
     facebook: https://www.facebook.com/p/BTS-1926-Bro%C5%84-Radom-100057483697637/
-  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-17
+  zrodlo: http://wmozb.pl/komunikat-nr-38-2026-xviii-turniej-o-puchar-kazimierza-pazdziora/
+  sprawdzono: 2026-11-21
 
 - nazwa: Międzynarodowy Barbórkowy Turniej Bokserski
   obraz: miedzynarodowy-barborkowy-turniej-bokserski-2026.jpg
@@ -59,7 +63,7 @@
   linki:
     facebook: https://www.facebook.com/kaczor.boks.team/
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-20
+  sprawdzono: 2026-11-21
 
 - nazwa: XXXIII Ogólnopolski Turniej Bokserski im. Janusza Pawlaka
   start: 2026-11-28
@@ -70,7 +74,7 @@
   linki:
     facebook: https://www.facebook.com/p/Polonia-1912-Leszno-boks-i-kickboks-100054300979697/
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-17
+  sprawdzono: 2026-11-21
 
 - nazwa: Gala Boksu Szamotuły Boxing Night II
   obraz: gala-boksu-szamotuly-boxing-night-ii-2026.jpg
@@ -86,7 +90,7 @@
     facebook: https://www.facebook.com/szamotulyboxingteam/
     bilety: https://biletyna.pl/inne/Szamotuly-Boxing-Night
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-20
+  sprawdzono: 2026-11-21
 
 - nazwa: Mirra Rocky Boxing Night Andrzejki
   typ: gala
@@ -107,8 +111,9 @@
   miasto: Łódź
   wojewodztwo: łódzkie
   organizator: RTS Widzew Łódź, sekcja bokserska
+  miejsce: Hala Anilany, ul. Sobolowa 1
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-17
+  sprawdzono: 2026-11-21
 
 - nazwa: Międzynarodowy Turniej Bokserski o „Złotą Rękawicę Wisły” im. Teofila Kowalskiego
   start: 2026-12-03
@@ -130,20 +135,22 @@
   miasto: Elbląg
   wojewodztwo: warmińsko-mazurskie
   organizator: KSW Tygrys Elbląg
+  miejsce: Hala Atletikon, ul. Agrykola 8
   linki:
     facebook: https://www.facebook.com/p/KSW-Tygrys-Elbl%C4%85g-100063604794953/
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-17
+  sprawdzono: 2026-11-21
 
 - nazwa: V Turniej Bokserski o Puchar Burmistrza Miasta i Gminy Siewierz
   start: 2026-12-05
   miasto: Siewierz
   wojewodztwo: śląskie
   organizator: Klub Sportowy Animmals
+  miejsce: Hala Piaskowa, ul. Piaskowa 1
   linki:
     facebook: https://www.facebook.com/p/Animmals-Siewierz-100075663438700/
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-17
+  sprawdzono: 2026-11-21
 
 - nazwa: MB Boxing Night 30 – The Battle Of Legnica
   typ: gala
@@ -209,7 +216,7 @@
     facebook: https://www.facebook.com/p/MLKB-Sparta-Z%C5%82ot%C3%B3w-61574167616794/
     komunikat: https://wozb.com.pl/2026/11/turnieju-w-gminie-tarnowka-o-puchar-wojta-jacka-moscickiego/
   zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
-  sprawdzono: 2026-11-17
+  sprawdzono: 2026-11-21
 
 - nazwa: Sąsiedzi Development Boxing Night
   typ: gala
@@ -305,3 +312,32 @@
   opis: Start 16:00.
   zrodlo: https://www.facebook.com/events/3224858911033128/
   sprawdzono: 2026-11-20
+
+- nazwa: Walki boksu olimpijskiego podczas gali z okazji 80-lecia istnienia KS Promień Żary
+  typ: gala
+  start: 2026-11-21
+  miasto: Żary
+  wojewodztwo: lubuskie
+  organizator: Klub Sportowy Promień Żary
+  miejsce: ul. Zwycięzców 38
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-21
+
+- nazwa: XXXI Turniej bokserski im. Bronisława Kubickiego
+  start: 2026-11-22
+  miasto: Ostrowiec Świętokrzyski
+  wojewodztwo: świętokrzyskie
+  organizator: KSZO Ostrowiec Świętokrzyski
+  miejsce: Hala Sportowo-Widowiskowa KSZO, ul. Świętokrzyska 11
+  zrodlo: https://pzb.sorga.pl/api/files/pub/akredytacje.pdf
+  sprawdzono: 2026-11-21
+
+- nazwa: XXX Turniej Bokserski im. Tadeusza Grzelaka
+  start: 2026-12-12
+  miasto: Kalisz
+  wojewodztwo: wielkopolskie
+  organizator: KS Prosna Kalisz
+  miejsce: Hala OSRiR, ul. Łódzka 19–29
+  opis: Jubileuszowa, 30. edycja turnieju boksu olimpijskiego ku pamięci Tadeusza Grzelaka, wicemistrza Europy i olimpijczyka z Helsinek, połączona z Mistrzostwami Kalisza. Startują zawodnicy z klubów z całej Polski. Początek o 13:00, wstęp wolny. Harmonogram i lista startowa u organizatora.
+  zrodlo: https://calisia.pl/wielkie-bokserskie-emocje-w-kaliszu-nadchodzi-xxx-jubileuszowy-turniej-im-tadeusza-grzelaka,80397
+  sprawdzono: 2026-11-21

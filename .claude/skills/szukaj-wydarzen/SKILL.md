@@ -24,6 +24,23 @@ Format wpisów i dopuszczalne wartości: README.md (sekcja „Jak dodać wydarze
 
 ## Kroki
 
+### 0. Zgłoszenia organizatorów
+
+Formularz [Dla organizatorów](https://ifight.pl/dla-organizatorow/) (funkcja `api/zgloszenie.ts`) otwiera issue z etykietą `zgłoszenie` i szkicem wpisu YAML. Dane wpisał organizator, więc traktuj je jak wskazówkę, nie jak źródło.
+
+```bash
+gh issue list -R danil-misiurevych/ifight --label zgłoszenie --state open --json number,title,body
+```
+
+Dla każdego issue:
+
+1. Otwórz link ze szkicu (`zrodlo`) i potwierdź w nim nazwę, datę i miasto. Uzupełnij pola, które są w źródle (kategorie, termin zgłoszeń, miejsce, linki), i ustaw `typ` oraz `udzial` według źródła, nie według formularza.
+2. Jeśli źródło potwierdza wydarzenie: dodaj wpis, a w opisie PR dopisz `Closes #N` (issue zamknie się po scaleniu PR). Skomentuj issue, np. „Dziękujemy, sprawdziliśmy komunikat. Wydarzenie pojawi się na stronie po scaleniu #<numer PR>.”
+3. Jeśli źródło nie działa, nie potwierdza daty albo to nie boks: nie dodawaj wpisu. Skomentuj issue z powodem i zamknij je (`gh issue close N --reason "not planned" --comment "…"`). Wyjątek: link nie działa chwilowo albo brakuje tylko szczegółów. Wtedy zostaw issue otwarte z komentarzem, co trzeba uzupełnić.
+4. Wydarzenie, które już jest w danych: zaktualizuj wpis, jeśli zgłoszenie wnosi coś nowego (np. link do zapisów), skomentuj i zamknij przez `Closes #N`.
+
+Komentarze w issue są publiczne: pisz krótko, po polsku, bez danych osobowych.
+
 ### 1. Akredytacje PZB
 
 ```bash
@@ -34,18 +51,29 @@ npm ci
 npm run akredytacje -- --zapisz
 ```
 
-Skrypt dopisuje nowe zawody z listy akredytacji i odświeża `sprawdzono`. Potem:
+Skrypt dopisuje nowe zawody z listy akredytacji i odświeża `sprawdzono`. Z PDF bierze nazwę, datę, obiekt (`miejsce`), organizatora (a gdy go brak, klub wnioskujący) i link do protokołu (`linki.wyniki`, tylko po zawodach). Kategorie, płeć i poziom ustawia tylko wtedy, gdy wynikają z nazwy zawodów. Potem:
 
 - Popraw każdy wpis z komentarzem `# SPRAWDŹ`: ustal miasto i województwo (adres jest w komentarzu), usuń komentarz.
 - Popraw nazwy pisane wielkimi literami na zwykłą pisownię, zostaw nazwy własne gal („Boxing Night”).
+- Skróć `miejsce` do obiektu i ulicy (miasto jest w osobnym polu) i sprawdź, czy kategorie odczytane z nazwy mają sens.
 - Usuń dopisek `# Akredytacja A…` nad wpisem dopiero wtedy, gdy wpis jest poprawiony. Numer akredytacji podaj w opisie PR.
 - Jeśli skrypt zgłosił wpisy „DO SPRAWDZENIA” (są w danych, nie ma ich w PDF), poszukaj, czy zmieniła się data albo nazwa. Nie usuwaj wpisu bez potwierdzenia odwołania, opisz to w PR.
 
-### 2. Szczegóły turniejów
+### 2. Okręgowe związki bokserskie
+
+Adresy, sposób przeglądania i rotacja: docs/zrodla.md, sekcja „Okręgowe związki bokserskie”.
+
+1. **Okręgi ze stroną www** (pierwsza tabela, każdy przebieg): pobierz wpisy z ostatnich 6 tygodni przez API WordPressa (`/wp-json/wp/v2/posts?per_page=20&after=…`), a dla MZB stronę kalendarza. Otwórz każdy wpis o turnieju, mistrzostwach okręgu, lidze albo meczu z datą w przyszłości. Komunikat okręgu to dobre źródło: wpisz go w `zrodlo` albo w `linki.komunikat`.
+2. **Okręgi bez strony** (druga tabela): w każdym przebiegu 3 województwa według rotacji z docs/zrodla.md. Szukaj w wyszukiwarce, potwierdzaj u organizatora albo w akredytacjach. Facebooka nie otwieraj.
+3. Kalendarz roczny okręgu (styczeń) to zapowiedź. Wpis z samego kalendarza dodaj tylko wtedy, gdy turniej potwierdza też komunikat, strona organizatora albo akredytacja. Pozostałe wymień w PR jako „znalezione, niedodane”.
+4. Przejrzyj też źródła z tabeli „Inne strony z zapowiedziami turniejów” (bokser.org, wBoksie.pl, MaxLiga).
+5. W opisie PR podaj, które okręgi przejrzałeś w tym przebiegu i które strony nie działały.
+
+### 3. Szczegóły turniejów
 
 Dla nowych turniejów z akredytacji poszukaj komunikatu organizatora (strona klubu, okręgowego związku, PZB). Jeśli go znajdziesz, uzupełnij `kategorie`, `plec`, `poziom`, `termin_zgloszen`, `miejsce`, `linki` (np. `zapisy`, `regulamin`, `bilety`, `transmisja`, tylko jeśli są w źródle) i zmień `zrodlo` na komunikat.
 
-### 3. Gale i wydarzenia spoza PZB
+### 4. Gale i wydarzenia spoza PZB
 
 Sprawdź po kolei:
 
@@ -66,7 +94,7 @@ Dla kogo (`udzial`), tylko jeśli wynika to ze źródła: `widownia` (tylko ogl�
 Plakat (`obraz`): tylko oficjalny plakat ze strony organizatora albo serwisu biletowego, nigdy z FB/IG. Zapisz go jako `src/assets/wydarzenia/<slug-wydarzenia>.jpg` (do 1 MB) i dopisz `obraz: <plik>`. Jeśli nie da się go pobrać, pomiń: strona obejdzie się bez niego. Szczegóły: src/assets/wydarzenia/README.md.
 W polu `organizator` możesz dopisać w nawiasie obiekt i rodzaj boksu, np. `MB Promotions (boks zawodowy, Hala OSiR)`.
 
-### 4. Sprawdzenie
+### 5. Sprawdzenie
 
 ```bash
 npm run build
@@ -74,12 +102,14 @@ npm run build
 
 Budowanie musi przejść. Błąd walidacji pokazuje numer wpisu i pole do poprawy.
 
-### 5. Pull request
+### 6. Pull request
 
 - Gałąź `agent/wydarzenia-RRRR-MM-DD`, jeden commit, np. „Dodaj 4 wydarzenia, odśwież akredytacje”.
 - Opis PR po polsku:
   - tabela nowych wpisów: data, nazwa, miasto, typ, link do źródła;
   - zmienione wpisy z opisem zmiany;
   - wpisy do sprawdzenia przez człowieka (rozbieżności, możliwe odwołania, niepewne miasto);
-  - znalezione, ale niedodane wydarzenia z powodem (np. brak potwierdzonej daty, nie boks).
+  - znalezione, ale niedodane wydarzenia z powodem (np. brak potwierdzonej daty, nie boks);
+  - przejrzane okręgi (z rotacji) i niedziałające strony;
+  - obsłużone zgłoszenia organizatorów: `Closes #N` dla każdego dodanego lub zaktualizowanego wpisu.
 - Jeśli nic się nie zmieniło poza datami `sprawdzono`, otwórz PR tylko wtedy, gdy minęło ponad 14 dni od poprzedniego odświeżenia.

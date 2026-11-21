@@ -150,7 +150,8 @@ npm run akredytacje -- --zapisz
 ```
 
 Dopisuje brakujące wydarzenia na koniec pliku i ustawia `sprawdzono` na dziś we wpisach potwierdzonych w PDF.
-PDF nie podaje województwa ani kategorii: województwo jest zgadywane z miasta. Gdzie się nie udało, wpis ma komentarz `# SPRAWDŹ` i puste pole, więc budowanie strony go zatrzyma, dopóki go nie poprawisz.
+Z PDF skrypt bierze też obiekt (`miejsce`), organizatora (albo klub wnioskujący) i po zawodach link do protokołu (`linki.wyniki`). Kategorie, płeć i poziom ustawia tylko wtedy, gdy wynikają z nazwy zawodów (np. „Mistrzostwa Mazowsza Juniorek i Juniorów” → `[junior]`, `[K, M]`, `okręgowy`).
+PDF nie podaje województwa ani osobnej kolumny kategorii: województwo jest zgadywane z miasta. Gdzie się nie udało, wpis ma komentarz `# SPRAWDŹ` i puste pole, więc budowanie strony go zatrzyma, dopóki go nie poprawisz.
 Inne opcje: `--json` (wynik dla agenta), `--plik akredytacje.pdf` (PDF z dysku), `--od RRRR-MM-DD` (udaje inną datę, do testów).
 
 ## Strony województw i kalendarz do subskrypcji
