@@ -13,6 +13,6 @@ export const GET: APIRoute = async ({ props }) =>
     await obrazKarty({
       etykieta: 'województwo',
       tytul: `Boks – ${props.wojewodztwo}`,
-      dopisek: 'Turnieje, gale, wydarzenia charytatywne i sparingi',
+      dopisek: 'Turnieje i zawody: terminy zgłoszeń i zapisy',
     }),
   );

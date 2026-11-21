@@ -6,6 +6,6 @@ export const GET: APIRoute = async () =>
   odpowiedzPng(
     await obrazKarty({
       tytul: 'Kalendarz boksu w Polsce',
-      dopisek: 'Turnieje, gale, wydarzenia charytatywne i sparingi w jednym miejscu',
+      dopisek: 'Terminy zgłoszeń, kategorie wiekowe i zapisy w jednym miejscu',
     }),
   );

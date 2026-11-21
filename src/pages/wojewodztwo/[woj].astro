@@ -24,8 +24,8 @@ const ics = `/wojewodztwo/${slug(wojewodztwo)}/kalendarz.ics`;
 ---
 
 <Strona
-  tytul={`Turnieje i gale bokserskie ${miejsce}`}
-  opis={`Nadchodzące wydarzenia bokserskie ${miejsce}: turnieje, gale, wydarzenia charytatywne i sparingi. Daty, miasta, kategorie wiekowe, terminy zgłoszeń i linki do organizatorów.`}
+  tytul={`Turnieje bokserskie ${miejsce}`}
+  opis={`Nadchodzące turnieje i zawody bokserskie ${miejsce}: terminy zgłoszeń, kategorie wiekowe, miasta, regulaminy i zapisy.`}
   noindex={tutaj.length === 0}
   obraz={`/og/wojewodztwo/${slug(wojewodztwo)}.png`}
   obrazOpis={`Wydarzenia bokserskie ${miejsce}`}
@@ -34,7 +34,7 @@ const ics = `/wojewodztwo/${slug(wojewodztwo)}/kalendarz.ics`;
   <link slot="head" rel="alternate" type="text/calendar" title={`Kalendarz ${SITE.nazwa} – ${wojewodztwo}`} href={ics} />
   <p class="okruszki"><a href="/">Cała Polska</a> › {wojewodztwo}</p>
   <h1 class="tytul-strony">Boks – {wojewodztwo}</h1>
-  <p class="szary">Nadchodzące turnieje, gale i sparingi {miejsce}.</p>
+  <p class="szary">Nadchodzące turnieje i zawody {miejsce}, na które można zgłosić zawodników.</p>
 
   {
     tutaj.length > 0 ? (

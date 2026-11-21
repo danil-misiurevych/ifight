@@ -62,6 +62,7 @@ const termin = !archiwum && t.termin_zgloszen && stanTerminu(t.termin_zgloszen, 
   data-plec={t.plec.join(' ')}
   data-tryby={tryby}
 >
+  {t.obraz && <Image class="t-obraz" src={t.obraz} alt="" width={420} loading="lazy" decoding="async" />}
   <time class="t-data" datetime={t.start}>
     <span class:list={['t-dzien', { dlugi: dzien.length > 3 }]}>{dzien}</span>
     <span class="t-mies">{miesiac}</span>
@@ -99,5 +100,4 @@ const termin = !archiwum && t.termin_zgloszen && stanTerminu(t.termin_zgloszen, 
       )
     }
   </div>
-  {t.obraz && <Image class="t-obraz" src={t.obraz} alt="" width={150} loading="lazy" decoding="async" />}
 </li>

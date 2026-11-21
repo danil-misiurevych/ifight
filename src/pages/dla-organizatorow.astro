@@ -5,16 +5,18 @@ import { TYPY, TYP_ETYKIETA, WOJEWODZTWA } from '../lib/turnieje';
 
 const temat = encodeURIComponent('Wydarzenie do kalendarza');
 const mail = `mailto:${SITE.email}?subject=${temat}`;
+// Only kinds that fit the athletes' zone (see wStrefie in src/lib/turnieje.ts).
+const TYPY_FORMULARZA = TYPY.filter((t) => t === 'turniej' || t === 'sparingi' || t === 'gala' || t === 'inne');
 ---
 
 <Strona
   tytul="Dla organizatorów – dodaj wydarzenie"
-  opis={`Organizujesz turniej, galę, sparingi albo seminarium bokserskie? Dodaj je bezpłatnie do kalendarza ${SITE.nazwa} – wystarczy link do ogłoszenia.`}
+  opis={`Organizujesz turniej bokserski albo otwarte sparingi? Dodaj je bezpłatnie do kalendarza ${SITE.nazwa} i dotrzyj do trenerów i zawodników z całej Polski.`}
 >
   <div class="tresc">
     <h1 class="tytul-strony">Dla organizatorów</h1>
     <p>
-      Organizujesz turniej, galę, otwarte sparingi albo seminarium? Dodaj je do kalendarza –
+      Organizujesz turniej, otwarte sparingi albo galę z otwartą kartą amatorską? Dodaj je do kalendarza –
       <strong>bezpłatnie, bez zakładania konta</strong>. Wystarczą podstawowe dane i link do ogłoszenia,
       resztę uzupełnimy sami.
     </p>
@@ -29,8 +31,8 @@ const mail = `mailto:${SITE.email}?subject=${temat}`;
         Facebooku, Instagramie i w Messengerze.
       </li>
       <li>
-        <strong>Zawodników i widzów z całej Polski</strong>: wydarzenie trafia na listę ogólnopolską, na stronę
-        województwa i do kalendarzy, które ludzie subskrybują w telefonie.
+        <strong>Zawodników z całej Polski</strong>: trenerzy znajdą Twoje zawody na liście ogólnopolskiej, na stronie
+        województwa i w kalendarzach, które subskrybują w telefonie.
       </li>
       <li>
         <strong>Przypomnienie o terminie zgłoszeń</strong> – podświetlamy go na tydzień przed końcem, żeby kluby
@@ -58,7 +60,7 @@ const mail = `mailto:${SITE.email}?subject=${temat}`;
       <label class="zgl-pole">
         <span>Rodzaj</span>
         <select name="typ">
-          {TYPY.map((t) => <option value={t}>{TYP_ETYKIETA[t].jeden}</option>)}
+          {TYPY_FORMULARZA.map((t) => <option value={t}>{TYP_ETYKIETA[t].jeden}</option>)}
         </select>
       </label>
 
